@@ -1,5 +1,5 @@
 # Simply-Wall-St-API-Workflow
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the Simply Wall St API, processes cleans and stores the data in a PostgreSQL database . The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation, with end goal being to generate actionable financial insights.
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the Simply Wall St API, processes cleans and stores the data in a PostgreSQL database . The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation and application of stock attribution analysis.
 
 The project is built using Python, PostgreSQL, Pandas and Simply Wall St API .
 
@@ -18,9 +18,11 @@ How It Works
    ● Check expected number of tickers retreived / Reconciling CompanyCount vs actual total tickers retreived.
    ● Transpose company_statements table appropriately to implement 'Snowflake' attribution analysis.
 
-4. 'Snowflake' attribution analysis.
+3. 'Snowflake' attribution analysis.
 
-
+   ● Query data from SQL and store it in a formulated excel spreadsheet
+   ● Display stock rankings based on Snowflake attributions
+   ● Filter based on rankings and sectors
 
 Key Python Script Parts
 
