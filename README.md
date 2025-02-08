@@ -249,15 +249,15 @@ query_tickers = text("""
 # Final SQL table exported in CSV
 
 # Company Info
-(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot%202025-02-08%20215355.png?raw=true)
+(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Workflow/Test/Screenshot%202025-02-08%20215355.png?raw=true)
 # Insider transactions
-(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot 2025-02-08 221649.png?raw=true)
+(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Workflow/Test/Screenshot 2025-02-08 221649.png?raw=true)
 # Company Statements
-(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot 2025-02-09 083838.png?raw=true)
+(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Workflow/Test/Screenshot 2025-02-09 083838.png?raw=true)
 # Company members
-(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot 2025-02-09 084252.png?raw=true)
+(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Workflow/Test/Screenshot 2025-02-09 084252.png?raw=true)
 # Company owners
-(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot 2025-02-09 084500.png?raw=true)
+(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Workflow/Test/Screenshot 2025-02-09 084500.png?raw=true)
 
 Snowflake Attribution Analysis
 
@@ -291,7 +291,7 @@ try:
 
 Final results after the SQL DB retreivals and attribution analysis filtering :
 
-[Download the CSV](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Test/Snowflake Attribution Analysis.xlsx)
+[Snowflake](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/Test/Snowflake Attribution Analysis.xlsx)
 
 
 
