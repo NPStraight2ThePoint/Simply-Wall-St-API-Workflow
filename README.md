@@ -25,3 +25,38 @@ After cleansing, the data is stored in a PostgreSQL database. This allows for ef
 Finally data is queried and stored in excel , conducting attribution analysis based on the snowflake components for a universe of stocks,
 and creating a ranking system to filter stocks.
 
+Key Python Script Parts
+
+1.Exchanges&Counts.py
+
+#Libraries
+import pandas as pd
+from datetime import datetime
+import requests
+import os
+import csv
+from sqlalchemy import create_engine
+from sqlalchemy import text
+
+# PostgreSQL connection
+  ...
+  engine = create_engine(db_url)
+  
+# Simply API connection
+  ... 
+  # GraphQL
+  query = """query { exchanges{symbol companiesCount}}"""
+
+#Query Response
+response = requests.post(url, headers=headers, json={"query": query})
+data = response.json()
+df = pd.DataFrame(data)
+
+# Preparing json for data flattening
+# Add date column at position 0 for all rows
+
+  
+
+
+  
+
