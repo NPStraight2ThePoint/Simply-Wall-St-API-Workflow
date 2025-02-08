@@ -3,27 +3,24 @@ This repository demonstrates the creation of a data pipeline that retrieves fina
 
 The project is built using Python, PostgreSQL, Pandas and Simply Wall St API .
 
-Key Features
-
-●Retrieve financial data from the Simply Wall St API.
-●Cleanse and process the raw financial data (e.g., handling missing values, data flattening).
-●Store structured data in a PostgreSQL database.
-●Query structured data & apply financial analysis.
-●Demonstrate end-to-end data pipeline construction.
-
 How It Works
-1. Data Retrieval
-The pipeline starts by fetching financial data from the Simply Wall St API. This data includes information about stocks, financial metrics, and other relevant data points.
 
-2. Data Cleansing
-Once the data is retrieved, it is cleansed to handle issues like missing values, incorrect data formats, and outliers. This step ensures that the data is in a usable format for further analysis.
+1. Data Retreival / Cleansing / Storing
+   
+   3 Main Python scripts that extract all available API data via GraphQL queries for all or specific exchanges and all companies in each.
+   Data is retreived in json files which is then flattened/cleansed and transformed into dataframes via a variety of methods.
+   Once dataframes ready they are inserted into PostgreSQL DB taking into consideration DB/tables schemas ,unique constraints and conflict handling.
+   API and SQL DB column headers are being mapped accordingly within python scripts so that data is inserted approprietly.
+   
+3. Data validity checks / SQL procedures
+   
+   ● Check dublicate or null rows exist.
+   ● Check expected number of tickers retreived / Reconciling CompanyCount vs actual total tickers retreived.
+   ● Transpose company_statements table appropriately to implement 'Snowflake' attribution analysis.
 
-3. Storing Data in PostgreSQL
-After cleansing, the data is stored in a PostgreSQL database. This allows for efficient querying and further data analysis in future steps.
+4. 'Snowflake' attribution analysis.
 
-4. Financial analysis
-Finally data is queried and stored in excel , conducting attribution analysis based on the snowflake components for a universe of stocks,
-and creating a ranking system to filter stocks.
+
 
 Key Python Script Parts
 
@@ -259,6 +256,8 @@ query_tickers = text("""
 (https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot 2025-02-09 084252.png?raw=true)
 # Company owners
 (https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot 2025-02-09 084500.png?raw=true)
+
+
 
 
 
