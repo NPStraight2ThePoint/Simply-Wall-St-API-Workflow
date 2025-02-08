@@ -77,7 +77,7 @@ with engine.begin() as conn:
                 "company_count": row["company_count"]
             }
         )
-```python
+```
 
 Final SQL Table Exported to CSV
 
