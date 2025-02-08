@@ -1,6 +1,6 @@
 # Simply-Wall-St-API-Workflow
 
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans, and stores the data in a PostgreSQL database. The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation, and application of stock attribution analysis.
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans and stores the data in a PostgreSQL database. The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation, and application of stock attribution analysis.
 
 The project is built using:
 - **Python**
@@ -13,7 +13,7 @@ The project is built using:
 
 ### 1. Data Retrieval / Cleansing / Storing
 
-Three main Python scripts are used to:
+Three main Python scripts :
 - Extract all available API data via GraphQL queries for all or specific exchanges and companies.
 - Data is retrieved in JSON format, which is then flattened, cleansed, and transformed into dataframes using various methods.
 - Once the dataframes are ready, they are inserted into the PostgreSQL database, considering table schemas, unique constraints, and conflict handling.
@@ -76,7 +76,7 @@ with engine.begin() as conn:
                 "exchange": row["exchange"],
                 "company_count": row["company_count"]
             }
-        )
+        )'''
 
 Final SQL Table Exported to CSV
 
