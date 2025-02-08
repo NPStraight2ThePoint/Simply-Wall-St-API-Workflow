@@ -249,7 +249,7 @@ query_tickers = text("""
            
 # Final SQL table exported in CSV
 
-[![Pipeline Overview](Test/Screenshot 2025-02-08 215355.png)](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot%202025-02-08%20215355.png?raw=true)
+(https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot%202025-02-08%20215355.png?raw=true)
 
                 
           
