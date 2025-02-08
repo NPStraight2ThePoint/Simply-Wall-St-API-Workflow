@@ -76,7 +76,8 @@ with engine.begin() as conn:
                 "exchange": row["exchange"],
                 "company_count": row["company_count"]
             }
-        )python```
+        )
+```python
 
 Final SQL Table Exported to CSV
 
