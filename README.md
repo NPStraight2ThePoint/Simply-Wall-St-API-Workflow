@@ -54,6 +54,41 @@ df = pd.DataFrame(data)
 
 # Preparing json for data flattening
 # Add date column at position 0 for all rows
+# Create a DataFrame from the list of dictionaries
+# Rename columns to match SQL table columns
+# Reorder columns to match SQL table column order
+# Insert or update in PostgreSQL
+with engine.begin() as conn:
+    for _, row in df.iterrows():
+        conn.execute(
+            text("""
+                  INSERT INTO simply_api_raw_data.exchanges_counts (index_date, exchange, company_count)
+                  VALUES (:index_date, :exchange, :company_count)
+                  ON CONFLICT (index_date, exchange) DO UPDATE
+                  SET company_count = EXCLUDED.company_count;
+              """),
+            {
+                "index_date": row["index_date"],
+                "exchange": row["exchange"],
+                "company_count": row["company_count"]
+            }
+        )
+
+# Final SQL table exported in CSV
+
+index_date	exchange	  company_count
+8/02/2025	  DB	        17469
+8/02/2025	  OTCPK	      15599
+8/02/2025	  LSE	        8725
+8/02/2025	  BATS-CHIXE	6822
+8/02/2025	  BSE	        4940
+8/02/2025	  TSE	        4563
+8/02/2025	  XTRA	      3677
+8/02/2025	  SZSE	      3532
+....        ...         ...
+
+
+
 
   
 
