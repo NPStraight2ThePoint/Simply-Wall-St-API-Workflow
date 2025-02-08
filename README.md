@@ -1,7 +1,7 @@
 # Simply-Wall-St-API-Workflow
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the Simply Wall St API, processes cleans and stores the data in a PostgreSQL database . The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation and application of stock attribution analysis.
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the Simply Wall St API, processes, cleans and stores the data in a PostgreSQL database . The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation and application of stock attribution analysis.
 
-The project is built using Python, PostgreSQL, Pandas and Simply Wall St API .
+The project is built using Python, PostgreSQL, Pandas, Excel and Simply Wall St API .
 
 How It Works
 
@@ -9,9 +9,9 @@ How It Works
    
    3 Main Python scripts that extract all available API data via GraphQL queries for all or specific exchanges and all companies in each.
    Data is retreived in json files which is then flattened/cleansed and transformed into dataframes via a variety of methods.
-   Once dataframes ready they are inserted into PostgreSQL DB taking into consideration DB/tables schemas ,unique constraints and conflict handling.
-   API and SQL DB column headers are being mapped accordingly within python scripts so that data is inserted approprietly.
-   
+   Once dataframes ready they are inserted into PostgreSQL DB taking into consideration DB/tables schemas ,unique constraints and conflict 
+   handling. API and SQL DB column headers are being mapped accordingly within python scripts so that data is inserted approprietly. 
+     
 2. Data validity checks / SQL procedures
    
    ● Check dublicate or null rows exist.
@@ -293,6 +293,25 @@ try:
 Final results after the SQL DB retreivals and attribution analysis filtering :
 
 [Snowflake](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Snowflake Attribution Analysis.xlsx)
+
+
+**Created by:** Nicholas Papadimitris
+**Timestamp:** 2025-02-09 10:26 (UTC)  
+**Unique ID:** [Simply-Wall-St-API-Workflow-2025-02-09 10:26]  
+
+
+## Future Updates & Feedback  
+This project is continuously evolving, and I plan to add more features and updates in the future.  
+
+If you have any questions, suggestions, or feedback, feel free to reach out!  
+
+**Author:** Nicholas Papadimitris
+📧 Email: nicholas.papadimitris@gmail.com  
+💼 LinkedIn: [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris-82b7221a2/)
+
+## Similar Projects Coming Soon  
+I'm working on additional projects related to financial data pipelines, analytics, and investing insights. Stay tuned for more releases! 🚀  
+
 
 
 
