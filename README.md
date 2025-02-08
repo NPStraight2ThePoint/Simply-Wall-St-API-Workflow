@@ -249,7 +249,7 @@ query_tickers = text("""
            
 # Final SQL table exported in CSV
 
-![image](https://github.com/user-attachments/assets/760ef253-9e90-4b57-8452-23735731bd7f)
+![Pipeline Overview](images/Screenshot 2025-02-08 215355.png)
 
                 
           
