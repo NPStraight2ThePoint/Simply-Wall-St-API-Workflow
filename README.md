@@ -156,6 +156,120 @@ ASX	      Anax Metals	          ANX	   06a27ec2-7736-4b1d-a698-f67583684514	ACTI
 ASX	      ANZ Group Holdings	  ANZ	   213a0983-44a8-497f-bda5-ea652181583b	ACTIVE	              57863985237
 ...       ...                   ...    ...                                  ...                   ...
 
+3.Get_CompanyInfo.py / Retreive a variety of financial indicators & metrics for a list of tickers / exchanges.
+
+# Libraries
+import requests
+import pandas as pd
+from datetime import datetime
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import SQLAlchemyError
+import csv
+import os
+import time
+
+# Opt-in to the future behavior to silence warning(s)
+# Set date variables
+# PostgreSQL connection
+# SQL Query to get all exchanges / Adjust below accordingly
+query_exchanges = "SELECT exchange FROM simply_api_raw_data.exchanges_counts WHERE exchange = 'NYSE';"
+
+# Loop through each exchange and fetch stock data for active stocks excluding ETFs
+
+query_tickers = text("""
+        SELECT * 
+        FROM simply_api_raw_data.exchanges_tickers
+        WHERE exchange = :exchange
+        AND NOT (
+    classification_status <> 'ACTIVE'
+    OR name LIKE '%ETF%'
+    OR name LIKE '%Exchange Traded Fund%'
+    OR market_cap_usd = 0 )""")
+
+    tickers_df = pd.read_sql(query_tickers, engine, params={"exchange": exchange})
+
+    # Loop through each ticker and make API requests
+    for _, ticker_row in tickers_df.iterrows():
+        ticker = ticker_row['ticker']
+        # Perform the API call or any other logic here
+        query = """query($exchange: String!, $tickerSymbol: String!) {companyByExchangeAndTickerSymbol(exchange: $exchange, tickerSymbol: $tickerSymbol) {
+                    id  exchangeSymbol tickerSymbol name marketCapUSD  primaryIndustry .....  }}"""
+
+        variables = {"tickerSymbol": ticker, "exchange": exchange}
+        # Send the API request
+        try:
+            # Make API request
+            # Extract company information safely
+            # Extract closing prices safely
+            # Get the first closing price, default to 0 if missing
+            # Prepare flattened data for SQL insertion
+            # Create a DataFrame for inserting into SQL
+            # Insert into SQL table, updating if ticker, exchange, and date are the same #--->CONFLICT
+               query = text("""
+                 INSERT INTO simply_api_raw_data.company_info (
+                    id, date, exchange_symbol, ticker_symbol, name, 
+                    market_cap_usd, primary_industry, secondary_industry, 
+                    tertiary_industry, market, market_iso2, closing_prices ) VALUES (
+                    :id, :date, :exchange_symbol, :ticker_symbol, :name, 
+                    :market_cap_usd, :primary_industry, :secondary_industry, 
+                    :tertiary_industry, :market, :market_iso2, :closing_prices )
+                ON CONFLICT (date, ticker_symbol, exchange_symbol) 
+                DO NOTHING;  """)
+
+          # Use `engine.begin()` to handle transactions automatically
+            with engine.begin() as conn:
+                conn.execute(query, df.to_dict(orient="records")[0])
+
+          # Assuming `data` is the response from the GraphQL query
+          # Check if insider transactions are found
+          # Add ticker and exchange to the flattened transactions before inserting
+          # Convert to DataFrame
+          # SQL Insert Query with ON CONFLICT Handling
+
+          # Flatten the transactions into a list of dictionaries
+          # Get all keys as header from the first transaction
+          # Transpose the data dynamically, setting 'title' as the new column headers
+            df_transposed = df.pivot_table(
+                    index=["Ticker"],  # Group by Ticker
+                    columns=["area", "name"],  # Use 'area' and 'name' as new column headers
+                    values=["value", "description"],  # Include 'value' and 'description' columns
+                    aggfunc="first",  # Handle duplicates by taking the first value
+                    fill_value=""  # Fill NaNs with an empty string or any placeholder)
+
+          # Flatten the multi-index columns with desired format
+          # Reset index for cleaner output
+          # Add 'Exchange' and 'Date' columns after 'Ticker'
+          # Reorder columns to make sure 'Ticker', 'Exchange', 'Date' come first
+          # Ensure column names are lowercase
+          # Load mapping API2SQL
+          # Rename DataFrame columns
+          # Drop N/A columns
+          # Explicitly call infer_objects to ensure correct data types are inferred
+          # Insert into SQL
+           
+                
+                
+          
+               
+            
+
+                    
+       
+   
+        
+       
+            
+           
+       
+        
+        
+
+
+
+
+
+
+
                       
                         
                        
