@@ -1,52 +1,57 @@
 # Simply-Wall-St-API-Workflow
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the Simply Wall St API, processes, cleans and stores the data in a PostgreSQL database . The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation and application of stock attribution analysis.
 
-The project is built using Python, PostgreSQL, Pandas, Excel and Simply Wall St API .
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans, and stores the data in a PostgreSQL database. The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation, and application of stock attribution analysis.
 
-How It Works
+The project is built using:
+- **Python**
+- **PostgreSQL**
+- **Pandas**
+- **Excel**
+- **Simply Wall St API**
 
-1. Data Retreival / Cleansing / Storing
-   
-   3 Main Python scripts that extract all available API data via GraphQL queries for all or specific exchanges and all companies in each.
-   Data is retreived in json files which is then flattened/cleansed and transformed into dataframes via a variety of methods.
-   Once dataframes ready they are inserted into PostgreSQL DB taking into consideration DB/tables schemas ,unique constraints and conflict 
-   handling. API and SQL DB column headers are being mapped accordingly within python scripts so that data is inserted approprietly. 
-     
-2. Data validity checks / SQL procedures
-   
-   ● Check dublicate or null rows exist.
-   ● Check expected number of tickers retreived / reconciling CompanyCount vs actual total tickers retreived.
-   ● Transpose company_statements table appropriately to implement 'Snowflake' attribution analysis.
+## How It Works
 
-3. 'Snowflake' attribution analysis.
+### 1. Data Retrieval / Cleansing / Storing
 
-   ● Query data from SQL and store it in a formulated excel spreadsheet.
-   ● Display stock rankings based on Snowflake attributions.
-   ● Filter / sort based on stock rankings and sectors.
+Three main Python scripts are used to:
+- Extract all available API data via GraphQL queries for all or specific exchanges and companies.
+- Data is retrieved in JSON format, which is then flattened, cleansed, and transformed into dataframes using various methods.
+- Once the dataframes are ready, they are inserted into the PostgreSQL database, considering table schemas, unique constraints, and conflict handling.
+- API and SQL DB column headers are mapped within Python scripts to ensure proper data insertion.
 
-Key Python Script Parts
+### 2. Data Validity Checks / SQL Procedures
 
-1.Exchanges&Counts.py / Retreive list of all exchanges and number of tickers for each one .
+This step ensures the quality of the data:
+- **Check for duplicate or null rows.**
+- **Verify the expected number of tickers** retrieved by reconciling `CompanyCount` vs actual total tickers.
+- **Transpose `company_statements` table** appropriately to implement **'Snowflake' attribution analysis**.
 
-# Libraries
+### 3. 'Snowflake' Attribution Analysis
+
+In this step:
+- Query data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
+- Display stock rankings based on **Snowflake** attributions.
+- Filter and sort data based on stock rankings and sectors.
+
+## Key Python Script Parts
+
+### 1. Exchanges&Counts.py
+This script retrieves a list of all exchanges and the number of tickers for each one.
+
+### Libraries Used
+```python
 import pandas as pd
 from datetime import datetime
 import requests
 import os
 import csv
-from sqlalchemy import create_engine
-from sqlalchemy import text
+from sqlalchemy import create_engine, text
 
-# PostgreSQL connection
-  ...
-  engine = create_engine(db_url)
+# Example of PostgreSQL connection
+engine = create_engine(db_url)
   
-# Simply API connection
-  ... 
-  # GraphQL
-  query = """query { exchanges{symbol companiesCount}}"""
-
-#Query Response
+# Example of GraphQL query to Simply Wall St API
+query = """query { exchanges{symbol companiesCount}}"""
 response = requests.post(url, headers=headers, json={"query": query})
 data = response.json()
 df = pd.DataFrame(data)
