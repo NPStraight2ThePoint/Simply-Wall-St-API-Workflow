@@ -27,7 +27,7 @@ and creating a ranking system to filter stocks.
 
 Key Python Script Parts
 
-1.Exchanges&Counts.py
+1.Exchanges&Counts.py / Retreive list of all exchanges and number of tickers for each one .
 
 #Libraries
 import pandas as pd
@@ -86,6 +86,78 @@ index_date	exchange	  company_count
 8/02/2025	  XTRA	      3677
 8/02/2025	  SZSE	      3532
 ....        ...         ...
+
+2.Get_Data.py / Get tickers & other info for selected exchanges
+
+# Libraries
+from Get_Tickers import fetch_data # ✅ Import the function
+import pandas as pd
+from sqlalchemy import create_engine
+import time
+import requests
+
+# List of exchanges
+Exchanges = ["TWSE", "NYSE", "NasdaqCM", "NasdaqGM", "NasdaqGS"]
+
+for Exchange in Exchanges:
+fetch_data(Exchange)  # ✅ Calls fetch_data
+...
+def fetch_data(Exchange):
+    """Function to fetch data for a given exchange."""
+
+    step = 100  # Pagination step
+    offset = 0  # Initial offset
+    all_results = []  # Store all fetched records
+
+    while True:
+        try:
+            query = """query($exchange: String!, $limit: Int!, $offset: Int!) {companies(exchange: $exchange, limit: $limit, offset: $offset) {
+                       id  name tickerSymbol classificationStatus marketCapUSD}}"""
+
+            variables = {"exchange": Exchange, "limit": step, "offset": offset}
+
+            # Send request
+            response = requests.post(url, headers=headers, json={"query": query, "variables": variables})
+            data = response.json()
+
+            # Check if 'data' and 'companies' exist in response
+            # If no data returned, break the loop
+            # Convert to DataFrame
+            # Add missing 'exchange' column
+            # Reorder and rename columns
+            # Store results
+
+            # Insert or update data in PostgreSQL
+                with engine.begin() as conn:
+                    for _, row in flattened_data.iterrows():
+                        conn.execute(
+                            text("""
+                                   INSERT INTO simply_api_raw_data.exchanges_tickers (exchange, name, ticker, id, classification_status, market_cap_usd)
+                                   VALUES (:exchange, :name, :ticker, :id, :classification_status, :market_cap_usd)
+                                   ON CONFLICT (exchange, ticker, id) DO UPDATE
+                                   SET exchange = EXCLUDED.exchange,
+                                       name = EXCLUDED.name,
+                                       ticker = EXCLUDED.ticker,
+                                       market_cap_usd = EXCLUDED.market_cap_usd,
+                                       classification_status = EXCLUDED.classification_status;
+                                      .....
+
+            # Check if we reached the last page
+            # Increment offset
+            # Optional delay to avoid rate limits
+           
+                    
+                      
+                        
+                       
+                        
+                        
+                        
+                      
+                   
+                    
+            
+
 
 
 
