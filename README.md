@@ -292,9 +292,7 @@ try:
 
 Final results after the SQL DB retreivals and attribution analysis filtering :
 
-[Snowflake](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-PipelineTest/Snowflake Attribution Analysis.xlsx)
-
-
+[Snowflake](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Snowflake Attribution Analysis.xlsx)
 
 
 
