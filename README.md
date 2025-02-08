@@ -249,7 +249,10 @@ query_tickers = text("""
            
 # Final SQL table exported in CSV
 
+# Company Info
 (https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot%202025-02-08%20215355.png?raw=true)
+# Insider_transactions
+
 
                 
           
