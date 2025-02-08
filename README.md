@@ -261,7 +261,40 @@ query_tickers = text("""
 
 Snowflake Attribution Analysis
 
+Calling below SQL queries via Python :
+
+import psycopg2
+import pandas as pd
+
+# Define queries
+queries = {
+    "exchanges_counts": "SELECT * FROM simply_api_raw_data.exchanges_counts;",
+    "exchanges_tickers": "SELECT * FROM simply_api_raw_data.exchanges_tickers;",
+    "company_info": "SELECT * FROM simply_api_raw_data.company_info;",
+    "insider_transactions": "SELECT * FROM simply_api_raw_data.insider_transactions;",
+    "company_statements": "SELECT * FROM simply_api_raw_data.company_statements;",
+    "company_members": "SELECT * FROM simply_api_raw_data.company_members;",
+    "company_owners": "SELECT * FROM simply_api_raw_data.company_owners;"
+}
+
+EXCEL_FILE = "output_data.xlsx"
+
+try:
+    # Connect to PostgreSQL
+    conn = psycopg2.connect(**DB_PARAMS)
+
+    with pd.ExcelWriter(EXCEL_FILE, engine="xlsxwriter") as writer:
+        for sheet_name, query in queries.items():
+            df = pd.read_sql_query(query, conn)
+            df.to_excel(writer, sheet_name=sheet_name, index=False)  # Save each DataFrame to a separate sheet
+
+
 Final results after the SQL DB retreivals and attribution analysis filtering :
+
+[Download the CSV](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Test/Snowflake Attribution Analysis.xlsx)
+
+
+
 
 
 
