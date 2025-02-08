@@ -78,7 +78,7 @@ with engine.begin() as conn:
             }
         )
 
-# Final SQL table exported in CSV
+Final SQL Table Exported to CSV
 
 index_date	exchange	  company_count
 8/02/2025	  DB	        17469
@@ -91,21 +91,25 @@ index_date	exchange	  company_count
 8/02/2025	  SZSE	      3532
 ....        ...         ...
 
-2.Get_Data.py / Get tickers & other info for selected exchanges
+## 2. Get_Data.py - Get Tickers & Other Info for Selected Exchanges
 
-# Libraries
-from Get_Tickers import fetch_data # ✅ Import the function
+This script fetches tickers and other information for selected exchanges using the `fetch_data` function.
+
+### Libraries Used
+```python
+from Get_Tickers import fetch_data  # ✅ Import the function
 import pandas as pd
 from sqlalchemy import create_engine
 import time
 import requests
 
-# List of exchanges
+List of Exchanges
 Exchanges = ["TWSE", "NYSE", "NasdaqCM", "NasdaqGM", "NasdaqGS"]
 
 for Exchange in Exchanges:
-fetch_data(Exchange)  # ✅ Calls fetch_data
+    fetch_data(Exchange)  # ✅ Calls fetch_data for each exchange
 ...
+Fetch Data Function
 def fetch_data(Exchange):
     """Function to fetch data for a given exchange."""
 
@@ -115,42 +119,76 @@ def fetch_data(Exchange):
 
     while True:
         try:
-            query = """query($exchange: String!, $limit: Int!, $offset: Int!) {companies(exchange: $exchange, limit: $limit, offset: $offset) {
-                       id  name tickerSymbol classificationStatus marketCapUSD}}"""
+            query = """query($exchange: String!, $limit: Int!, $offset: Int!) {
+                           companies(exchange: $exchange, limit: $limit, offset: $offset) {
+                               id
+                               name
+                               tickerSymbol
+                               classificationStatus
+                               marketCapUSD
+                           }
+                       }"""
 
             variables = {"exchange": Exchange, "limit": step, "offset": offset}
 
-            # Send request
+            # Send request to the API
             response = requests.post(url, headers=headers, json={"query": query, "variables": variables})
             data = response.json()
 
-            # Check if 'data' and 'companies' exist in response
-            # If no data returned, break the loop
-            # Convert to DataFrame
-            # Add missing 'exchange' column
-            # Reorder and rename columns
-            # Store results
+            # Check if data and companies exist in response
+            if not data.get("data") or not data["data"].get("companies"):
+                break  # No more data, exit loop
 
-            # Insert or update data in PostgreSQL
-                with engine.begin() as conn:
-                    for _, row in flattened_data.iterrows():
-                        conn.execute(
-                            text("""
-                                   INSERT INTO simply_api_raw_data.exchanges_tickers (exchange, name, ticker, id, classification_status, market_cap_usd)
-                                   VALUES (:exchange, :name, :ticker, :id, :classification_status, :market_cap_usd)
-                                   ON CONFLICT (exchange, ticker, id) DO UPDATE
-                                   SET exchange = EXCLUDED.exchange,
-                                       name = EXCLUDED.name,
-                                       ticker = EXCLUDED.ticker,
-                                       market_cap_usd = EXCLUDED.market_cap_usd,
-                                       classification_status = EXCLUDED.classification_status;
-                                      .....
+            # Convert data to DataFrame and flatten if needed
+            df = pd.json_normalize(data["data"]["companies"])
 
+            # Add 'exchange' column and reorder/rename columns
+            df["exchange"] = Exchange
+            df = df[["exchange", "name", "tickerSymbol", "id", "classificationStatus", "marketCapUSD"]]
+            df.columns = ["exchange", "name", "ticker", "id", "classification_status", "market_cap_usd"]
+
+            # Insert or update data into PostgreSQL
+            with engine.begin() as conn:
+                for _, row in df.iterrows():
+                    conn.execute(
+                        text("""
+                               INSERT INTO simply_api_raw_data.exchanges_tickers (exchange, name, ticker, id, classification_status, market_cap_usd)
+                               VALUES (:exchange, :name, :ticker, :id, :classification_status, :market_cap_usd)
+                               ON CONFLICT (exchange, ticker, id) DO UPDATE
+                               SET exchange = EXCLUDED.exchange,
+                                   name = EXCLUDED.name,
+                                   ticker = EXCLUDED.ticker,
+                                   market_cap_usd = EXCLUDED.market_cap_usd,
+                                   classification_status = EXCLUDED.classification_status;
+                             """),
+                        {
+                            "exchange": row["exchange"],
+                            "name": row["name"],
+                            "ticker": row["ticker"],
+                            "id": row["id"],
+                            "classification_status": row["classification_status"],
+                            "market_cap_usd": row["market_cap_usd"]
+                        }
+                    )
+
+            # Check if we reached the last page and increment offset
+            if len(data["data"]["companies"]) < step:
+                break  # Last page reached
+            offset += step  # Increment offset for next page
+
+            # Optional delay to avoid rate limits
+            time.sleep(1)
+
+        except Exception as e:
+            print(f"Error fetching data for {Exchange}: {e}")
+            break
+
+Final SQL Table Exported to CSV
             # Check if we reached the last page
             # Increment offset
             # Optional delay to avoid rate limits
            
-# Final SQL table exported in CSV
+Final SQL Table Exported to CSV
 
 exchange	name	                ticker id	                                  classification_status	market_cap_usd
 ASX	      Ansell	              ANN	   25ece3b4-dc77-4d46-980c-b3eda5233274	ACTIVE	              3174886131
