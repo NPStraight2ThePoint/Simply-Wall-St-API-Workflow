@@ -146,7 +146,16 @@ def fetch_data(Exchange):
             # Increment offset
             # Optional delay to avoid rate limits
            
-                    
+# Final SQL table exported in CSV
+
+exchange	name	                ticker id	                                  classification_status	market_cap_usd
+ASX	      Ansell	              ANN	   25ece3b4-dc77-4d46-980c-b3eda5233274	ACTIVE	              3174886131
+ASX	      Advance ZincTek	      ANO	   5a642809-aaef-4911-831d-77c2e016c3b1	ACTIVE	              30014488.19
+ASX	      Anatara Lifesciences	ANR	   9f371156-6513-4fec-a0d2-91aca59b1b29	ACTIVE	              7549833.144
+ASX	      Anax Metals	          ANX	   06a27ec2-7736-4b1d-a698-f67583684514	ACTIVE	              6057025.543
+ASX	      ANZ Group Holdings	  ANZ	   213a0983-44a8-497f-bda5-ea652181583b	ACTIVE	              57863985237
+...       ...                   ...    ...                                  ...                   ...
+
                       
                         
                        
