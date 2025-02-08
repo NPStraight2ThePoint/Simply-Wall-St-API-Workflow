@@ -29,7 +29,7 @@ Key Python Script Parts
 
 1.Exchanges&Counts.py / Retreive list of all exchanges and number of tickers for each one .
 
-#Libraries
+# Libraries
 import pandas as pd
 from datetime import datetime
 import requests
@@ -247,7 +247,10 @@ query_tickers = text("""
           # Explicitly call infer_objects to ensure correct data types are inferred
           # Insert into SQL
            
-                
+# Final SQL table exported in CSV
+
+![image](https://github.com/user-attachments/assets/760ef253-9e90-4b57-8452-23735731bd7f)
+
                 
           
                
