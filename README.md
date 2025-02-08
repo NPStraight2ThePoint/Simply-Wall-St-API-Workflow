@@ -261,6 +261,10 @@ query_tickers = text("""
 
 Snowflake Attribution Analysis
 
+Final results after the SQL DB retreivals and attribution analysis filtering :
+
+
+
 
 
 
