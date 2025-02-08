@@ -12,17 +12,17 @@ How It Works
    Once dataframes ready they are inserted into PostgreSQL DB taking into consideration DB/tables schemas ,unique constraints and conflict handling.
    API and SQL DB column headers are being mapped accordingly within python scripts so that data is inserted approprietly.
    
-3. Data validity checks / SQL procedures
+2. Data validity checks / SQL procedures
    
    ● Check dublicate or null rows exist.
-   ● Check expected number of tickers retreived / Reconciling CompanyCount vs actual total tickers retreived.
+   ● Check expected number of tickers retreived / reconciling CompanyCount vs actual total tickers retreived.
    ● Transpose company_statements table appropriately to implement 'Snowflake' attribution analysis.
 
 3. 'Snowflake' attribution analysis.
 
-   ● Query data from SQL and store it in a formulated excel spreadsheet
-   ● Display stock rankings based on Snowflake attributions
-   ● Filter based on rankings and sectors
+   ● Query data from SQL and store it in a formulated excel spreadsheet.
+   ● Display stock rankings based on Snowflake attributions.
+   ● Filter / sort based on stock rankings and sectors.
 
 Key Python Script Parts
 
@@ -258,6 +258,10 @@ query_tickers = text("""
 (https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot 2025-02-09 084252.png?raw=true)
 # Company owners
 (https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/NPStraight2ThePoint-patch-1/Test/Screenshot 2025-02-09 084500.png?raw=true)
+
+Snowflake Attribution Analysis
+
+
 
 
 
