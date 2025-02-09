@@ -297,8 +297,8 @@ try:
 [Snowflake Attribution Analysis](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Snowflake%20Attribution%20Analysis.xlsx)
 
 
-**Created by:** Nicholas Papadimitris
-**Timestamp:** 2025-02-09 10:26 (UTC)  
+**Created by:** Nicholas Papadimitris  
+**Timestamp:** 2025-02-09 10:26 (UTC) 
 **Unique ID:** [Simply-Wall-St-API-Workflow-2025-02-09 10:26]  
 
 
@@ -308,7 +308,7 @@ This project is continuously evolving, and I plan to add more features and updat
 If you have any questions, suggestions, or feedback, feel free to reach out!  
 
 **Author:** Nicholas Papadimitris
-📧 Email: nicholas.papadimitris@gmail.com  
+📧 Email: [nicholas.papadimitris@gmail.com](mailto:nicholas.papadimitris@gmail.com) 
 💼 LinkedIn: [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris-82b7221a2/)
 
 ## Similar Projects Coming Soon  
