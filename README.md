@@ -137,67 +137,24 @@ def fetch_data(Exchange):
             data = response.json()
 
             # Check if data and companies exist in response
-            if not data.get("data") or not data["data"].get("companies"):
-                break  # No more data, exit loop
-
             # Convert data to DataFrame and flatten if needed
-            df = pd.json_normalize(data["data"]["companies"])
-
             # Add 'exchange' column and reorder/rename columns
-            df["exchange"] = Exchange
-            df = df[["exchange", "name", "tickerSymbol", "id", "classificationStatus", "marketCapUSD"]]
-            df.columns = ["exchange", "name", "ticker", "id", "classification_status", "market_cap_usd"]
-
             # Insert or update data into PostgreSQL
-            with engine.begin() as conn:
-                for _, row in df.iterrows():
-                    conn.execute(
-                        text("""
-                               INSERT INTO simply_api_raw_data.exchanges_tickers (exchange, name, ticker, id, classification_status, market_cap_usd)
-                               VALUES (:exchange, :name, :ticker, :id, :classification_status, :market_cap_usd)
-                               ON CONFLICT (exchange, ticker, id) DO UPDATE
-                               SET exchange = EXCLUDED.exchange,
-                                   name = EXCLUDED.name,
-                                   ticker = EXCLUDED.ticker,
-                                   market_cap_usd = EXCLUDED.market_cap_usd,
-                                   classification_status = EXCLUDED.classification_status;
-                             """),
-                        {
-                            "exchange": row["exchange"],
-                            "name": row["name"],
-                            "ticker": row["ticker"],
-                            "id": row["id"],
-                            "classification_status": row["classification_status"],
-                            "market_cap_usd": row["market_cap_usd"]
-                        }
-                    )
-
             # Check if we reached the last page and increment offset
-            if len(data["data"]["companies"]) < step:
-                break  # Last page reached
-            offset += step  # Increment offset for next page
-
             # Optional delay to avoid rate limits
-            time.sleep(1)
+            # Error handling
+```
+                   
+## Final SQL Table Exported to CSV
 
-        except Exception as e:
-            print(f"Error fetching data for {Exchange}: {e}")
-            break
-
-Final SQL Table Exported to CSV
-            # Check if we reached the last page
-            # Increment offset
-            # Optional delay to avoid rate limits
-           
-Final SQL Table Exported to CSV
-
-exchange	name	                ticker id	                                  classification_status	market_cap_usd
-ASX	      Ansell	              ANN	   25ece3b4-dc77-4d46-980c-b3eda5233274	ACTIVE	              3174886131
-ASX	      Advance ZincTek	      ANO	   5a642809-aaef-4911-831d-77c2e016c3b1	ACTIVE	              30014488.19
-ASX	      Anatara Lifesciences	ANR	   9f371156-6513-4fec-a0d2-91aca59b1b29	ACTIVE	              7549833.144
-ASX	      Anax Metals	          ANX	   06a27ec2-7736-4b1d-a698-f67583684514	ACTIVE	              6057025.543
-ASX	      ANZ Group Holdings	  ANZ	   213a0983-44a8-497f-bda5-ea652181583b	ACTIVE	              57863985237
-...       ...                   ...    ...                                  ...                   ...
+| exchange | name                     | ticker | id                                     | classification_status | market_cap_usd   |
+|----------|--------------------------|--------|----------------------------------------|-----------------------|------------------|
+| ASX      | Ansell                   | ANN    | 25ece3b4-dc77-4d46-980c-b3eda5233274   | ACTIVE                | 3174886131       |
+| ASX      | Advance ZincTek          | ANO    | 5a642809-aaef-4911-831d-77c2e016c3b1   | ACTIVE                | 30014488.19      |
+| ASX      | Anatara Lifesciences     | ANR    | 9f371156-6513-4fec-a0d2-91aca59b1b29   | ACTIVE                | 7549833.144      |
+| ASX      | Anax Metals              | ANX    | 06a27ec2-7736-4b1d-a698-f67583684514   | ACTIVE                | 6057025.543      |
+| ASX      | ANZ Group Holdings       | ANZ    | 213a0983-44a8-497f-bda5-ea652181583b   | ACTIVE                | 57863985237      |
+| ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
 3.Get_CompanyInfo.py / Retreive a variety of financial indicators & metrics for a list of tickers / exchanges.
 
