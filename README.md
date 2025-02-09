@@ -296,6 +296,7 @@ try:
 
 [Snowflake Attribution Analysis](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Snowflake%20Attribution%20Analysis.xlsx)
 
+## Project Information
 
 **Created by:** Nicholas Papadimitris  
 **Timestamp:** 2025-02-09 10:26 (UTC)  
