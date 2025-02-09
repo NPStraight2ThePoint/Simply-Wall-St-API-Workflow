@@ -298,7 +298,7 @@ try:
 
 
 **Created by:** Nicholas Papadimitris  
-**Timestamp:** 2025-02-09 10:26 (UTC)
+**Timestamp:** 2025-02-09 10:26 (UTC)  
 **Unique ID:** [Simply-Wall-St-API-Workflow-2025-02-09 10:26]
 
 
@@ -309,7 +309,7 @@ If you have any questions, suggestions, or feedback, feel free to reach out!
 
 **Author:** Nicholas Papadimitris  
 📧 **Email:** nicholas.papadimitris@gmail.com  
-💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)**
+💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)
 
 ## Similar Projects Coming Soon  
 I'm working on additional projects related to financial data pipelines, analytics, and investing insights. Stay tuned for more releases! 🚀  
