@@ -79,18 +79,18 @@ with engine.begin() as conn:
         )
 ```
 
-Final SQL Table Exported to CSV
+## Final SQL Table Exported to CSV
 
-index_date	exchange	  company_count
-8/02/2025	  DB	        17469
-8/02/2025	  OTCPK	      15599
-8/02/2025	  LSE	        8725
-8/02/2025	  BATS-CHIXE	6822
-8/02/2025	  BSE	        4940
-8/02/2025	  TSE	        4563
-8/02/2025	  XTRA	      3677
-8/02/2025	  SZSE	      3532
-....        ...         ...
+| index_date | exchange  | company_count |
+|------------|-----------|---------------|
+| 8/02/2025  | DB        | 17469         |
+| 8/02/2025  | OTCPK     | 15599         |
+| 8/02/2025  | LSE       | 8725          |
+| 8/02/2025  | BATS-CHIXE| 6822          |
+| 8/02/2025  | BSE       | 4940          |
+| 8/02/2025  | TSE       | 4563          |
+| 8/02/2025  | XTRA      | 3677          |
+| 8/02/2025  | SZSE      | 3532          |
 
 ## 2. Get_Data.py - Get Tickers & Other Info for Selected Exchanges
 
