@@ -149,11 +149,11 @@ def fetch_data(Exchange):
 
 | exchange | name                     | ticker | id                                     | classification_status | market_cap_usd   |
 |----------|--------------------------|--------|----------------------------------------|-----------------------|------------------|
-| ASX      | Ansell                   | ANN    | 25ece3b4-dc77-4d46-980c-b3eda5233274   | ACTIVE                | 3174886131       |
-| ASX      | Advance ZincTek          | ANO    | 5a642809-aaef-4911-831d-77c2e016c3b1   | ACTIVE                | 30014488.19      |
-| ASX      | Anatara Lifesciences     | ANR    | 9f371156-6513-4fec-a0d2-91aca59b1b29   | ACTIVE                | 7549833.144      |
-| ASX      | Anax Metals              | ANX    | 06a27ec2-7736-4b1d-a698-f67583684514   | ACTIVE                | 6057025.543      |
-| ASX      | ANZ Group Holdings       | ANZ    | 213a0983-44a8-497f-bda5-ea652181583b   | ACTIVE                | 57863985237      |
+| ASX      | Ansell                   | ANN    | 25ece3b4-                              | ACTIVE                | 3174886131       |
+| ASX      | Advance ZincTek          | ANO    | 5a642809-                              | ACTIVE                | 30014488.19      |
+| ASX      | Anatara Lifesciences     | ANR    | 9f371156-                              | ACTIVE                | 7549833.144      |
+| ASX      | Anax Metals              | ANX    | 06a27ec2-                              | ACTIVE                | 6057025.543      |
+| ASX      | ANZ Group Holdings       | ANZ    | 213a0983-                              | ACTIVE                | 57863985237      |
 | ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
 ## 3.Get_CompanyInfo.py / Retreive a variety of financial indicators & metrics for a list of tickers / exchanges.
@@ -252,9 +252,13 @@ query_tickers = text("""
 # Final SQL table(s) exported in CSV
 
 [Company Info](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%20215355.png)
+
 [Insider Transactions](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%221649.png)
+
 [Company Statements](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%083838.png)
+
 [Company Members](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%084252.png)
+
 [Company Owners](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%084500.png)
 
 ## Snowflake Attribution Analysis
