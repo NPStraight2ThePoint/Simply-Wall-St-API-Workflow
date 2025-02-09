@@ -1,6 +1,10 @@
 # Simply-Wall-St-API-Workflow
 
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans and stores the data in a PostgreSQL database. The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation, and application of stock attribution analysis.
+## Overview
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans, and stores the data in a PostgreSQL database and applies financial analysis. The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation, and the application of stock attribution analysis.
+
+## Purpose of This Project
+This repository highlights my ability to work with APIs and build complete data pipelines, covering everything from data acquisition to deriving analytical insights for investment decisions
 
 The project is built using:
 - **Python**
@@ -13,7 +17,7 @@ The project is built using:
 
 ### 1. Data Retrieval / Cleansing / Storing
 
-Three main Python scripts :
+Python & SQL scripts :
 - Extract all available API data via GraphQL queries for all or specific exchanges and companies.
 - Data is retrieved in JSON format, which is then flattened, cleansed, and transformed into dataframes using various methods.
 - Once the dataframes are ready, they are inserted into the PostgreSQL database, considering table schemas, unique constraints, and conflict handling.
@@ -28,8 +32,8 @@ This step ensures the quality of the data:
 
 ### 3. 'Snowflake' Attribution Analysis
 
-In this step:
-- Query data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
+This step includes:
+- Quering data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
 - Display stock rankings based on **Snowflake** attributions.
 - Filter and sort data based on stock rankings and sectors.
 
@@ -306,7 +310,7 @@ try:
 ## Future Updates & Feedback  
 This project is continuously evolving, and I plan to add more features and updates in the future.  
 
-If you have any questions, suggestions, or feedback, feel free to reach out!  
+By sharing this work, I aim to show how to streamline your data workflow(s) and tranform them into useful insights. I'm open to feedback on its value, and if you’re interested in optimizing your workflows or improving your data processing, feel free to reach out. I'm more than happy to elaborate on any aspect of the project if you need more details!
 
 **Author:** Nicholas Papadimitris  
 📧 **Email:** nicholas.papadimitris@gmail.com  
