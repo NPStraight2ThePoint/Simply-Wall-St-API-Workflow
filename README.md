@@ -307,10 +307,9 @@ This project is continuously evolving, and I plan to add more features and updat
 
 If you have any questions, suggestions, or feedback, feel free to reach out!  
 
-**Author:** Nicholas Papadimitris
-📧 Email: [nicholas.papadimitris@gmail.com](mailto:nicholas.papadimitris@gmail.com)
-
-💼 LinkedIn: [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris-82b7221a2/)
+**Author:** Nicholas Papadimitris  
+📧 **Email:** nicholas.papadimitris@gmail.com  
+💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)**
 
 ## Similar Projects Coming Soon  
 I'm working on additional projects related to financial data pipelines, analytics, and investing insights. Stay tuned for more releases! 🚀  
