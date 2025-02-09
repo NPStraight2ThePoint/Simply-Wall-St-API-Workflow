@@ -156,9 +156,10 @@ def fetch_data(Exchange):
 | ASX      | ANZ Group Holdings       | ANZ    | 213a0983-44a8-497f-bda5-ea652181583b   | ACTIVE                | 57863985237      |
 | ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
-3.Get_CompanyInfo.py / Retreive a variety of financial indicators & metrics for a list of tickers / exchanges.
+## 3.Get_CompanyInfo.py / Retreive a variety of financial indicators & metrics for a list of tickers / exchanges.
 
-# Libraries
+### Libraries Used
+```python
 import requests
 import pandas as pd
 from datetime import datetime
@@ -246,7 +247,8 @@ query_tickers = text("""
           # Drop N/A columns
           # Explicitly call infer_objects to ensure correct data types are inferred
           # Insert into SQL
-           
+'''
+          
 # Final SQL table exported in CSV
 
 # Company Info
