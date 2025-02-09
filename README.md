@@ -247,13 +247,12 @@ query_tickers = text("""
           # Drop N/A columns
           # Explicitly call infer_objects to ensure correct data types are inferred
           # Insert into SQL
-'''
+```
           
 # Final SQL table exported in CSV
 
 # Company Info
 (https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%20215355.png?raw=true)
-
 # Insider transactions
 (https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot 2025-02-08 221649.png?raw=true)
 # Company Statements
@@ -263,10 +262,11 @@ query_tickers = text("""
 # Company owners
 (https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot 2025-02-09 084500.png?raw=true)
 
-Snowflake Attribution Analysis
+## Snowflake Attribution Analysis
 
-Calling below SQL queries via Python :
+Calling below SQL queries via Python:
 
+```python
 import psycopg2
 import pandas as pd
 
@@ -291,9 +291,9 @@ try:
         for sheet_name, query in queries.items():
             df = pd.read_sql_query(query, conn)
             df.to_excel(writer, sheet_name=sheet_name, index=False)  # Save each DataFrame to a separate sheet
+```
 
-
-Final results after the SQL DB retreivals and attribution analysis filtering :
+# Final results after the SQL DB retreivals and attribution analysis filtering :
 
 [Snowflake](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Snowflake Attribution Analysis.xlsx)
 
