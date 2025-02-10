@@ -319,7 +319,8 @@ By sharing this work, I aim to show how to streamline your data workflow(s) and 
 ## Similar Projects Coming Soon  
 I'm working on additional projects related to financial data pipelines, analytics, and investing insights. Stay tuned for more releases! 🚀  
 
-
+## Disclaimer
+API is still in beta, which means things are subject to change. Specs could be updated, limits might be introduced, paywalls added, or even certain features removed .
 
 
 
