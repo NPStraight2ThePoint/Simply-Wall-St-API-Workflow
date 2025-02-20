@@ -12,12 +12,25 @@ The project is built using:
 
 ## How It Works
 
-1. Query All Exchanges & Company counts
+# Python API Queryies
+   * All Exchanges & Company counts
+   * All Tickers under all Exchanges
+   * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
+   * Insider Transactions for all Tickers/Exchanges
+   * Financial Indicators for all Tickers/Exchanges
+   * Members for all Tickers/Exchanges
+   * Owners for all Tickers/Exchanges
+  
+# General ETL Process
+
    API->JSON->DataFrame->Flattening->CSV
+   Merge/Transform CSV's->Joined CSV (API2SQL ETL MAPPING)
    Create SQL Temp Table->Copy CSV to SQL Temp Table
    INSERT to Clean SQL Table -> On Conflict/Constraint handling
+   DROP Temp Table
+   
+## Final SQL Tables
 
-Final Table : 
 | index_date | exchange  | company_count |
 |------------|-----------|---------------|
 | 8/02/2025  | DB        | 17469         |
@@ -29,7 +42,15 @@ Final Table :
 | 8/02/2025  | XTRA      | 3677          |
 | 8/02/2025  | SZSE      | 3532          |
 
-2. 
+| exchange | name                     | ticker | id                                     | classification_status | market_cap_usd   |
+|----------|--------------------------|--------|----------------------------------------|-----------------------|------------------|
+| ASX      | Ansell                   | ANN    | 25ece3b4-                              | ACTIVE                | 3174886131       |
+| ASX      | Advance ZincTek          | ANO    | 5a642809-                              | ACTIVE                | 30014488.19      |
+| ASX      | Anatara Lifesciences     | ANR    | 9f371156-                              | ACTIVE                | 7549833.144      |
+| ASX      | Anax Metals              | ANX    | 06a27ec2-                              | ACTIVE                | 6057025.543      |
+| ASX      | ANZ Group Holdings       | ANZ    | 213a0983-                              | ACTIVE                | 57863985237      |
+| ...      | ...                      | ...    | ...                                    | ...                   | ...              |
+
 
 ### 2. Data Validity Checks / SQL Procedures
 
@@ -44,118 +65,6 @@ This step includes:
 - Quering data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
 - Display stock rankings based on stock attributions.
 - Filter and sort data based on stock rankings and sectors.
-
-## Key Python Script Parts
-
-### 1. Exchanges&Counts.py
-This script retrieves a list of all exchanges and the number of tickers for each one.
-
-### Libraries Used
-```python
-import pandas as pd
-from datetime import datetime
-import requests
-import os
-import csv
-from sqlalchemy import create_engine, text
-
-# Example of PostgreSQL connection
-engine = create_engine(db_url)
-  
-# Example of GraphQL query to Simply Wall St API
-query = """query { exchanges{symbol companiesCount}}"""
-response = requests.post(url, headers=headers, json={"query": query})
-data = response.json()
-df = pd.DataFrame(data)
-
-# Preparing json for data flattening
-# Add date column at position 0 for all rows
-# Create a DataFrame from the list of dictionaries
-# Rename columns to match SQL table columns
-# Reorder columns to match SQL table column order
-# Insert or update in PostgreSQL
-with engine.begin() as conn:
-    for _, row in df.iterrows():
-        conn.execute(
-            text("""
-                  INSERT INTO simply_api_raw_data.exchanges_counts (index_date, exchange, company_count)
-                  VALUES (:index_date, :exchange, :company_count)
-                  ON CONFLICT (index_date, exchange) DO UPDATE
-                  SET company_count = EXCLUDED.company_count;
-              """),
-            {
-                "index_date": row["index_date"],
-                "exchange": row["exchange"],
-                "company_count": row["company_count"]
-            }
-        )
-```
-
-
-
-## 2. Get_Data.py - Get Tickers & Other Info for Selected Exchanges
-
-This script fetches tickers and other information for selected exchanges using the `fetch_data` function.
-
-### Libraries Used
-```python
-from Get_Tickers import fetch_data  # ✅ Import the function
-import pandas as pd
-from sqlalchemy import create_engine
-import time
-import requests
-
-List of Exchanges
-Exchanges = ["TWSE", "NYSE", "NasdaqCM", "NasdaqGM", "NasdaqGS"]
-
-for Exchange in Exchanges:
-    fetch_data(Exchange)  # ✅ Calls fetch_data for each exchange
-...
-Fetch Data Function
-def fetch_data(Exchange):
-    """Function to fetch data for a given exchange."""
-
-    step = 100  # Pagination step
-    offset = 0  # Initial offset
-    all_results = []  # Store all fetched records
-
-    while True:
-        try:
-            query = """query($exchange: String!, $limit: Int!, $offset: Int!) {
-                           companies(exchange: $exchange, limit: $limit, offset: $offset) {
-                               id
-                               name
-                               tickerSymbol
-                               classificationStatus
-                               marketCapUSD
-                           }
-                       }"""
-
-            variables = {"exchange": Exchange, "limit": step, "offset": offset}
-
-            # Send request to the API
-            response = requests.post(url, headers=headers, json={"query": query, "variables": variables})
-            data = response.json()
-
-            # Check if data and companies exist in response
-            # Convert data to DataFrame and flatten if needed
-            # Add 'exchange' column and reorder/rename columns
-            # Insert or update data into PostgreSQL
-            # Check if we reached the last page and increment offset
-            # Optional delay to avoid rate limits
-            # Error handling
-```
-                   
-## Final SQL Table Exported to CSV
-
-| exchange | name                     | ticker | id                                     | classification_status | market_cap_usd   |
-|----------|--------------------------|--------|----------------------------------------|-----------------------|------------------|
-| ASX      | Ansell                   | ANN    | 25ece3b4-                              | ACTIVE                | 3174886131       |
-| ASX      | Advance ZincTek          | ANO    | 5a642809-                              | ACTIVE                | 30014488.19      |
-| ASX      | Anatara Lifesciences     | ANR    | 9f371156-                              | ACTIVE                | 7549833.144      |
-| ASX      | Anax Metals              | ANX    | 06a27ec2-                              | ACTIVE                | 6057025.543      |
-| ASX      | ANZ Group Holdings       | ANZ    | 213a0983-                              | ACTIVE                | 57863985237      |
-| ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
 ## 3.Get_CompanyInfo.py / Retreive a variety of financial indicators & metrics for a list of tickers / exchanges.
 
