@@ -37,9 +37,9 @@ The project is built using:
    * Power BI Visualisation
 
 
-
 ## Final SQL Tables
 
+1.Exchanges & Company_Counts
 | index_date | exchange  | company_count |
 |------------|-----------|---------------|
 | 8/02/2025  | DB        | 17469         |
@@ -51,6 +51,7 @@ The project is built using:
 | 8/02/2025  | XTRA      | 3677          |
 | 8/02/2025  | SZSE      | 3532          |
 
+2.List of Tickers
 | exchange | name                     | ticker | id                                     | classification_status | market_cap_usd   |
 |----------|--------------------------|--------|----------------------------------------|-----------------------|------------------|
 | ASX      | Ansell                   | ANN    | 25ece3b4-                              | ACTIVE                | 3174886131       |
@@ -60,7 +61,8 @@ The project is built using:
 | ASX      | ANZ Group Holdings       | ANZ    | 213a0983-                              | ACTIVE                | 57863985237      |
 | ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
-| id        | date       | exchange | ticker | name                       | market_cap | primary_industry       | secondary         | tertiary            | country   | iso2 |
+3. Company Info
+| id       | date       | exchange | ticker | name                        | market_cap | primary_industry       | secondary        | tertiary             | country   | iso2 |
 |----------|------------|----------|--------|-----------------------------|------------|------------------------|------------------|--------------------- |-----------|------|
 | 70e51eb9 | 19/02/2025 | ASX      | 14D    | 1414 Degrees                | 4.35M      | Capital Goods          | Electrical       | Components & Equip   | Australia | AU   |
 | 867e8678 | 19/02/2025 | ASX      | 1AD    | AdAlta                      | 6.42M      | Pharma & Biotech       | Biotechs         | Biotechnology        | Australia | AU   |
@@ -70,13 +72,25 @@ The project is built using:
 | ac5900dd | 19/02/2025 | ASX      | 1CG    | One Click Group             | 8.99M      | Commercial Services    | Prof. Services   | Research & Consulting| Australia | AU   |
 | 24c54267 | 19/02/2025 | ASX      | 1GOV   | Vaneck 1-5Y Aus Gov Bond ETF| 0          | Financials             | Capital Markets  | Asset Mgmt & Custody | Australia | AU   |
 
+4. Insider Transactions
+| ticker | exchange | date       | type  | owner                 | owner_type  | description                       | trade_min   | trade_max | shares | price_min | price_max | value  | pct_shares | pct_change | insider | filing_date  |
+|--------|----------|------------|-------|-----------------------|-------------|-----------------------------------|------------|------------|--------|-----------|-----------|--------|------------|------------|---------|--------------|
+| 1AD    | ASX      | 19/02/2025 | BUY   | Stuart Morris         | INDIVIDUAL  | Derivative Exercise & Retained    | 2024-06-03 | 2024-06-03 | 59.90M | 0.029999  | 0.029999  | 1.80M  | 10.06%     | 159.58%    | FALSE   | 2024-06-02   |
+| 1AG    | ASX      | 19/02/2025 | BUY   | Sandon Capital Inv.   | COMPANY     | Private Acquisition               | 2023-03-28 | 2024-02-27 | 3.51M  | 0.012000  | 0.012000  | 42.13K | 0.40%      | 2.62%      | FALSE   | 2024-02-27   |
+| 1AG    | ASX      | 19/02/2025 | BUY   | Sandon Capital Pty    | COMPANY     | Private Acquisition               | 2023-03-28 | 2024-02-27 | 1.18M  | 0.012000  | 0.012000  | 14.16K | 0.14%      | 1.34%      | FALSE   | 2024-02-27   |
+| 1CG    | ASX      | 19/02/2025 | BUY   | Winton Willesee       | INDIVIDUAL  | Open Market Acquisition           | 2024-05-31 | 2024-05-31 | 1.33M  | 0.008957  | 0.008957  | 11.88K | 0.17%      | 19.87%     | TRUE    | 2024-06-04   |
+| 1CG    | ASX      | 19/02/2025 | BUY   | Russell Baskerville   | INDIVIDUAL  | Open Market Acquisition           | 2024-06-04 | 2024-06-04 | 1.00M  | 0.010000  | 0.010000  | 10.00K | 0.13%      | 3.34%      | TRUE    | 2024-06-10   |
+| 1CG    | ASX      | 19/02/2025 | BUY   | Mark Waller           | INDIVIDUAL  | Open Market Acquisition           | 2024-06-04 | 2024-06-07 | 2.00M  | 0.009144  | 0.009144  | 18.29K | 0.26%      | 3.11%      | TRUE    | 2024-06-10   |
+| 1CG    | ASX      | 19/02/2025 | BUY   | Winton Willesee       | INDIVIDUAL  | Open Market Derivative Acquisition| 2024-06-07 | 2024-06-07 | 509.48K| 0.030000  | 0.030000  | 0      | -          | -          | TRUE    | 2024-06-14   |
+| 1MC    | ASX      | 19/02/2025 | BUY   | Allan Charles Buckler | INDIVIDUAL  | Open Market Acquisition           | 2024-10-15 | 2024-10-18 | 1.10M  | 0.029999  | 0.029999  | 32.99K | 0.36%      | 3.21%      | TRUE    | 2024-10-21   |
+
+
 
 ### 2. Data Validity Checks / SQL Procedures
 
 This step ensures the quality of the data:
 - **Check for duplicate or null rows.**
 - **Verify the expected number of tickers** retrieved by reconciling `CompanyCount` vs actual total tickers.
-- **Transpose `company_statements` table** appropriately to implement **'Stock' attribution analysis**.
 
 ### 3. 'Stock' Attribution Analysis
 
@@ -98,40 +112,9 @@ This step includes:
 
 [Company Owners](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%20084500.png?raw=true)
 
-## Snowflake Attribution Analysis
+## Stock Attribution Analysis
 
-Calling below SQL queries via Python:
 
-```python
-import psycopg2
-import pandas as pd
-
-# Define queries
-queries = {
-    "exchanges_counts": "SELECT * FROM simply_api_raw_data.exchanges_counts;",
-    "exchanges_tickers": "SELECT * FROM simply_api_raw_data.exchanges_tickers;",
-    "company_info": "SELECT * FROM simply_api_raw_data.company_info;",
-    "insider_transactions": "SELECT * FROM simply_api_raw_data.insider_transactions;",
-    "company_statements": "SELECT * FROM simply_api_raw_data.company_statements;",
-    "company_members": "SELECT * FROM simply_api_raw_data.company_members;",
-    "company_owners": "SELECT * FROM simply_api_raw_data.company_owners;"
-}
-
-EXCEL_FILE = "output_data.xlsx"
-
-try:
-    # Connect to PostgreSQL
-    conn = psycopg2.connect(**DB_PARAMS)
-
-    with pd.ExcelWriter(EXCEL_FILE, engine="xlsxwriter") as writer:
-        for sheet_name, query in queries.items():
-            df = pd.read_sql_query(query, conn)
-            df.to_excel(writer, sheet_name=sheet_name, index=False)  # Save each DataFrame to a separate sheet
-```
-
-# Final results after the SQL DB retreivals and attribution analysis filtering :
-
-[Snowflake Attribution Analysis](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Snowflake%20Attribution%20Analysis.xlsx)
 
 ## Project Information
 
