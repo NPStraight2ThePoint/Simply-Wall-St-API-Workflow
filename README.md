@@ -23,7 +23,7 @@ The project is built using:
   
    # General ETL Process
 
-   * API->JSON->DataFrame->Flattening/Cleansing->CSV
+   * API->Batch Queries->JSON->DataFrame->Flattening/Cleansing->CSV
    * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
    * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table -> On Conflict/Constraint handling->DROP Temp Table
 
@@ -84,7 +84,9 @@ The project is built using:
 | 1CG    | ASX      | 19/02/2025 | BUY   | Winton Willesee       | INDIVIDUAL  | Open Market Derivative Acquisition| 2024-06-07 | 2024-06-07 | 509.48K| 0.030000  | 0.030000  | 0      | -          | -          | TRUE    | 2024-06-14   |
 | 1MC    | ASX      | 19/02/2025 | BUY   | Allan Charles Buckler | INDIVIDUAL  | Open Market Acquisition           | 2024-10-15 | 2024-10-18 | 1.10M  | 0.029999  | 0.029999  | 32.99K | 0.36%      | 3.21%      | TRUE    | 2024-10-21   |
 
+5. Financial Indicators
 
+   
 
 ### 2. Data Validity Checks / SQL Procedures
 
@@ -99,18 +101,6 @@ This step includes:
 - Display stock rankings based on stock attributions.
 - Filter and sort data based on stock rankings and sectors.
 
-         
-# Final SQL table(s) exported in CSV
-
-[Company Info](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%20215355.png)
-
-[Insider Transactions](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%20221649.png?raw=true)
-
-[Company Statements](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%20083838.png?raw=true)
-
-[Company Members](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%20084252.png?raw=true)
-
-[Company Owners](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%20084500.png?raw=true)
 
 ## Stock Attribution Analysis
 
