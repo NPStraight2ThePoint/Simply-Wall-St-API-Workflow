@@ -1,10 +1,7 @@
 # Simply-Wall-St-API-Workflow
 
 ## Overview
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans, and stores the data in a PostgreSQL database and applies financial analysis. The pipeline showcases an end-to-end workflow that integrates data acquisition, transformation, and the application of stock attribution analysis.
-
-## Purpose of This Project
-This repository highlights my ability to work with APIs and build complete data pipelines, covering everything from data acquisition to deriving analytical insights for investment decisions
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans, and stores the data in a PostgreSQL database and applies financial analysis.
 
 The project is built using:
 - **Python**
@@ -15,13 +12,24 @@ The project is built using:
 
 ## How It Works
 
-### 1. Data Retrieval / Cleansing / Storing
+1. Query All Exchanges & Company counts
+   API->JSON->DataFrame->Flattening->CSV
+   Create SQL Temp Table->Copy CSV to SQL Temp Table
+   INSERT to Clean SQL Table -> On Conflict/Constraint handling
 
-Python & SQL scripts :
-- Extract all available API data via GraphQL queries for all or specific exchanges and companies.
-- Data is retrieved in JSON format, which is then flattened, cleansed, and transformed into dataframes using various methods.
-- Once the dataframes are ready, they are inserted into the PostgreSQL database, considering table schemas, unique constraints, and conflict handling.
-- API and SQL DB column headers are mapped within Python scripts to ensure proper data insertion.
+Final Table : 
+| index_date | exchange  | company_count |
+|------------|-----------|---------------|
+| 8/02/2025  | DB        | 17469         |
+| 8/02/2025  | OTCPK     | 15599         |
+| 8/02/2025  | LSE       | 8725          |
+| 8/02/2025  | BATS-CHIXE| 6822          |
+| 8/02/2025  | BSE       | 4940          |
+| 8/02/2025  | TSE       | 4563          |
+| 8/02/2025  | XTRA      | 3677          |
+| 8/02/2025  | SZSE      | 3532          |
+
+2. 
 
 ### 2. Data Validity Checks / SQL Procedures
 
@@ -83,18 +91,7 @@ with engine.begin() as conn:
         )
 ```
 
-## Final SQL Table Exported to CSV
 
-| index_date | exchange  | company_count |
-|------------|-----------|---------------|
-| 8/02/2025  | DB        | 17469         |
-| 8/02/2025  | OTCPK     | 15599         |
-| 8/02/2025  | LSE       | 8725          |
-| 8/02/2025  | BATS-CHIXE| 6822          |
-| 8/02/2025  | BSE       | 4940          |
-| 8/02/2025  | TSE       | 4563          |
-| 8/02/2025  | XTRA      | 3677          |
-| 8/02/2025  | SZSE      | 3532          |
 
 ## 2. Get_Data.py - Get Tickers & Other Info for Selected Exchanges
 
