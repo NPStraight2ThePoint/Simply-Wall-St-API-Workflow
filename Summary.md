@@ -1,0 +1,56 @@
+# 📈 Data Pipeline - Summary
+
+## 🚀 Overview
+This project automates the extraction, transformation, and loading (ETL) of financial data from APIs into a structured SQL database. It includes error handling, data validation, and visualization for quantitative investing insights.
+
+---
+
+## 🔹 Workflow Overview
+
+### 1. Extract (API Data Retrieval)
+- Connect to **Financial API** & fetch data.
+- Handle **batch queries** for large datasets.
+- Implement **error handling** (Exponential backoff, incremental batch retries).
+- Convert **JSON → DataFrame → Flattened DataFrame → CSV **.
+
+### 2. Transform (Data Processing & Cleaning)
+- Merge and map API fields to SQL schema (**ETL Mapping**).
+- Remove **nulls, duplicates, and invalid entries**.
+- Flag **out-of-tolerance** data.
+- Validate **expected vs actual** data.
+
+### 3. Load (SQL Database Storage)
+- Insert data into **temporary tables**.
+- Use **constraints & indexing** for performance.
+- Move data to **actual tables** after validation.
+
+### 4. Financial Analysis & Insights
+- Retrieve **cleaned** data for analysis.
+- Apply **filtering logic** to identify high-performing investments.
+- Export final selection to **Excel** for further review.
+
+### 5. Visualization
+- **Power BI Insights**.
+- Generate interactive **dashboards & reports**.
+
+---
+
+## 🌍 Visualizing the Process
+To better understand the pipeline, here are visual representations:
+
+### 📝 ETL Workflow
+![ETL Workflow](./images/etl_workflow.png)
+
+### 🔍 API to SQL Process
+![API to SQL](./images/api_to_sql.png)
+
+### ⚠️ Error Handling Strategy
+![Error Handling](./images/error_handling.png)
+
+---
+
+## 🔗 Full Project Details
+For a **detailed breakdown**, check the [Main README](./README.md).
+
+
+
