@@ -28,13 +28,13 @@ Python & SQL scripts :
 This step ensures the quality of the data:
 - **Check for duplicate or null rows.**
 - **Verify the expected number of tickers** retrieved by reconciling `CompanyCount` vs actual total tickers.
-- **Transpose `company_statements` table** appropriately to implement **'Snowflake' attribution analysis**.
+- **Transpose `company_statements` table** appropriately to implement **'Stock' attribution analysis**.
 
-### 3. 'Snowflake' Attribution Analysis
+### 3. 'Stock' Attribution Analysis
 
 This step includes:
 - Quering data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
-- Display stock rankings based on **Snowflake** attributions.
+- Display stock rankings based on stock attributions.
 - Filter and sort data based on stock rankings and sectors.
 
 ## Key Python Script Parts
