@@ -17,16 +17,25 @@ The project is built using:
    * All Tickers under all Exchanges
    * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
    * Insider Transactions for all Tickers/Exchanges
-   * Financial Indicators for all Tickers/Exchanges
+   * Financial Indicators for all Tickers/Exchanges (130+)
    * Members for all Tickers/Exchanges
    * Owners for all Tickers/Exchanges
   
-# General ETL Process
+   # General ETL Process
 
    * API->JSON->DataFrame->Flattening/Cleansing->CSV
    * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
    * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table -> On Conflict/Constraint handling->DROP Temp Table
+
+    
+   * Data Integrity Validation -> Retry Queries -> Expected State achieved
+
      
+   * Export clean data -> Stock Attribution Analysis -> Final Watchlist
+   * Power BI Visualisation
+
+
+
 ## Final SQL Tables
 
 | index_date | exchange  | company_count |
