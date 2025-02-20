@@ -12,7 +12,7 @@ The project is built using:
 
 ## How It Works
 
-# Python API Queryies
+# Python API Queries
    * All Exchanges & Company counts
    * All Tickers under all Exchanges
    * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
@@ -23,12 +23,10 @@ The project is built using:
   
 # General ETL Process
 
-   API->JSON->DataFrame->Flattening->CSV
-   Merge/Transform CSV's->Joined CSV (API2SQL ETL MAPPING)
-   Create SQL Temp Table->Copy CSV to SQL Temp Table
-   INSERT to Clean SQL Table -> On Conflict/Constraint handling
-   DROP Temp Table
-   
+   * API->JSON->DataFrame->Flattening/Cleansing->CSV
+   * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
+   * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table -> On Conflict/Constraint handling->DROP Temp Table
+     
 ## Final SQL Tables
 
 | index_date | exchange  | company_count |
@@ -51,6 +49,16 @@ The project is built using:
 | ASX      | ANZ Group Holdings       | ANZ    | 213a0983-                              | ACTIVE                | 57863985237      |
 | ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
+| id        | date  | exchange_symbol | ticker_symbol | name | market_cap_usd | primary_industry | secondary_industry | tertiary_industry | market | market_iso2 |
+|---------------------------------------|------------|-----------------|---------------|------------------------------------------------|----------------|--------------------------|------
+| 70e51eb9 | 19/02/2025 | ASX             | 14D           | 1414 Degrees                                  | 4348117.515    | Capital Goods            | Electrical        | Electrical Components and Equipment    | Australia | AU          |
+| 867e8678- | 19/02/2025 | ASX             | 1AD           | AdAlta                                       | 6416845.886    | Pharmaceuticals & Biotech | Biotechs          | Biotechnology                         | Australia | AU          |
+| ab60d5fb- | 19/02/2025 | ASX             | 1AE           | Aurora Energy Metals                          | 6027547.856    | Materials                | Metals and Mining | Diversified Metals and Mining         | Australia | AU          |
+| 1794b0ff- | 19/02/2025 | ASX             | 1AG           | Alterra                                       | 2799178.135    | Food, Beverage & Tobacco | Food              | Agricultural Products                 | Australia | AU          |
+| c6c4adb8- | 19/02/2025 | ASX             | 1AI           | Algorae Pharmaceuticals                      | 6435929.121    | Pharmaceuticals & Biotech | Biotechs          | Biotechnology                         | Australia | AU          |
+| ac5900dd- | 19/02/2025 | ASX             | 1CG           | One Click Group                               | 8985154.771    | Commercial Services      | Professional Services | Research and Consulting Services   | Australia | AU          |
+| 24c54267- | 19/02/2025 | ASX             | 1GOV          | Vaneck 1-5 Year Australian Government Bond ETF | 0              | Diversified Financials    | Capital Markets   | Asset Management and Custody Banks    | Australia | AU          |
+
 
 ### 2. Data Validity Checks / SQL Procedures
 
@@ -66,99 +74,7 @@ This step includes:
 - Display stock rankings based on stock attributions.
 - Filter and sort data based on stock rankings and sectors.
 
-## 3.Get_CompanyInfo.py / Retreive a variety of financial indicators & metrics for a list of tickers / exchanges.
-
-### Libraries Used
-```python
-import requests
-import pandas as pd
-from datetime import datetime
-from sqlalchemy import create_engine, text
-from sqlalchemy.exc import SQLAlchemyError
-import csv
-import os
-import time
-
-# Opt-in to the future behavior to silence warning(s)
-# Set date variables
-# PostgreSQL connection
-# SQL Query to get all exchanges / Adjust below accordingly
-query_exchanges = "SELECT exchange FROM simply_api_raw_data.exchanges_counts WHERE exchange = 'NYSE';"
-
-# Loop through each exchange and fetch stock data for active stocks excluding ETFs
-
-query_tickers = text("""
-        SELECT * 
-        FROM simply_api_raw_data.exchanges_tickers
-        WHERE exchange = :exchange
-        AND NOT (
-    classification_status <> 'ACTIVE'
-    OR name LIKE '%ETF%'
-    OR name LIKE '%Exchange Traded Fund%'
-    OR market_cap_usd = 0 )""")
-
-    tickers_df = pd.read_sql(query_tickers, engine, params={"exchange": exchange})
-
-    # Loop through each ticker and make API requests
-    for _, ticker_row in tickers_df.iterrows():
-        ticker = ticker_row['ticker']
-        # Perform the API call or any other logic here
-        query = """query($exchange: String!, $tickerSymbol: String!) {companyByExchangeAndTickerSymbol(exchange: $exchange, tickerSymbol: $tickerSymbol) {
-                    id  exchangeSymbol tickerSymbol name marketCapUSD  primaryIndustry .....  }}"""
-
-        variables = {"tickerSymbol": ticker, "exchange": exchange}
-        # Send the API request
-        try:
-            # Make API request
-            # Extract company information safely
-            # Extract closing prices safely
-            # Get the first closing price, default to 0 if missing
-            # Prepare flattened data for SQL insertion
-            # Create a DataFrame for inserting into SQL
-            # Insert into SQL table, updating if ticker, exchange, and date are the same #--->CONFLICT
-               query = text("""
-                 INSERT INTO simply_api_raw_data.company_info (
-                    id, date, exchange_symbol, ticker_symbol, name, 
-                    market_cap_usd, primary_industry, secondary_industry, 
-                    tertiary_industry, market, market_iso2, closing_prices ) VALUES (
-                    :id, :date, :exchange_symbol, :ticker_symbol, :name, 
-                    :market_cap_usd, :primary_industry, :secondary_industry, 
-                    :tertiary_industry, :market, :market_iso2, :closing_prices )
-                ON CONFLICT (date, ticker_symbol, exchange_symbol) 
-                DO NOTHING;  """)
-
-          # Use `engine.begin()` to handle transactions automatically
-            with engine.begin() as conn:
-                conn.execute(query, df.to_dict(orient="records")[0])
-
-          # Assuming `data` is the response from the GraphQL query
-          # Check if insider transactions are found
-          # Add ticker and exchange to the flattened transactions before inserting
-          # Convert to DataFrame
-          # SQL Insert Query with ON CONFLICT Handling
-
-          # Flatten the transactions into a list of dictionaries
-          # Get all keys as header from the first transaction
-          # Transpose the data dynamically, setting 'title' as the new column headers
-            df_transposed = df.pivot_table(
-                    index=["Ticker"],  # Group by Ticker
-                    columns=["area", "name"],  # Use 'area' and 'name' as new column headers
-                    values=["value", "description"],  # Include 'value' and 'description' columns
-                    aggfunc="first",  # Handle duplicates by taking the first value
-                    fill_value=""  # Fill NaNs with an empty string or any placeholder)
-
-          # Flatten the multi-index columns with desired format
-          # Reset index for cleaner output
-          # Add 'Exchange' and 'Date' columns after 'Ticker'
-          # Reorder columns to make sure 'Ticker', 'Exchange', 'Date' come first
-          # Ensure column names are lowercase
-          # Load mapping API2SQL
-          # Rename DataFrame columns
-          # Drop N/A columns
-          # Explicitly call infer_objects to ensure correct data types are inferred
-          # Insert into SQL
-```
-          
+         
 # Final SQL table(s) exported in CSV
 
 [Company Info](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%20215355.png)
