@@ -13,8 +13,8 @@ The project is built using:
 ## How It Works
 
 # Python API Queries
-   * All Exchanges & Company counts
-   * All Tickers under all Exchanges
+   * All Exchanges(130+) & Company counts(150K+)
+   * All Tickers under all Exchanges(150K+)
    * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
    * Insider Transactions for all Tickers/Exchanges
    * Financial Indicators for all Tickers/Exchanges (130+)
