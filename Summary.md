@@ -41,11 +41,6 @@ To better understand the pipeline, here are visual representations:
 ### 📝 ETL Workflow
 ![ETL Workflow](./images/etl_workflow.png)
 
-### 🔍 API to SQL Process
-![API to SQL](./images/api_to_sql.png)
-
-### ⚠️ Error Handling Strategy
-![Error Handling](./images/error_handling.png)
 
 ---
 
