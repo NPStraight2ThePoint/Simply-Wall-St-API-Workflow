@@ -1,7 +1,7 @@
 # 📈 Data Pipeline - Summary
 
 ## 🚀 Overview
-This project automates the extraction, transformation, and loading (ETL) of financial data from APIs into a structured SQL database. It includes error handling, data validation, and visualization for quantitative investing insights.
+This project automates the extraction, transformation, and loading (ETL) of financial data from a Simply API into a structured SQL database. It includes error handling, data validation,visualization and stock attribution analysis for quantitative investing insights.
 
 ---
 
@@ -9,15 +9,15 @@ This project automates the extraction, transformation, and loading (ETL) of fina
 
 ### 1. Extract (API Data Retrieval)
 - Connect to **Financial API** & fetch data.
-- Handle **batch queries** for large datasets.
-- Implement **error handling** (Exponential backoff, incremental batch retries).
+- Handle & optimise **batch queries** for large datasets.
+- Implement **error handling** (Exponential backoff, incremental batch retries) to streamline process.
 - Convert **JSON → DataFrame → Flattened DataFrame → CSV **.
 
 ### 2. Transform (Data Processing & Cleaning)
 - Merge and map API fields to SQL schema (**ETL Mapping**).
 - Remove **nulls, duplicates, and invalid entries**.
 - Flag **out-of-tolerance** data.
-- Validate **expected vs actual** data.
+- Validate **expected vs actual** data and retry.
 
 ### 3. Load (SQL Database Storage)
 - Insert data into **temporary tables**.
@@ -27,7 +27,7 @@ This project automates the extraction, transformation, and loading (ETL) of fina
 ### 4. Financial Analysis & Insights
 - Retrieve **cleaned** data for analysis.
 - Apply **Attribution Analysis** for stock filtering.
-- Export final selection to **Excel** for further review.
+- Export final selection to **Excel** for final watchlist.
 
 ### 5. Visualization
 - **Power BI Insights**.
