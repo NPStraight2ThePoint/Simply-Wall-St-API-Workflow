@@ -26,7 +26,7 @@ This project automates the extraction, transformation, and loading (ETL) of fina
 
 ### 4. Financial Analysis & Insights
 - Retrieve **cleaned** data for analysis.
-- Apply **filtering logic** to identify high-performing investments.
+- Apply **Attribution Analysis** for stock filtering.
 - Export final selection to **Excel** for further review.
 
 ### 5. Visualization
