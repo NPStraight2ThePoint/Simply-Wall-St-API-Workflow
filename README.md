@@ -60,15 +60,15 @@ The project is built using:
 | ASX      | ANZ Group Holdings       | ANZ    | 213a0983-                              | ACTIVE                | 57863985237      |
 | ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
-| id        | date  | exchange_symbol | ticker_symbol | name | market_cap_usd | primary_industry | secondary_industry | tertiary_industry | market | market_iso2 |
-|---------------------------------------|------------|-----------------|---------------|------------------------------------------------|----------------|--------------------------|------
-| 70e51eb9 | 19/02/2025 | ASX             | 14D           | 1414 Degrees                                  | 4348117.515    | Capital Goods            | Electrical        | Electrical Components and Equipment    | Australia | AU          |
-| 867e8678- | 19/02/2025 | ASX             | 1AD           | AdAlta                                       | 6416845.886    | Pharmaceuticals & Biotech | Biotechs          | Biotechnology                         | Australia | AU          |
-| ab60d5fb- | 19/02/2025 | ASX             | 1AE           | Aurora Energy Metals                          | 6027547.856    | Materials                | Metals and Mining | Diversified Metals and Mining         | Australia | AU          |
-| 1794b0ff- | 19/02/2025 | ASX             | 1AG           | Alterra                                       | 2799178.135    | Food, Beverage & Tobacco | Food              | Agricultural Products                 | Australia | AU          |
-| c6c4adb8- | 19/02/2025 | ASX             | 1AI           | Algorae Pharmaceuticals                      | 6435929.121    | Pharmaceuticals & Biotech | Biotechs          | Biotechnology                         | Australia | AU          |
-| ac5900dd- | 19/02/2025 | ASX             | 1CG           | One Click Group                               | 8985154.771    | Commercial Services      | Professional Services | Research and Consulting Services   | Australia | AU          |
-| 24c54267- | 19/02/2025 | ASX             | 1GOV          | Vaneck 1-5 Year Australian Government Bond ETF | 0              | Diversified Financials    | Capital Markets   | Asset Management and Custody Banks    | Australia | AU          |
+| id        | date       | exchange | ticker | name                       | market_cap | primary_industry       | secondary         | tertiary            | country   | iso2 |
+|----------|------------|----------|--------|-----------------------------|------------|------------------------|------------------|--------------------- |-----------|------|
+| 70e51eb9 | 19/02/2025 | ASX      | 14D    | 1414 Degrees                | 4.35M      | Capital Goods          | Electrical       | Components & Equip   | Australia | AU   |
+| 867e8678 | 19/02/2025 | ASX      | 1AD    | AdAlta                      | 6.42M      | Pharma & Biotech       | Biotechs         | Biotechnology        | Australia | AU   |
+| ab60d5fb | 19/02/2025 | ASX      | 1AE    | Aurora Energy Metals        | 6.03M      | Materials              | Metals & Mining  | Diversified Metals   | Australia | AU   |
+| 1794b0ff | 19/02/2025 | ASX      | 1AG    | Alterra                     | 2.80M      | Food & Beverage        | Food             | Agricultural Products| Australia | AU   |
+| c6c4adb8 | 19/02/2025 | ASX      | 1AI    | Algorae Pharma              | 6.44M      | Pharma & Biotech       | Biotechs         | Biotechnology        | Australia | AU   |
+| ac5900dd | 19/02/2025 | ASX      | 1CG    | One Click Group             | 8.99M      | Commercial Services    | Prof. Services   | Research & Consulting| Australia | AU   |
+| 24c54267 | 19/02/2025 | ASX      | 1GOV   | Vaneck 1-5Y Aus Gov Bond ETF| 0          | Financials             | Capital Markets  | Asset Mgmt & Custody | Australia | AU   |
 
 
 ### 2. Data Validity Checks / SQL Procedures
