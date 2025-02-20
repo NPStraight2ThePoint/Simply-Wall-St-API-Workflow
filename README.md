@@ -27,11 +27,13 @@ The project is built using:
    * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
    * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table -> On Conflict/Constraint handling->DROP Temp Table
 
-    
+   # Data QA
    * Data Integrity Validation -> Retry Queries -> Expected State achieved
 
-     
+   # Financial Analysis   
    * Export clean data -> Stock Attribution Analysis -> Final Watchlist
+
+   # Visualisation
    * Power BI Visualisation
 
 
