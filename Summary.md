@@ -21,7 +21,7 @@ This project automates the extraction, transformation, and loading (ETL) of fina
 
 ### 3. Load (SQL Database Storage)
 - Insert data into **temporary tables**.
-- Use **constraints & indexing** for performance.
+- Use **constraints & indexing**.
 - Move data to **actual tables** after validation.
 
 ### 4. Financial Analysis & Insights
