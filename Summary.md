@@ -39,7 +39,7 @@ This project automates the extraction, transformation, and loading (ETL) of fina
 To better understand the pipeline, here are visual representations:
 
 ### 📝 ETL Workflow
-![ETL Workflow](./images/etl_workflow.png)
+![ETL Workflow](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/page-1.png)
 
 
 ---
