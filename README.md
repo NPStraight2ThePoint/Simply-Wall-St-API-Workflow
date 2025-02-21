@@ -49,11 +49,11 @@ The project is built using:
 - Generate interactive **dashboards & reports**.
    
 ## Data
-* All Exchanges(130+) & Company counts(150K+)
+* All Exchanges(130+) & Company counts(150K+) [Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Exchanges_Counts.py)
 * All Tickers under all Exchanges(150K+)
 * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
 * Insider Transactions for all Tickers/Exchanges
-* Financial Indicators for all Tickers/Exchanges (130+/List further below)
+* Financial Indicators for all Tickers/Exchanges (130+/List further below) [Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Financial Indicators.py)
 * Members for all Tickers/Exchanges
 * Owners for all Tickers/Exchanges
 
