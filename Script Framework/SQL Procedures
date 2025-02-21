@@ -1,0 +1,35 @@
+# SQL Check difference between count of tickers received vs expected
+
+ WITH latest_exchanges_counts AS (
+         SELECT DISTINCT ON (exchanges_counts.exchange) exchanges_counts.exchange,
+            exchanges_counts.company_count
+           FROM simply_api_raw_data.exchanges_counts
+          ORDER BY exchanges_counts.exchange, exchanges_counts.index_date DESC
+        )
+ SELECT l.exchange,
+    COALESCE(l.total_rows, 0::bigint) AS tickers_count,
+    COALESCE(s.company_count, 0::bigint) AS exchanges_count,
+    COALESCE(l.total_rows, 0::bigint) - COALESCE(s.company_count, 0::bigint) AS difference
+   FROM ( SELECT exchanges_tickers.exchange,
+            count(*) AS total_rows
+           FROM simply_api_raw_data.exchanges_tickers
+          GROUP BY exchanges_tickers.exchange) l
+     FULL JOIN latest_exchanges_counts s ON l.exchange::text = s.exchange
+  ORDER BY (COALESCE(l.total_rows, 0::bigint) - COALESCE(s.company_count, 0::bigint)) DESC;
+
+# SQL Remove Duplicates
+
+BEGIN
+    WITH cte AS (
+        SELECT
+            exchange,
+            ROW_NUMBER() OVER (PARTITION BY exchange ORDER BY exchange) AS rn
+        FROM exchanges_counts
+    )
+    DELETE FROM exchanges_counts
+    WHERE exchange IN (
+        SELECT exchange
+        FROM cte
+        WHERE rn > 1
+    );
+END;
