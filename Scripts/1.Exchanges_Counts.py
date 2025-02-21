@@ -20,9 +20,7 @@ query {
 }
 """
 #Query Response
-response = requests.post(url, headers=headers, json={"query": query})
-data = response.json()
-df = pd.DataFrame(data)
+#Json -> Dataframe
 
 # Preparing the json for data flattening
 # Add the date column at position 0 for all rows
