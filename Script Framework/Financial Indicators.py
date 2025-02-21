@@ -1,4 +1,4 @@
-
+# Framework for retreiving all Financial Indicators
 
 import requests
 import pandas as pd
@@ -38,7 +38,7 @@ for Exchange in df1["exchange"].dropna().unique():  # Exclude NaN values
     # Write headers only if the file does not exist
 
     while offset < companies_count:
-        #remaining_items
+        # Remaining_items
         # Adjust step size
         # Reset retry counter
         # Track batch success
@@ -103,16 +103,10 @@ for Exchange in df1["exchange"].dropna().unique():  # Exclude NaN values
                         })
 
                 # Save to CSV
-                
                     # Check if the file exists for the first time
-                    
-
                     # Open the file in append mode for subsequent batches
-                    
                         # Write headers only if the file is being created (i.e., it's the first batch)
-                        
                              # Set to False to prevent future header writes
-
                         # Write the batch data
                 else:
                     print("No statements to save.")
