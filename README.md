@@ -15,10 +15,36 @@ The project is built using:
 ## 🔹 Workflow Overview
 
 ### 1. ETL Process
+    ## Extract 
+       - **API** Connection & data fetch.
+       - Optimised **batch queries** for large datasets.
+       - **error handling** (Exponential backoff, incremental batch retries) to streamline process.
+  
+    ## Transform 
+- Merge and map API fields to SQL schema (**ETL Mapping**).
+- Remove **nulls, duplicates, and invalid entries**.
+- Flag **out-of-tolerance** data.
+- Validate **expected vs actual** data and retry.
+- **JSON → DataFrame → Flattened DataFrame → CSV **.
+       - * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
+       - * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table->On Conflict/Constraint handling->DROP Temp Tab
+### 3. Load (SQL Database Storage)
+- Insert data into **temporary tables**.
+- Use **constraints & indexing**.
+- Move data to **actual tables** after validation.
 
-   * API Connection->Batch Queries->JSON responses->DataFrame->Flattening/Cleansing->CSV
-   * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
-   * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table->On Conflict/Constraint handling->DROP Temp Table
+### 4. Financial Analysis & Insights
+- Retrieve **cleaned** data for analysis.
+- Apply **Attribution Analysis** for stock filtering.
+- Export final selection to **Excel** for final watchlist.
+
+### 5. Visualization
+- **Power BI Insights**.
+- Generate interactive **dashboards & reports**.
+   
+   
+
+
 
        # Data
      * All Exchanges(130+) & Company counts(150K+)
