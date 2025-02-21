@@ -1,6 +1,6 @@
-# Simply-Wall-St-API-Workflow
+# 📈 Data Pipeline - Summary
 
-## Overview
+## 🚀 Overview
 This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes/cleans and stores the data in a PostgreSQL database. It then performs Financial analysis based on stock attributions (Value,Future,Past,Dividend,Health) and outputs a stock ranking list based on the attributions.
 Final results are being visualised in Power BI.
 
