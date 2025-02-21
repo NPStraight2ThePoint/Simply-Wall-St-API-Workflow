@@ -62,7 +62,7 @@ The project is built using:
 | ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
 3. Company Info
-| id       | date       | exchange | ticker | name                        | market_cap | primary_industry       | secondary         | tertiary              | country   | iso2 |
+| id       | date       | exchange | ticker | name                        | market_cap | primary_industry       | secondary        | tertiary              | country   | iso2 |
 |----------|------------|----------|--------|-----------------------------|------------|------------------------|------------------|-----------------------|-----------|------|
 | 70e51eb9 | 19/02/2025 | ASX      | 14D    | 1414 Degrees                | 4.35M      | Capital Goods          | Electrical       | Components & Equip    | Australia | AU   |
 | 867e8678 | 19/02/2025 | ASX      | 1AD    | AdAlta                      | 6.42M      | Pharma & Biotech       | Biotechs         | Biotechnology         | Australia | AU   |
