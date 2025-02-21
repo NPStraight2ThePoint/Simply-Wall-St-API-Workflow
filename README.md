@@ -9,10 +9,11 @@ The project is built using:
 - **Pandas**
 - **Excel**
 - **Simply Wall St API**
+- **Power BI**
 
 ## How It Works
 
-# Python API Queries
+### 1. Python Scripts
    * All Exchanges(130+) & Company counts(150K+)
    * All Tickers under all Exchanges(150K+)
    * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
@@ -25,7 +26,7 @@ The project is built using:
 
    * API->Batch Queries->JSON->DataFrame->Flattening/Cleansing->CSV
    * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
-   * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table -> On Conflict/Constraint handling->DROP Temp Table
+   * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table->On Conflict/Constraint handling->DROP Temp Table
 
    # Data QA
    * Data Integrity Validation -> Retry Queries -> Expected State achieved
@@ -112,10 +113,6 @@ This step includes:
 - Quering data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
 - Display stock rankings based on stock attributions.
 - Filter and sort data based on stock rankings and sectors.
-
-
-## Stock Attribution Analysis
-
 
 
 ## Project Information
