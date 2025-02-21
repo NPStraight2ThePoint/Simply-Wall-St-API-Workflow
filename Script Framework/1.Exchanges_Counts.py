@@ -1,3 +1,5 @@
+# Retreive All exchanges & their Company_Count
+
 import requests
 import pandas as pd
 import csv
@@ -11,7 +13,7 @@ today = today.strftime("%Y-%m-%d")
 
 # SQL DB connection
 # Simply API connection
-
+# GraphQL Query
 query = """
 query {
  exchanges
@@ -22,8 +24,6 @@ query {
 #Query Response
 response = requests.post(url, headers=headers, json={"query": query})
 print(f"🚀 Starting data fetch for Exchanges / Company_Counts...")
-data = response.json()
-df = pd.DataFrame(data)
 
 # Preparing the json for data flattening
 # Add the date column at position 0 for all rows
