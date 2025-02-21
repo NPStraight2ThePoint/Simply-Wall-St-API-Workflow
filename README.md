@@ -12,7 +12,7 @@ The project is built using:
 - **Simply Wall St API**
 - **Power BI**
 
-## How It Works
+## 🔹 Workflow Overview
 
 ### 1. ETL Process
 
