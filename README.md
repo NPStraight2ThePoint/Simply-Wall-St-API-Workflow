@@ -47,10 +47,13 @@ This step includes:
    * Health (Assets vs ST/LT Liabilities,D/E Ratio, Operating CF Debt coverage, EBIT Interest coverage)
    * Dividend (Dividend Stability, Dividend Growth, Yield vs Industry vs Market, Payout Ratio, CF Coverage)
 
+- Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility, Sharpe Ratio
 
-- Filter and sort data based on stock rankings and sectors.
+### 4. Visualisation
 
-
+This step included:
+- Import of final/filtered stock data in Power BI.
+- Visualise final results in dashboard.
 
 
 ## Final SQL Tables
