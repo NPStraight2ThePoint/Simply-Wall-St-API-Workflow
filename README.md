@@ -14,20 +14,20 @@ The project is built using:
 
 ## How It Works
 
-### 1. Perform below API batch queries via Python
-   * All Exchanges(130+) & Company counts(150K+)
-   * All Tickers under all Exchanges(150K+)
-   * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
-   * Insider Transactions for all Tickers/Exchanges
-   * Financial Indicators for all Tickers/Exchanges (130+)
-   * Members for all Tickers/Exchanges
-   * Owners for all Tickers/Exchanges
-  
-   # General ETL Process
+### 1. ETL Process
 
    * API->Batch Queries->JSON->DataFrame->Flattening/Cleansing->CSV
    * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
    * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table->On Conflict/Constraint handling->DROP Temp Table
+
+       # Data
+     * All Exchanges(130+) & Company counts(150K+)
+     * All Tickers under all Exchanges(150K+)
+     * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
+     * Insider Transactions for all Tickers/Exchanges
+     * Financial Indicators for all Tickers/Exchanges (130+)
+     * Members for all Tickers/Exchanges
+     * Owners for all Tickers/Exchanges
 
    # Data QA
    * Data Integrity Validation -> Retry Queries -> Expected State achieved
