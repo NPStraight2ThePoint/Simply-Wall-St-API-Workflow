@@ -119,7 +119,18 @@ The project is built using:
    
 📥 **[List of all Indicators](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/raw/Simply-Wall-St-API-Pipeline/Data/Simply_Statements_Data.xlsx)**
 
+---
 
+## 🌍 Visualizing the Process
+To better understand the pipeline, here are visual representations:
+
+### 📝 ETL Workflow
+![ETL Workflow](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Png1_Update.jpeg)
+![ETL Workflow2](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/page-2.png)
+![ETL Workflow3](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/page-3.png)
+![ETL Workflow4](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Filtered.jpeg)
+
+---
 
 
 
