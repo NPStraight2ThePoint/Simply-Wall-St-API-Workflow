@@ -10,7 +10,7 @@ today = datetime.now()
 today = today.strftime("%Y-%m-%d")
 
 # SQL DB Connection
-#Simply API Connection
+# Simply API Connection
 
 query = """
 query {
