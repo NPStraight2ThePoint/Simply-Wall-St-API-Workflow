@@ -97,7 +97,7 @@ The project is built using:
 | AAI    | ASX     | 19/02/2025 | No notable dividend     | ... | 2.2% < Market (6%)                      | ... | Assets($4.9B) > Liabilities($3.4B)      | ... | One-off $341M loss            | ... | Insufficient Data                     |
 
    
-📥 **[Sample Dataset/All Indicators](link_to_csv_or_repo)**
+📥 **[List of all Indicators](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Data/Simply_Statements_Data.xlsx)**
 
 
 ### 2. Data Validity Checks / SQL Procedures
