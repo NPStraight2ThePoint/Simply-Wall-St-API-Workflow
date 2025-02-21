@@ -1,7 +1,8 @@
 # Simply-Wall-St-API-Workflow
 
 ## Overview
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans, and stores the data in a PostgreSQL database and applies financial analysis.
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans and stores the data in a PostgreSQL database. It then performs Financial analysis based on stock attributions (Value,Future,Past,Dividend,Health) and outputs a ranking list based on the attributions.
+Final results are being visualised in Power BI.
 
 The project is built using:
 - **Python**
@@ -13,7 +14,7 @@ The project is built using:
 
 ## How It Works
 
-### 1. Python Scripts
+### 1. Perform below API batch queries via Python
    * All Exchanges(130+) & Company counts(150K+)
    * All Tickers under all Exchanges(150K+)
    * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
@@ -36,6 +37,20 @@ The project is built using:
 
    # Visualisation
    * Power BI Visualisation
+
+### 2. Data QA / SQL Procedures
+
+This step ensures the quality of the data:
+- **Check for duplicate or null rows.**
+- **Verify the expected number of tickers** retrieved by reconciling `CompanyCount` vs actual total tickers.
+
+### 3. 'Stock' Attribution Analysis
+
+This step includes:
+- Quering data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
+- Display stock rankings based on stock attributions.
+- Filter and sort data based on stock rankings and sectors.
+
 
 
 ## Final SQL Tables
@@ -101,18 +116,7 @@ The project is built using:
 📥 **[List of all Indicators](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/raw/Simply-Wall-St-API-Pipeline/Data/Simply_Statements_Data.xlsx)**
 
 
-### 2. Data Validity Checks / SQL Procedures
 
-This step ensures the quality of the data:
-- **Check for duplicate or null rows.**
-- **Verify the expected number of tickers** retrieved by reconciling `CompanyCount` vs actual total tickers.
-
-### 3. 'Stock' Attribution Analysis
-
-This step includes:
-- Quering data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
-- Display stock rankings based on stock attributions.
-- Filter and sort data based on stock rankings and sectors.
 
 
 ## Project Information
