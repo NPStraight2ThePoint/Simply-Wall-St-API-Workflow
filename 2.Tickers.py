@@ -17,17 +17,15 @@ today = today.strftime("%Y-%m-%d")
 # Define function to fetch & save data
 def fetch_data(Exchange):
         """Function to fetch paginated data for a given exchange and save to CSV."""
-
+        
         folder_path = '...'
 
         # Check if the folder exists
-        if not os.path.exists(folder_path):
+        if not 
             # Create the folder
-            os.makedirs(folder_path)
-
+            
         # Define the CSV file
-        csv_file = os.path.join(folder_path, f'{Exchange}_Tickers_{today}.csv')  # ✅ Updated path
-
+       
         # Set Loop parameters
         max_retries = 3  # Max API retry attempts
         base_step = 100  # Normal step size
@@ -62,7 +60,6 @@ def fetch_data(Exchange):
                     response.raise_for_status()  # Check HTTP status
                     data = response.json()
 
-
                     if data.get('data') and isinstance(data['data'].get('companies'), list):
                         companies = data['data']['companies']
 
@@ -90,23 +87,11 @@ def fetch_data(Exchange):
                             last_successful_offset = offset  # ✅ Update last successful batch
 
                             # Write data to CSV
-                            flattened_data = pd.json_normalize(updated_companies)
-                            flattened_data = flattened_data[
-                                ['exchange', 'name', 'tickerSymbol', 'id', 'classificationStatus', 'marketCapUSD']]
-                            flattened_data.columns = ['exchange', 'name', 'ticker', 'id', 'classification_status',
-                                                      'market_cap_usd']
-
-                            with open(csv_file, mode='a', newline='', encoding='utf-8') as file:
-                                writer = csv.writer(file)
-                                if write_headers:
-                                    writer.writerow(flattened_data.columns)
-                                    write_headers = False
-                                writer.writerows(flattened_data.values)
-
+                              ....
                             print(
                                 f"✅ Tickers for offset {offset}, limit {fetch_step} written to '{csv_file}' successfully.")
 
-                    else:
+                   else:
                         print(f"⚠ No data received from API at offset {offset}. Marking for retry.")
                         failed_offset = offset
                         break  # Exit loop to retry with step 1
@@ -128,27 +113,7 @@ def fetch_data(Exchange):
                     try:
                         print(f"🔍 Fetching single item at offset {retry_offset}...")
 
-                        variables = {"exchange": Exchange, "limit": 1, "offset": retry_offset}
-                        response = requests.post(url, headers=headers, json={"query": query, "variables": variables})
-                        response.raise_for_status()
-                        data = response.json()
-
-                        if data.get('data') and isinstance(data['data'].get('companies'), list) and data['data'][
-                            'companies']:
-                            company = data['data']['companies'][0]
-                            if company.get("classificationStatus") is None:
-                                company["classificationStatus"] = "Non Active"
-                            company["exchange"] = Exchange
-
-                            flattened_data = pd.DataFrame([company])
-                            flattened_data = flattened_data[
-                                ['exchange', 'name', 'tickerSymbol', 'id', 'classificationStatus', 'marketCapUSD']]
-                            flattened_data.columns = ['exchange', 'name', 'ticker', 'id', 'classification_status',
-                                                      'market_cap_usd']
-
-                            with open(csv_file, mode='a', newline='', encoding='utf-8') as file:
-                                writer = csv.writer(file)
-                                writer.writerows(flattened_data.values)
+                        #!!!!Retry Loop!!!!
 
                             print(f"✅ Successfully recovered item at offset {retry_offset}.")
 
@@ -167,12 +132,12 @@ def fetch_data(Exchange):
 #Exchanges = ["DB"]
 
 # Read the CSV file
-#df = pd.read_csv(f'{Exchange}_Tickers.csv')
+....
 
 for Exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     # Retrieve the company count for the current exchange
-    companies_count = df.loc[df["exchange"] == Exchange, "company_count"].values[0]
-    companies_count = int(companies_count)  # Ensure integer count
+    ....
+        
     print(f"🚀 Starting data fetch for {Exchange}...")
     print(f"Companies count: {companies_count}")
 
@@ -181,19 +146,17 @@ for Exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     print(f"✅ Fetching complete for {Exchange}.")
     time.sleep(1)  # Sleep for 1 second to throttle requests
 
-df = pd.read_csv(f'Exchanges_Companies {today}.csv')
+
 
 # Define the base path where Exchange folders are located
-base_path = "...."  # Update this with your actual base directory
 
 # List to store all DataFrames
 df_list = []
 
 # Loop through each exchange in the CSV
 for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
-    ticker_dir = os.path.join(base_path, exchange)  # Exchange folder path
-    file_name = f"{exchange}_Tickers_{today}.csv"
-    ticker_path = os.path.join(ticker_dir, file_name)  # Full file path
+    # Exchange folder path
+    # Full file path
 
     print(f"Checking: {ticker_path}")
 
@@ -206,11 +169,9 @@ for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
         if os.path.isfile(ticker_path):
             if is_first_file:
                 # Read with headers on the first file
-                temp_df = pd.read_csv(ticker_path)
-                is_first_file = False  # Set the flag to False after first read
+                
             else:
                 # Read without headers on subsequent files
-                temp_df = pd.read_csv(ticker_path, header=None)
                 # Optionally, you can set the column names manually if needed
 
             df_list.append(temp_df)
@@ -219,8 +180,6 @@ for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     else:
         print(f"Directory not found: {ticker_dir}")  # Debugging message
 
-
-csv_file = f"merged_output_Exchanges_Tickers_{today}.csv"
 # Merge all DataFrames
 if df_list:
     merged_df = pd.concat(df_list, ignore_index=True)
@@ -266,8 +225,6 @@ cursor.execute("""
 conn.commit()
 
 # SQL query to drop the temporary table
-drop_table_query = "DROP TABLE IF EXISTS temp_exchanges_tickers;"
-cursor.execute(drop_table_query) # Execute the query to drop the table
 
 # Commit the changes to the database
 conn.commit()
