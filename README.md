@@ -22,8 +22,8 @@ The project is built using:
   - **Error handling** (Exponential backoff, incremental batch retries) to streamline the process.  
 
 * **Transform**  
-  - **JSON → DataFrame → Flattened DataFrame → CSV**.  
-  - *Merge/Transform CSVs → Joined CSV* (**API2SQL ETL Mapping**).  
+  - JSON → DataFrame → Flattened DataFrame → CSV.  
+  - Merge/Transform CSVs → Joined CSV (**API2SQL ETL Mapping**).  
 
 * **Load (SQL Database Storage)**  
   - Insert data into **temporary tables**.  
@@ -42,7 +42,6 @@ The project is built using:
      * Past (Quality earnings, Profit Margin Growth, Earnings Trend, Growth , Earnings vs Industry)
      * Health (Assets vs ST/LT Liabilities,D/E Ratio, Operating CF Debt coverage, EBIT Interest coverage)
      * Dividend (Dividend Stability, Dividend Growth, Yield vs Industry vs Market, Payout Ratio, CF Coverage)
-
   - Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility & Sharpe Ratio.
 
 ### 5. Visualization
@@ -54,7 +53,7 @@ The project is built using:
 * All Tickers under all Exchanges(150K+)
 * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
 * Insider Transactions for all Tickers/Exchanges
-* Financial Indicators for all Tickers/Exchanges (130+)
+* Financial Indicators for all Tickers/Exchanges (130+/List further below)
 * Members for all Tickers/Exchanges
 * Owners for all Tickers/Exchanges
 
