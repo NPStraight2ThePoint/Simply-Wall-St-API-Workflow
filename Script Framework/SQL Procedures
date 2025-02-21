@@ -1,4 +1,4 @@
-# SQL Check difference between count of tickers received vs expected
+# Check difference between count of tickers received vs expected
 
  WITH latest_exchanges_counts AS (
          SELECT DISTINCT ON (exchanges_counts.exchange) exchanges_counts.exchange,
@@ -17,7 +17,7 @@
      FULL JOIN latest_exchanges_counts s ON l.exchange::text = s.exchange
   ORDER BY (COALESCE(l.total_rows, 0::bigint) - COALESCE(s.company_count, 0::bigint)) DESC;
 
-# SQL Remove Duplicates
+# Remove Duplicates
 
 BEGIN
     WITH cte AS (
@@ -33,3 +33,65 @@ BEGIN
         WHERE rn > 1
     );
 END;
+
+# Delete exact Duplicates (Insider Transactions)
+
+DECLARE
+    partition_columns TEXT;
+BEGIN
+    -- Fetch all column names dynamically (excluding ctid)
+    SELECT string_agg(column_name, ', ')
+    INTO partition_columns
+    FROM information_schema.columns
+    WHERE table_schema = schema_name
+      AND table_name = table_name;
+
+    -- Generate and execute the dynamic SQL query
+    EXECUTE format(
+        'WITH duplicates AS (
+            SELECT ctid 
+            FROM %I.%I
+            WHERE ctid IN (
+                SELECT ctid FROM (
+                    SELECT ctid, ROW_NUMBER() OVER (
+                        PARTITION BY %s
+                        ORDER BY ctid
+                    ) AS row_num
+                    FROM %I.%I
+                ) AS subquery
+                WHERE row_num > 1
+            )
+        )
+        DELETE FROM %I.%I
+        WHERE ctid IN (SELECT ctid FROM duplicates);',
+        schema_name, table_name, partition_columns, schema_name, table_name, schema_name, table_name
+    );
+END;
+
+# Sync Tables
+
+BEGIN
+    -- Step 1: Insert new UUIDs from new_temp_exchanges_tickers that are not in main_exchanges_tickers
+    INSERT INTO exchanges_tickers (id, exchange, name, ticker)
+    SELECT id, exchange, name, ticker
+    FROM exchanges_tickers_temp
+    WHERE id NOT IN (SELECT id FROM exchanges_tickers);
+    
+    -- Step 2: Move UUIDs from main_exchanges_tickers to archived_tickers that are not in new_temp_exchanges_tickers
+    INSERT INTO delisted (id, exchange, name, ticker, delisted_date)
+    SELECT id, exchange, name, ticker, CURRENT_DATE
+    FROM exchanges_tickers
+    WHERE id NOT IN (SELECT id FROM exchanges_tickers_temp);
+    
+    -- Step 3: Remove UUIDs from main_exchanges_tickers that are not in new_temp_exchanges_tickers
+    DELETE FROM exchanges_tickers
+    WHERE id NOT IN (SELECT id FROM exchanges_tickers_temp);
+    
+    -- Step 4: Clear all rows from new_temp_exchanges_tickers
+    DELETE FROM exchanges_tickers_temp;
+    
+    -- Optional: Output message (for debugging)
+    RAISE NOTICE 'Synchronization complete: temp table cleared.';
+    
+END;
+
