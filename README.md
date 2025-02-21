@@ -1,7 +1,7 @@
 # Simply-Wall-St-API-Workflow
 
 ## Overview
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes, cleans and stores the data in a PostgreSQL database. It then performs Financial analysis based on stock attributions (Value,Future,Past,Dividend,Health) and outputs a ranking list based on the attributions.
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes/cleans and stores the data in a PostgreSQL database. It then performs Financial analysis based on stock attributions (Value,Future,Past,Dividend,Health) and outputs a stock ranking list based on the attributions.
 Final results are being visualised in Power BI.
 
 The project is built using:
@@ -16,7 +16,7 @@ The project is built using:
 
 ### 1. ETL Process
 
-   * API->Batch Queries->JSON->DataFrame->Flattening/Cleansing->CSV
+   * API Connection->Batch Queries->JSON responses->DataFrame->Flattening/Cleansing->CSV
    * Merge/Transform CSV's->Joined CSV (API2SQL ETL Column Mapping)
    * Create SQL Temp Table->Copy CSV to SQL Temp Table->INSERT to Clean SQL Table->On Conflict/Constraint handling->DROP Temp Table
 
@@ -29,20 +29,17 @@ The project is built using:
      * Members for all Tickers/Exchanges
      * Owners for all Tickers/Exchanges
 
-   # Data QA
-   * Data Integrity Validation -> Retry Queries -> Expected State achieved
-
    # Financial Analysis   
    * Export clean data -> Stock Attribution Analysis -> Final Watchlist
-
-   # Visualisation
-   * Power BI Visualisation
 
 ### 2. Data QA / SQL Procedures
 
 This step ensures the quality of the data:
 - **Check for duplicate or null rows.**
-- **Verify the expected number of tickers** retrieved by reconciling `CompanyCount` vs actual total tickers.
+- **Verify expected dataset state**
+- **ETL Retry Until expected state achieved**
+
+  
 
 ### 3. 'Stock' Attribution Analysis
 
@@ -50,6 +47,7 @@ This step includes:
 - Quering data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
 - Display stock rankings based on stock attributions.
 - Filter and sort data based on stock rankings and sectors.
+
 
 
 
