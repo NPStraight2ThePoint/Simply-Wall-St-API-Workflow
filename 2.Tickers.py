@@ -11,33 +11,14 @@ import shutil
 today = datetime.now()
 today = today.strftime("%Y-%m-%d")
 
-# Loop through all items in the parent folder
-for item in os.listdir(parent_folder):
-    item_path = os.path.join(parent_folder, item)
-
-    # Check if the item is a directory (folder) and remove it
-    if os.path.isdir(item_path):
-        shutil.rmtree(item_path)  # Deletes the folder and all its contents
-        print(f"Deleted folder: {item_path}")
-
-csv_file_clear = f"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Joined Data/merged_output_Exchanges_Tickers_{today}.csv"
-# Check if the file exists, then delete it
-if os.path.exists(csv_file_clear):
-    os.remove(csv_file_clear)
-
-print("All folders deleted successfully.")
-
 # SQL DB connection
-
-#Simply API connection
+# Simply API connection
 
 # Define function to fetch & save data
 def fetch_data(Exchange):
         """Function to fetch paginated data for a given exchange and save to CSV."""
 
-        print(f"Fetching data for {Exchange}...")
-
-        folder_path = f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Tickers/{Exchange}'
+        folder_path = '...'
 
         # Check if the folder exists
         if not os.path.exists(folder_path):
@@ -182,17 +163,13 @@ def fetch_data(Exchange):
                 offset += fetch_step  # Move to next batch
                 print(f"✅ Moving to next offset {offset}.")
 
-# Read the CSV file
-df = pd.read_csv(f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Exchanges & Counts/Exchanges_Companies {today}.csv')  # Replace with your actual file path
-
 #Exchanges = ["TWSE", "NYSE", "NasdaqCM", "NasdaqGM", "NasdaqGS"]  # List of exchanges
 #Exchanges = ["DB"]
+
+# Read the CSV file
 #df = pd.read_csv(f'{Exchange}_Tickers.csv')
 
-#for Exchange in Exchanges:
-#for Exchange in df["exchange"]:
 for Exchange in df["exchange"].dropna().unique():  # Exclude NaN values
-    #for index, row in df.iterrows():
     # Retrieve the company count for the current exchange
     companies_count = df.loc[df["exchange"] == Exchange, "company_count"].values[0]
     companies_count = int(companies_count)  # Ensure integer count
@@ -204,16 +181,15 @@ for Exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     print(f"✅ Fetching complete for {Exchange}.")
     time.sleep(1)  # Sleep for 1 second to throttle requests
 
-df = pd.read_csv(f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Exchanges & Counts/Exchanges_Companies {today}.csv')
+df = pd.read_csv(f'Exchanges_Companies {today}.csv')
 
 # Define the base path where Exchange folders are located
-base_path = "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Tickers"  # Update this with your actual base directory
+base_path = "...."  # Update this with your actual base directory
 
 # List to store all DataFrames
 df_list = []
 
 # Loop through each exchange in the CSV
-#for exchange in df["exchange"]:
 for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     ticker_dir = os.path.join(base_path, exchange)  # Exchange folder path
     file_name = f"{exchange}_Tickers_{today}.csv"
@@ -243,8 +219,6 @@ for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     else:
         print(f"Directory not found: {ticker_dir}")  # Debugging message
 
-# Change the current working directory
-os.chdir('C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Joined Data')
 
 csv_file = f"merged_output_Exchanges_Tickers_{today}.csv"
 # Merge all DataFrames
