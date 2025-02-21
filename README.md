@@ -32,7 +32,8 @@ The project is built using:
   - Flag **out-of-tolerance** data.  
   - Validate **expected vs actual** data → Retry ETL if needed.  
   - Validate expected state and load to formal tables.  
-
+    📥 **[SQL Procedures](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/SQL%20Procedures)**
+    
 ### 2. Financial Analysis   
   
   - Query structured data from PostgreSQL DB and store it in formulated Excel spreadsheet.
