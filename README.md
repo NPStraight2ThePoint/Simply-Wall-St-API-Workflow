@@ -15,16 +15,16 @@ The project is built using:
 ## 🔹 Workflow Overview
 
 ### 1. ETL Process
-    #  Extract 
+    *  Extract 
        - **API** Connection & data fetch.
        - Optimised **batch queries** for large datasets.
        - **Error handling** (Exponential backoff, incremental batch retries) to streamline process.
   
-    # Transform 
+    * Transform 
       - **JSON → DataFrame → Flattened DataFrame → CSV **.
       - * Merge/Transform CSV's->Joined CSV (**API2SQL ETL  Mapping**)
 
-    # Load (SQL Database Storage)   
+    * Load (SQL Database Storage)   
 
       - Insert data into **temporary tables**
       - Conflict/Constraint handling
@@ -33,40 +33,7 @@ The project is built using:
       - Validate **expected vs actual** data -> Retry ETL if needed 
       - Validate expected state and load to formal tables
 
-
-
-.
-- Use **constraints & indexing**.
-- Move data to **actual tables** after validation.
-
-### 4. Financial Analysis & Insights
-- Retrieve **cleaned** data for analysis.
-- Apply **Attribution Analysis** for stock filtering.
-- Export final selection to **Excel** for final watchlist.
-
-### 5. Visualization
-- **Power BI Insights**.
-- Generate interactive **dashboards & reports**.
-   
-   
-
-
-
-       # Data
-     * All Exchanges(130+) & Company counts(150K+)
-     * All Tickers under all Exchanges(150K+)
-     * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
-     * Insider Transactions for all Tickers/Exchanges
-     * Financial Indicators for all Tickers/Exchanges (130+)
-     * Members for all Tickers/Exchanges
-     * Owners for all Tickers/Exchanges
-
-### 2. Data Quality Assurance
-
-This step ensures the quality of the data:
-- **Check for duplicates, null rows & outliers.**
-- **Verify expected dataset state**
-- **ETL Retry Until expected state achieved**
+### 2. Financial Analysis & Insights
 
 ### 3. Financial Analysis   
   
@@ -79,14 +46,22 @@ This step includes:
    * Health (Assets vs ST/LT Liabilities,D/E Ratio, Operating CF Debt coverage, EBIT Interest coverage)
    * Dividend (Dividend Stability, Dividend Growth, Yield vs Industry vs Market, Payout Ratio, CF Coverage)
 
-- Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility, Sharpe Ratio
+- Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility & Sharpe Ratio
 
-### 4. Visualisation
+### 5. Visualization
+- **Power BI Insights**.
+- Generate interactive **dashboards & reports**.
+   
 
-This step included:
-- Import of final/filtered stock data in Power BI.
-- Visualise final results in dashboard.
 
+## Data
+* All Exchanges(130+) & Company counts(150K+)
+* All Tickers under all Exchanges(150K+)
+* Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
+* Insider Transactions for all Tickers/Exchanges
+* Financial Indicators for all Tickers/Exchanges (130+)
+* Members for all Tickers/Exchanges
+* Owners for all Tickers/Exchanges
 
 ## Final SQL Tables
 
