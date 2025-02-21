@@ -9,7 +9,7 @@ import psycopg2
 today = datetime.now()
 today = today.strftime("%Y-%m-%d")
 
-csv_file_clear = f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Exchanges & Counts/Exchanges_Companies {today}.csv'
+csv_file_clear = f'C:/
 # Check if the file exists, then delete it
 if os.path.exists(csv_file_clear):
     os.remove(csv_file_clear)
@@ -18,7 +18,7 @@ if os.path.exists(csv_file_clear):
 conn = psycopg2.connect(
     dbname="Simply_API",
     user="postgres",
-    password="Arxidolemios39",
+    password="",
     host="localhost",
     port="5432"
 )
@@ -27,7 +27,7 @@ cursor = conn.cursor()
 #Simply API setup
 url = "https://api.simplywall.st/graphql"
 headers = {
-    "Authorization": "Bearer sws:Y2VkM2QxYTEtOTA1Mi00ODY2LWIyY2MtNTgyMGFjOWZjMGQ3OmEyYWI1NGU5MDY3MzMyOTE=",
+    "Authorization": "Bearer,
     "Content-Type": "application/json"
 }
 query = """
