@@ -144,6 +144,7 @@ from Statements_Columns import COPY_COLUMNS, COPY_COLUMNS2
 columns_str = ",\n    ".join(COPY_COLUMNS)
 all_columns = ",\n        ".join(COPY_COLUMNS2)
 
+#Merge and Transpose to final Joined CSV
 runpy.run_path("Statements_Transpose.py")  # Runs the script in the current directory
 
 # SQL Load
