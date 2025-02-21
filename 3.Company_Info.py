@@ -11,19 +11,6 @@ import shutil
 today = datetime.now()
 today = today.strftime("%Y-%m-%d")
 
-parent_folder = 'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Company_Info'  # Replace with your folder path
-
-# Loop through all items in the parent folder
-for item in os.listdir(parent_folder):
-    item_path = os.path.join(parent_folder, item)
-
-    # Check if the item is a directory (folder) and remove it
-    if os.path.isdir(item_path):
-        shutil.rmtree(item_path)  # Deletes the folder and all its contents
-        print(f"Deleted folder: {item_path}")
-
-
-csv_file_clear = f"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Joined Data/merged_output_Company_Info_{today}.csv"
 # Check if the file exists, then delete it
 if os.path.exists(csv_file_clear):
     os.remove(csv_file_clear)
@@ -31,36 +18,18 @@ if os.path.exists(csv_file_clear):
 print("All folders deleted successfully.")
 
 # Database connection
-conn = psycopg2.connect(
-    dbname="Simply_API",
-    user="postgres",
-    password="Arxidolemios39",
-    host="localhost",
-    port="5432"
-)
-cursor = conn.cursor()
-
 # Simply API setup
-url = "https://api.simplywall.st/graphql"
-headers = {
-    "Authorization": "Bearer sws:Y2VkM2QxYTEtOTA1Mi00ODY2LWIyY2MtNTgyMGFjOWZjMGQ3OmEyYWI1NGU5MDY3MzMyOTE=",
-    "Content-Type": "application/json"
-}
 
 # Opt-in to the future behavior to silence the warning
-pd.set_option('future.no_silent_downcasting', True)
+
 
 # Read the CSV file
-df1 = pd.read_csv(f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Exchanges & Counts/Exchanges_Companies {today}.csv')  # Replace with your actual file path
+# Replace with your actual file path
 
-#for Exchange in df1["exchange"]:
 for Exchange in df1["exchange"].dropna().unique():  # Exclude NaN values
-    companies_count = df1.loc[df1["exchange"] == Exchange, "company_count"].values[0]
-    companies_count = int(companies_count)
+
     print(f"🚀 Starting Company_Info Data fetch for {Exchange}...")
     print(f"Companies count: {companies_count}")
-
-    Company_info_path = f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Company_Info/{Exchange}'
 
     # Check and create directories if they don't exist
     os.makedirs(Company_info_path, exist_ok=True)
@@ -68,10 +37,10 @@ for Exchange in df1["exchange"].dropna().unique():  # Exclude NaN values
     csv_file = os.path.join(Company_info_path, f'{Exchange}_Tickers_{today}.csv')
     write_headers = not os.path.exists(csv_file)
 
-    max_retries = 3  # Max API retry attempts
-    base_step = 100  # Normal step size
-    offset = 0  # Start fetching from the first company
-    last_successful_offset = -1  # Track the last successful batch
+    # Max API retry attempts
+    # Normal step size
+    # Start fetching from the first company
+    # Track the last successful batch
 
     #csv_file = f"{Exchange}_Company_Info_data.csv"
 
@@ -236,72 +205,16 @@ for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     else:
         print(f"Directory not found: {ticker_dir}")  # Debugging message
 
-# Change the current working directory
-os.chdir('C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Joined Data')
-
-csv_file = f"merged_output_Company_Info_{today}.csv"
 # Merge all DataFrames
-if df_list:
-    merged_df = pd.concat(df_list, ignore_index=True)
-    merged_df.to_csv(csv_file, index=False)
     print(f"Merging complete! Output saved as merged_output_Company_Info_{today}.csv")
 else:
     print("No files found for merging.")
 
 # SQL query to create the temporary table
-create_table_query = """
-    CREATE TABLE IF NOT EXISTS temp_company_info (
-        id UUID,
-        date DATE,
-        exchange_symbol TEXT,
-        ticker_symbol TEXT,
-        name TEXT,
-        market_cap_usd NUMERIC,
-        primary_industry TEXT,
-        secondary_industry TEXT,
-        tertiary_industry TEXT,
-        market TEXT,
-        market_iso2 TEXT   
-    );
-"""
-
 # Execute the query to create the table
-cursor.execute(create_table_query)
-conn.commit() # Commit the changes to the database
-
-
 # Convert the file to UTF-8 and override the original file
-with open(csv_file, "r", encoding="ISO-8859-1") as f:
-    content = f.read()
-
-with open(csv_file, "w", encoding="utf-8") as f:
-    f.write(content)
-
 # Import CSV into PostgreSQL
-with open(csv_file, "r", encoding="utf-8") as file:  # Now open in UTF-8
-    next(file)  # Skip header row
-    cursor.copy_expert(
-        "COPY temp_company_info (id, date, exchange_symbol, ticker_symbol, name, market_cap_usd, primary_industry, secondary_industry, tertiary_industry, market, market_iso2) FROM STDIN WITH CSV",
-        file
-    )
-
-cursor.execute("""
-    INSERT INTO simply_api_raw_data.company_info (id, date, exchange_symbol, ticker_symbol, name, market_cap_usd, primary_industry, secondary_industry, tertiary_industry, market, market_iso2)
-    SELECT id, date, exchange_symbol, ticker_symbol, name, market_cap_usd, primary_industry, secondary_industry, tertiary_industry, market, market_iso2
-    FROM temp_company_info
-    ON CONFLICT (ticker_symbol, exchange_symbol, date)
-    DO NOTHING; 
-""")
-
-conn.commit()
-
 # SQL query to drop the temporary table
-drop_table_query = "DROP TABLE IF EXISTS temp_company_info;"
-cursor.execute(drop_table_query) # Execute the query to drop the table
-
 # Commit the changes to the database
-conn.commit()
-cursor.close()
-conn.close()
 
 print("CSV imported successfully into simply_api_raw_data.company_info!")
