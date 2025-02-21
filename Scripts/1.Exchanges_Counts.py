@@ -9,27 +9,9 @@ import psycopg2
 today = datetime.now()
 today = today.strftime("%Y-%m-%d")
 
-csv_file_clear = f'C:/
-# Check if the file exists, then delete it
-if os.path.exists(csv_file_clear):
-    os.remove(csv_file_clear)
+# SQL DB Connection
+#Simply API Connection
 
-# Database connection
-conn = psycopg2.connect(
-    dbname="Simply_API",
-    user="postgres",
-    password="",
-    host="localhost",
-    port="5432"
-)
-cursor = conn.cursor()
-
-#Simply API setup
-url = "https://api.simplywall.st/graphql"
-headers = {
-    "Authorization": "Bearer,
-    "Content-Type": "application/json"
-}
 query = """
 query {
  exchanges
@@ -39,7 +21,6 @@ query {
 """
 #Query Response
 response = requests.post(url, headers=headers, json={"query": query})
-print(f"🚀 Starting data fetch for Exchanges / Company_Counts...")
 data = response.json()
 df = pd.DataFrame(data)
 
@@ -49,9 +30,6 @@ statements = data['data']['exchanges']
 # Add the date column at position 0 for all rows
 for statement in statements:
     statement["date"] = today  # Add the date key
-
-# Change the current working directory
-os.chdir('C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Exchanges & Counts')
 
 # Define the CSV file
 csv_file = f'Exchanges_Companies {today}.csv'
@@ -115,7 +93,6 @@ conn.commit()
 cursor.close()
 conn.close()
 
-print(f'Exchanges_Companies {today}.csv imported successfully into simply_api_raw_data.exchanges_counts!')
 
 
 
