@@ -55,7 +55,7 @@ The project is built using:
 * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
 * Insider Transactions for all Tickers/Exchanges
 * Financial Indicators for all Tickers/Exchanges (130+/List further below)
-  📥  **[Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Financial Indicators.py)**
+  📥 **[Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Financial%20Indicators.py)**
   📥 **[List of all Indicators](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/raw/Simply-Wall-St-API-Pipeline/Data/Simply_Statements_Data.xlsx)**
 * Members for all Tickers/Exchanges
 * Owners for all Tickers/Exchanges
