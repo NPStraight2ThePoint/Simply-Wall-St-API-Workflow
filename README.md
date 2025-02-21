@@ -49,11 +49,14 @@ The project is built using:
 - Generate interactive **dashboards & reports**.
    
 ## Data
-* All Exchanges(130+) & Company counts(150K+) [Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Exchanges_Counts.py)
+* All Exchanges(130+) & Company counts(150K+)
+  📥 **[Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Exchanges_Counts.py)**
 * All Tickers under all Exchanges(150K+)
 * Company Info (Sector(s), Market, MarketCap, Status) for all Tickers/Exchanges
 * Insider Transactions for all Tickers/Exchanges
-* Financial Indicators for all Tickers/Exchanges (130+/List further below) [Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Financial Indicators.py)
+* Financial Indicators for all Tickers/Exchanges (130+/List further below)
+  📥  **[Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Financial Indicators.py)**
+  📥 **[List of all Indicators](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/raw/Simply-Wall-St-API-Pipeline/Data/Simply_Statements_Data.xlsx)**
 * Members for all Tickers/Exchanges
 * Owners for all Tickers/Exchanges
 
@@ -117,7 +120,7 @@ The project is built using:
 | AAI    | ASX     | 19/02/2025 | No notable dividend     | ... | 2.2% < Market (6%)                      | ... | Assets($4.9B) > Liabilities($3.4B)      | ... | One-off $341M loss            | ... | Insufficient Data                     |
 
    
-📥 **[List of all Indicators](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/raw/Simply-Wall-St-API-Pipeline/Data/Simply_Statements_Data.xlsx)**
+
 
 ---
 
