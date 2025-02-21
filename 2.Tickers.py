@@ -11,8 +11,6 @@ import shutil
 today = datetime.now()
 today = today.strftime("%Y-%m-%d")
 
-parent_folder = 'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Tickers'  # Replace with your folder path
-
 # Loop through all items in the parent folder
 for item in os.listdir(parent_folder):
     item_path = os.path.join(parent_folder, item)
@@ -30,21 +28,8 @@ if os.path.exists(csv_file_clear):
 print("All folders deleted successfully.")
 
 # SQL DB connection
-conn = psycopg2.connect(
-    dbname="Simply_API",
-    user="postgres",
-    password="Arxidolemios39",
-    host="localhost",
-    port="5432"
-)
-cursor = conn.cursor()
 
 #Simply API connection
-url= "https://api.simplywall.st/graphql"
-headers = {
-    "Authorization": "Bearer sws:Y2VkM2QxYTEtOTA1Mi00ODY2LWIyY2MtNTgyMGFjOWZjMGQ3OmEyYWI1NGU5MDY3MzMyOTE=",
-    "Content-Type": "application/json"
-}
 
 # Define function to fetch & save data
 def fetch_data(Exchange):
