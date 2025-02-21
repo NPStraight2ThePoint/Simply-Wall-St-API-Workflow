@@ -27,17 +27,17 @@ def fetch_data(Exchange):
         # Define the CSV file
        
         # Set Loop parameters
-        max_retries = 3  # Max API retry attempts
-        base_step = 100  # Normal step size
-        offset = 0  # Start fetching from the first company
-        write_headers = True  # Write headers only on first write
+        # Max API retry attempts
+        # Normal step size
+        # Start fetching from the first company
+        # Write headers only on first write
 
         # Loop until page exceeds number of companies within the exchange
         while offset < companies_count:
-            remaining_items = companies_count - offset # Track Page - Companies ( to identify if it's the last page)
-            fetch_step = min(base_step, remaining_items)  # Normal batch size
-            failed_offset = None  # Track failed offset
-            success = False  # Track success
+            # Track Page - Companies ( to identify if it's the last page)
+            # Normal batch size
+            #Track failed offset
+            # Track success
 
             while not success:
                 try:
@@ -60,9 +60,6 @@ def fetch_data(Exchange):
                     response.raise_for_status()  # Check HTTP status
                     data = response.json()
 
-                    if data.get('data') and isinstance(data['data'].get('companies'), list):
-                        companies = data['data']['companies']
-
                         if not companies:  # No more data
                             print(f"✅ No more Tickers to fetch for {Exchange}.")
                             break
@@ -84,7 +81,7 @@ def fetch_data(Exchange):
 
                         if not error_occurred:
                             success = True
-                            last_successful_offset = offset  # ✅ Update last successful batch
+                            # ✅ Update last successful batch
 
                             # Write data to CSV
                               ....
@@ -122,10 +119,10 @@ def fetch_data(Exchange):
                         continue
 
                 print(f"🔄 Recovery complete. Resuming normal batch processing at offset {failed_offset + base_step}.")
-                offset = failed_offset + base_step  # ✅ Move to next batch after retry
+                # ✅ Move to next batch after retry
 
             else:
-                offset += fetch_step  # Move to next batch
+                # Move to next batch
                 print(f"✅ Moving to next offset {offset}.")
 
 #Exchanges = ["TWSE", "NYSE", "NasdaqCM", "NasdaqGM", "NasdaqGS"]  # List of exchanges
@@ -136,8 +133,7 @@ def fetch_data(Exchange):
 
 for Exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     # Retrieve the company count for the current exchange
-    ....
-        
+    ....   
     print(f"🚀 Starting data fetch for {Exchange}...")
     print(f"Companies count: {companies_count}")
 
@@ -146,12 +142,9 @@ for Exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     print(f"✅ Fetching complete for {Exchange}.")
     time.sleep(1)  # Sleep for 1 second to throttle requests
 
-
-
 # Define the base path where Exchange folders are located
 
 # List to store all DataFrames
-df_list = []
 
 # Loop through each exchange in the CSV
 for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
@@ -161,7 +154,7 @@ for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
     print(f"Checking: {ticker_path}")
 
     df_list = []
-    is_first_file = True  # Flag to track if it's the first file
+    # Flag to track if it's the first file
 
     # Ensure the directory exists
     if os.path.isdir(ticker_dir):
@@ -182,53 +175,18 @@ for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
 
 # Merge all DataFrames
 if df_list:
-    merged_df = pd.concat(df_list, ignore_index=True)
-    merged_df.to_csv(csv_file, index=False)
+    ...
     print(f"Merging complete! Output saved as merged_output_Exchanges_Tickers_{today}.csv")
 else:
     print("No files found for merging.")
 
 # SQL query to create the temporary table
-create_table_query = """
-    CREATE TABLE IF NOT EXISTS temp_exchanges_tickers (
-        exchange TEXT,
-        name TEXT,
-        ticker TEXT,
-        id UUID,
-        classification_status TEXT,
-        market_cap_usd NUMERIC
-    );
-"""
 
 # Execute the query to create the table
-cursor.execute(create_table_query)
-conn.commit() # Commit the changes to the database
-
-with open(csv_file, "r") as file:
-    next(file)  # Skip header row
-    cursor.copy_expert(
-        "COPY temp_exchanges_tickers (exchange, name, ticker, id, classification_status, market_cap_usd) FROM STDIN WITH CSV",
-        file
-    )
-
-cursor.execute("""
-    INSERT INTO simply_api_raw_data.exchanges_tickers (exchange, name, ticker, id, classification_status, market_cap_usd)
-    SELECT exchange, name, ticker, id, classification_status, market_cap_usd
-    FROM temp_exchanges_tickers
-    ON CONFLICT (exchange, ticker, id)
-    DO UPDATE SET 
-        classification_status = EXCLUDED.classification_status,
-        name = EXCLUDED.name,
-        market_cap_usd = EXCLUDED.market_cap_usd;
-""")
-
-conn.commit()
-
+# Import CSV to temporary table
+# Insert INTO Formal From temporary
+# ON CONFLICT ON CONSTRAINT -> DO 
 # SQL query to drop the temporary table
-
 # Commit the changes to the database
-conn.commit()
-cursor.close()
-conn.close()
 
 print("CSV imported successfully into simply_api_raw_data.exchanges_exchanges_tickers!")
