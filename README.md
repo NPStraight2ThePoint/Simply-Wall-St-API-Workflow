@@ -75,6 +75,7 @@ The project is built using:
 
 
 4. Insider Transactions
+   
 | ticker | exchange | date       | type  | owner                 | owner_type  | description                       | trade_min   | trade_max | shares | price_min | price_max | value  | pct_shares | pct_change | insider | filing_date  |
 |--------|----------|------------|-------|-----------------------|-------------|-----------------------------------|------------|------------|--------|-----------|-----------|--------|------------|------------|---------|--------------|
 | 1AD    | ASX      | 19/02/2025 | BUY   | Stuart Morris         | INDIVIDUAL  | Derivative Exercise & Retained    | 2024-06-03 | 2024-06-03 | 59.90M | 0.029999  | 0.029999  | 1.80M  | 10.06%     | 159.58%    | FALSE   | 2024-06-02   |
