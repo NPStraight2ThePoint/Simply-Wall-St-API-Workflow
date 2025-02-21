@@ -29,23 +29,25 @@ The project is built using:
      * Members for all Tickers/Exchanges
      * Owners for all Tickers/Exchanges
 
-   # Financial Analysis   
-   * Export clean data -> Stock Attribution Analysis -> Final Watchlist
-
-### 2. Data QA / SQL Procedures
+### 2. Data Quality Assurance
 
 This step ensures the quality of the data:
-- **Check for duplicate or null rows.**
+- **Check for duplicates, null rows & outliers.**
 - **Verify expected dataset state**
 - **ETL Retry Until expected state achieved**
 
+### 3. Financial Analysis   
   
-
-### 3. 'Stock' Attribution Analysis
-
 This step includes:
-- Quering data from the PostgreSQL database and store it in a formulated Excel spreadsheet.
-- Display stock rankings based on stock attributions.
+- Query clean data from the PostgreSQL DB and store it in formulated Excel spreadsheet.
+- Apply stock attribution analysis based on 5 factors
+   * Value (DCF Fair Value, PE vs Industry, Fair PE, Analyst Targets)
+   * Future (Earnings growth forecast, Revenue growth forecast, Future ROE)
+   * Past (Quality earnings, Profit Margin Growth, Earnings Trend, Growth , Earnings vs Industry)
+   * Health (Assets vs ST/LT Liabilities,D/E Ratio, Operating CF Debt coverage, EBIT Interest coverage)
+   * Dividend (Dividend Stability, Dividend Growth, Yield vs Industry vs Market, Payout Ratio, CF Coverage)
+
+
 - Filter and sort data based on stock rankings and sectors.
 
 
