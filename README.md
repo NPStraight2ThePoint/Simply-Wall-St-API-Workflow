@@ -86,11 +86,12 @@ The project is built using:
 
 5. Financial Indicators
 
-| Ticker | Exchange | Date       | Dividends_CoveredByFCF|.....| Future_ExpectedRevenueGrowthAboveMarket|.....| Health_STLiabilitiesCover            |.....| Past_HighQualityPastEarnings| Value_1YearReturnInLineOrAboveIndustry|   
-| A1N    | ASX      | 19/02/2025 | No FCF for dividends  |-----| 5.7% < Market (6%)                     |-----|Assets(A$98.7M)>Liabilities(A$81.7M)  |.....| Unprofitable                | Underperformed Media (-21%)           |
-| A2B    | ASX      | 19/02/2025 | No FCF for dividends  |-----| Insufficient Data                      |-----|Assets(A$142.3M)>Liabilities(A$110.3M)|.....| High Non-Cash Earnings      | Outperformed Transportation (-16.3%)  |
-| A2M    | ASX      | 19/02/2025 | 47% payout, covered   |-----| 7.1% > Market (6%)                     |-----|Assets(NZ$1.4B)>Liabilities(NZ$473.9M)|.....| High-Quality Earnings       | Outperformed Food (8.8%)              |
-| AAI    | ASX      | 19/02/2025 | No notable dividend   |-----| 2.2% < Market (6%)                     |-----|Assets($4.9B)>Liabilities($3.4B)      |.....| One-off $341M loss          | Insufficient Data                     |
+| Ticker | Exchange | Date       | Dividends_CoveredByFCF|.....| Future_ExpectedRevenueGrowthAboveMarket|.....| Health_STLiabilitiesCover            |.....| Past_HighQualityPastEarnings|.....| Value_1YearReturnInLineOrAboveIndustry|
+|--------|-----------------------|-----------------------|-----|----------------------------------------|-----|------------------------------------- |-----|-----------------------------|-----|---------------------------------------|
+| A1N    | ASX      | 19/02/2025 | No FCF for dividends  |-----| 5.7% < Market (6%)                     |-----|Assets(A$98.7M)>Liabilities(A$81.7M)  |.....| Unprofitable                |.....| Underperformed Media (-21%)           |
+| A2B    | ASX      | 19/02/2025 | No FCF for dividends  |-----| Insufficient Data                      |-----|Assets(A$142.3M)>Liabilities(A$110.3M)|.....| High Non-Cash Earnings      |.....| Outperformed Transportation (-16.3%)  |
+| A2M    | ASX      | 19/02/2025 | 47% payout, covered   |-----| 7.1% > Market (6%)                     |-----|Assets(NZ$1.4B)>Liabilities(NZ$473.9M)|.....| High-Quality Earnings       |.....| Outperformed Food (8.8%)              |
+| AAI    | ASX      | 19/02/2025 | No notable dividend   |-----| 2.2% < Market (6%)                     |-----|Assets($4.9B)>Liabilities($3.4B)      |.....| One-off $341M loss          | ....| Insufficient Data                     |
 
 
    
