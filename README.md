@@ -62,15 +62,16 @@ The project is built using:
 | ...      | ...                      | ...    | ...                                    | ...                   | ...              |
 
 3. Company Info
-| id       | date       | exchange | ticker | name                        | market_cap | primary_industry       | secondary        | tertiary             | country   | iso2 |
-|----------|------------|----------|--------|-----------------------------|------------|------------------------|------------------|--------------------- |-----------|------|
-| 70e51eb9 | 19/02/2025 | ASX      | 14D    | 1414 Degrees                | 4.35M      | Capital Goods          | Electrical       | Components & Equip   | Australia | AU   |
-| 867e8678 | 19/02/2025 | ASX      | 1AD    | AdAlta                      | 6.42M      | Pharma & Biotech       | Biotechs         | Biotechnology        | Australia | AU   |
-| ab60d5fb | 19/02/2025 | ASX      | 1AE    | Aurora Energy Metals        | 6.03M      | Materials              | Metals & Mining  | Diversified Metals   | Australia | AU   |
-| 1794b0ff | 19/02/2025 | ASX      | 1AG    | Alterra                     | 2.80M      | Food & Beverage        | Food             | Agricultural Products| Australia | AU   |
-| c6c4adb8 | 19/02/2025 | ASX      | 1AI    | Algorae Pharma              | 6.44M      | Pharma & Biotech       | Biotechs         | Biotechnology        | Australia | AU   |
-| ac5900dd | 19/02/2025 | ASX      | 1CG    | One Click Group             | 8.99M      | Commercial Services    | Prof. Services   | Research & Consulting| Australia | AU   |
-| 24c54267 | 19/02/2025 | ASX      | 1GOV   | Vaneck 1-5Y Aus Gov Bond ETF| 0          | Financials             | Capital Markets  | Asset Mgmt & Custody | Australia | AU   |
+| id       | date       | exchange | ticker | name                        | market_cap | primary_industry       | secondary         | tertiary              | country   | iso2 |
+|----------|------------|----------|--------|-----------------------------|------------|------------------------|------------------|-----------------------|-----------|------|
+| 70e51eb9 | 19/02/2025 | ASX      | 14D    | 1414 Degrees                | 4.35M      | Capital Goods          | Electrical       | Components & Equip    | Australia | AU   |
+| 867e8678 | 19/02/2025 | ASX      | 1AD    | AdAlta                      | 6.42M      | Pharma & Biotech       | Biotechs         | Biotechnology         | Australia | AU   |
+| ab60d5fb | 19/02/2025 | ASX      | 1AE    | Aurora Energy Metals        | 6.03M      | Materials              | Metals & Mining  | Diversified Metals    | Australia | AU   |
+| 1794b0ff | 19/02/2025 | ASX      | 1AG    | Alterra                     | 2.80M      | Food & Beverage        | Food             | Agricultural Products | Australia | AU   |
+| c6c4adb8 | 19/02/2025 | ASX      | 1AI    | Algorae Pharma              | 6.44M      | Pharma & Biotech       | Biotechs         | Biotechnology         | Australia | AU   |
+| ac5900dd | 19/02/2025 | ASX      | 1CG    | One Click Group             | 8.99M      | Commercial Services    | Prof. Services   | Research & Consulting | Australia | AU   |
+| 24c54267 | 19/02/2025 | ASX      | 1GOV   | Vaneck 1-5Y Aus Gov Bond ETF| 0          | Financials             | Capital Markets  | Asset Mgmt & Custody  | Australia | AU   |
+
 
 4. Insider Transactions
 | ticker | exchange | date       | type  | owner                 | owner_type  | description                       | trade_min   | trade_max | shares | price_min | price_max | value  | pct_shares | pct_change | insider | filing_date  |
