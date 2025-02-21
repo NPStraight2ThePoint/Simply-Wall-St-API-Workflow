@@ -33,27 +33,22 @@ The project is built using:
   - Validate **expected vs actual** data → Retry ETL if needed.  
   - Validate expected state and load to formal tables.  
 
-### 2. Financial Analysis & Insights
-
-### 3. Financial Analysis   
+### 2. Financial Analysis   
   
-This step includes:
-- Query clean data from the PostgreSQL DB and store it in formulated Excel spreadsheet.
-- Apply stock attribution analysis based on 5 factors
-   * Value (DCF Fair Value, PE vs Industry, Fair PE, Analyst Targets)
-   * Future (Earnings growth forecast, Revenue growth forecast, Future ROE)
-   * Past (Quality earnings, Profit Margin Growth, Earnings Trend, Growth , Earnings vs Industry)
-   * Health (Assets vs ST/LT Liabilities,D/E Ratio, Operating CF Debt coverage, EBIT Interest coverage)
-   * Dividend (Dividend Stability, Dividend Growth, Yield vs Industry vs Market, Payout Ratio, CF Coverage)
+  - Query structured data from PostgreSQL DB and store it in formulated Excel spreadsheet.
+  - Apply stock attribution analysis based on 5 factors :
+     * Value (DCF Fair Value, PE vs Industry, Fair PE, Analyst Targets)
+     * Future (Earnings growth forecast, Revenue growth forecast, Future ROE)
+     * Past (Quality earnings, Profit Margin Growth, Earnings Trend, Growth , Earnings vs Industry)
+     * Health (Assets vs ST/LT Liabilities,D/E Ratio, Operating CF Debt coverage, EBIT Interest coverage)
+     * Dividend (Dividend Stability, Dividend Growth, Yield vs Industry vs Market, Payout Ratio, CF Coverage)
 
-- Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility & Sharpe Ratio
+  - Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility & Sharpe Ratio.
 
 ### 5. Visualization
 - **Power BI Insights**.
 - Generate interactive **dashboards & reports**.
    
-
-
 ## Data
 * All Exchanges(130+) & Company counts(150K+)
 * All Tickers under all Exchanges(150K+)
