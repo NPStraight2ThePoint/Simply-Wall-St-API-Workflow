@@ -21,8 +21,6 @@ print("All folders deleted successfully.")
 # Simply API setup
 
 # Opt-in to the future behavior to silence the warning
-
-
 # Read the CSV file
 # Replace with your actual file path
 
@@ -46,9 +44,9 @@ for Exchange in df1["exchange"].dropna().unique():  # Exclude NaN values
 
     while offset < companies_count:
         remaining_items = companies_count - offset
-        fetch_step = min(base_step, remaining_items)  # Normal batch size
-        failed_offset = None  # Track failed offset
-        success = False  # Track success
+         # Normal batch size
+         # Track failed offset
+         # Track success
 
         while not success:
             try:
@@ -105,12 +103,8 @@ for Exchange in df1["exchange"].dropna().unique():  # Exclude NaN values
                     break  # Trigger incremental retry
 
                 # Convert to DataFrame and append to CSV
-                df = pd.DataFrame(flattened_data)
-                df.to_csv(csv_file, mode='a', index=False, header=write_headers)
-
+            
                 # Ensure headers are written only once
-                write_headers = False
-
                 print(f"✅ Company_Info Data for offset {offset}, limit {fetch_step} written to '{csv_file}' successfully.")
 
                 # Update offset tracking
@@ -168,43 +162,25 @@ for Exchange in df1["exchange"].dropna().unique():  # Exclude NaN values
             print(f"🔄 Recovery complete. Resuming normal batch processing at offset {failed_offset + base_step}.")
             offset = failed_offset + base_step
 
-
-#df = pd.read_csv(f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Exchanges & Counts/Exchanges_Companies {today}.csv')
-df = pd.read_csv(
-    f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Exchanges & Counts/Exchanges_Companies {today}.csv',
-    dtype={"ticker_symbol": str},  # Ensures ticker_symbol is read as a string
-    keep_default_na=False  # Prevents "NA" from being treated as NaN
-)
 # Define the base path where Exchange folders are located
-base_path = f"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Company_Info"  # Update this with your actual base directory
-
 # List to store all DataFrames
-df_list = []
 
 # Loop through each exchange in the CSV
-#for exchange in df["exchange"]:
 for exchange in df["exchange"].dropna().unique():  # Exclude NaN values
-
-    ticker_dir = os.path.join(base_path, exchange)  # Exchange folder path
-    file_name = f"{exchange}_Tickers_{today}.csv"
-    ticker_path = os.path.join(ticker_dir, file_name)  # Full file path
+    
+    # Exchange folder path
+    # Full file path
 
     print(f"Checking: {ticker_path}")
-
     # Ensure the directory exists
-    if os.path.isdir(ticker_dir):
-        # Ensure the file exists before trying to read
-        if os.path.isfile(ticker_path):
-            temp_df = pd.read_csv(ticker_path,dtype={"ticker_symbol": str},  # Ensures ticker_symbol is read as a string
-            keep_default_na=False)  # Prevents "NA" from being treated as NaN
-
-            #temp_df["Exchange"] = exchange  # Add exchange column for reference
-            df_list.append(temp_df)
+     # Ensure the file exists before trying to read
+       # Ensures ticker_symbol is read as a string
+         # Prevents "NA" from being treated as NaN
+          # Add exchange column for reference     
         else:
             print(f"File not found: {ticker_path}")  # Debugging message
     else:
         print(f"Directory not found: {ticker_dir}")  # Debugging message
-
 # Merge all DataFrames
     print(f"Merging complete! Output saved as merged_output_Company_Info_{today}.csv")
 else:
