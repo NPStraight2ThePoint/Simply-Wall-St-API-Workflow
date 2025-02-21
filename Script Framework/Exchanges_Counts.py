@@ -1,4 +1,4 @@
-# Retreive All exchanges & their Company_Count
+# Framework for retreiving All exchanges & their Company_Count
 
 import requests
 import pandas as pd
