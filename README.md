@@ -15,23 +15,23 @@ The project is built using:
 ## 🔹 Workflow Overview
 
 ### 1. ETL Process
-    *  Extract 
-       - **API** Connection & data fetch.
-       - Optimised **batch queries** for large datasets.
-       - **Error handling** (Exponential backoff, incremental batch retries) to streamline process.
-  
-    * Transform 
-      - **JSON → DataFrame → Flattened DataFrame → CSV **.
-      - * Merge/Transform CSV's->Joined CSV (**API2SQL ETL  Mapping**)
 
-    * Load (SQL Database Storage)   
+* **Extract**  
+  - **API** Connection & data fetch.  
+  - Optimized **batch queries** for large datasets.  
+  - **Error handling** (Exponential backoff, incremental batch retries) to streamline the process.  
 
-      - Insert data into **temporary tables**
-      - Conflict/Constraint handling
-      - Remove **nulls, duplicates, and invalid entries**.
-      - Flag **out-of-tolerance** data.
-      - Validate **expected vs actual** data -> Retry ETL if needed 
-      - Validate expected state and load to formal tables
+* **Transform**  
+  - **JSON → DataFrame → Flattened DataFrame → CSV**.  
+  - *Merge/Transform CSVs → Joined CSV* (**API2SQL ETL Mapping**).  
+
+* **Load (SQL Database Storage)**  
+  - Insert data into **temporary tables**.  
+  - Conflict/Constraint handling.  
+  - Remove **nulls, duplicates, and invalid entries**.  
+  - Flag **out-of-tolerance** data.  
+  - Validate **expected vs actual** data → Retry ETL if needed.  
+  - Validate expected state and load to formal tables.  
 
 ### 2. Financial Analysis & Insights
 
