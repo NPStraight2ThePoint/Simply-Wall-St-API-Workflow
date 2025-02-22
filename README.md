@@ -45,7 +45,7 @@ The project is built using:
      * Dividend (Dividend Stability, Dividend Growth, Yield vs Industry vs Market, Payout Ratio, CF Coverage)
   - Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility & Sharpe Ratio.
 
-### 3. Visualization
+### 3. Power BI Visualization
 - **Holdings Report**.
 - **Sector Exposure**.
    
