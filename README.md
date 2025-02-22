@@ -46,8 +46,8 @@ The project is built using:
   - Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility & Sharpe Ratio.
 
 ### 3. Visualization
-- **Power BI Insights**.
-- Generate interactive **dashboards & reports**.
+- **Holdings Report**.
+- **Sector Exposure**.
    
 ## Data
 * All Exchanges(130+) & Company counts(150K+)
