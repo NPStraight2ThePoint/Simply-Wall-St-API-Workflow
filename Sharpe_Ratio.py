@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
+from scipy.optimize import minimize
 
-# Load data from the Excel file
+# Load data from the Excel file / 3-Year Adjusted closes from Yahoo Finance API
 df = pd.read_excel("ASX Pricing 20.xlsx", index_col=0, parse_dates=True)
 
 # Calculate daily returns
@@ -41,7 +42,6 @@ def neg_sharpe(w, exp_ret, cov_matrix):
     return -port_return / port_volatility
 
 # Optimization to maximize Sharpe ratio
-from scipy.optimize import minimize
 
 result = minimize(neg_sharpe, init_weights, args=(expected_returns, cov_matrix),
                   method='SLSQP', bounds=bounds, constraints=constraints)
