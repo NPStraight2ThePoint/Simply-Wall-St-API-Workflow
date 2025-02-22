@@ -1,8 +1,8 @@
 # 📈 Data Pipeline - Summary
 
 ## 🚀 Overview
-This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes/cleans and stores the data in a PostgreSQL database. It then performs Financial analysis based on stock attributions (Value,Future,Past,Dividend,Health) and outputs a stock ranking list based on the attributions.
-A Sharpe Ratio optimisation will be applied in the final 'Winners' to derive optimal weights.
+This repository demonstrates the creation of a data pipeline that retrieves financial data from the **Simply Wall St API**, processes/cleans and stores the data in a PostgreSQL database. It then performs Financial analysis based on 5 stock attributions (Value,Future,Past,Dividend,Health) and outputs a stock ranking list based on the attributions.
+A Sharpe Ratio optimisation is then applied for the final 'Winners' to derive optimal weights.
 Final results are being visualised in Power BI **Holdings Report , Sector Exposure**
 
 The project is built using:
