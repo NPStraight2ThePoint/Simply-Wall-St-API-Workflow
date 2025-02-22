@@ -131,7 +131,6 @@ To better understand the pipeline, here are visual representations:
 ### 📝 ETL Workflow
 ![ETL Workflow](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/1st.png)
 ![ETL Workflow2](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/2nd.png)
-![ETL Workflow3](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/page-3.png)
 ![ETL Workflow4](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/3.png)
 
 ---
