@@ -7,7 +7,7 @@ Final results are being visualised in Power BI.
 The project is built using:
 - **Python**
 - **PostgreSQL**
-- **Pandas**
+- **Pandas/Scipy/Numpy**
 - **Excel**
 - **Simply Wall St API**
 - **Power BI**
@@ -44,6 +44,7 @@ The project is built using:
      * Health (Assets vs ST/LT Liabilities,D/E Ratio, Operating CF Debt coverage, EBIT Interest coverage)
      * Dividend (Dividend Stability, Dividend Growth, Yield vs Industry vs Market, Payout Ratio, CF Coverage)
   - Stock filtering based on attribution Rankings, Sectors, Market Caps, Expected Returns,Volatility & Sharpe Ratio.
+  - Sharpe Ratio Maximise via Numpy/Scipy for optimal weight allocation 📥 **[Script Framework](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Script%20Framework/Sharpe_Ratio%20Maximise.py)**
 
 ### 3. Power BI Visualization
 - **Holdings Report**.
