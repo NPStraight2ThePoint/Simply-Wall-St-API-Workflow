@@ -9,7 +9,7 @@ The goal of this ETL Pipeline is to:
 
 ### Tools and Technologies
 - **Python**  
-  Libraries: `pandas`, `regex`
+  Libraries: `pandas`
 - **PostgreSQL**
 - **Simply Wall St API**
 
