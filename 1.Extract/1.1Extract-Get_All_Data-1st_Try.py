@@ -129,7 +129,7 @@ query = """
 
 # Function to fetch data from SWS API
 def fetch_data(exchange, offset, limit, max_retries=3, backoff_factor=1):
-    # Simply API setup
+    # API setup
     .............
     variables = {"exchange": exchange, "limit": limit, "offset": offset}
 
@@ -148,7 +148,7 @@ def fetch_data(exchange, offset, limit, max_retries=3, backoff_factor=1):
         logging.error(f"❌ {exchange},{start},{end} Request failed: {e}")
         # !!!!Log Tracking Here!!!!
         append_to_csv(
-            '....../Log.csv',
+            'C:/.../Log.csv',
             exchange, start, end)
         return []
 
@@ -172,7 +172,7 @@ def process_and_save_data(exchange, offset, fetch_step, today):
     if not companies:
         print(f"❌ {exchange},{start},{end} No companies found, moving to next batch...")
         # !!!!Log Tracking Here!!!!
-        append_to_csv('C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Data/7.Log/Log.csv', exchange, start, end)
+        append_to_csv('C:/.../Log.csv', exchange, start, end)
         return offset + fetch_step
 
     listings_data = []
@@ -280,7 +280,7 @@ def process_and_save_data(exchange, offset, fetch_step, today):
             except Exception as e:
                 logging.error(f"Error processing member data for {ticker}: {str(e)}")
 
-    base_path = f"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Data/1.Try"
+    base_path = f"C:/.../Data/1.Try"
     # Create a folder for the exchange if it doesn't exist
     exchange_folder = os.path.join(base_path, exchange)
     create_directory(exchange_folder)
@@ -298,7 +298,7 @@ def main_loop():
     today = datetime.now().replace(day=1)
     today = today.strftime("%Y-%m-%d")
 
-    df = pd.read_csv(f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Data/4.Exchanges_Counts/Exchanges_Companies {today}.csv')
+    df = pd.read_csv(f'C:/.../Data/4.Exchanges_Counts/Exchanges_Companies {today}.csv')
 
     step_counter = 0
 
@@ -317,17 +317,17 @@ def main_loop():
 
 main_loop()
 
-df = pd.read_csv('C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Data/7.Log/Log.csv')
+df = pd.read_csv('C:/.../Data/7.Log/Log.csv')
 df_cleaned = df.drop_duplicates()
-df_cleaned.to_csv('C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Data/7.Log/Log.csv', index=False)
+df_cleaned.to_csv('C:/.../Data/7.Log/Log.csv', index=False)
 
 print("Duplicate rows removed and saved to 'Log.csv'")
 
 today = datetime.now().replace(day=1)
 today = today.strftime("%Y-%m-%d")
 
-csv_file = 'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Data/7.Log/Log.csv'
-exchanges_file = f'C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Data/4.Exchanges_Counts/Exchanges_Companies {today}.csv'
+csv_file = 'C:/.../Data/7.Log/Log.csv'
+exchanges_file = f'C:/.../Data/4.Exchanges_Counts/Exchanges_Companies {today}.csv'
 
 df = pd.read_csv(csv_file, header=None, names=['exchange', 'column2', 'column3'])
 exchanges_df = pd.read_csv(exchanges_file, names=['index_date', 'exchange', 'company_count'])
@@ -345,6 +345,6 @@ for i, row in df.iterrows():
         if row['column3'] > company_count:
             df.at[i, 'column3'] = company_count
 
-df.to_csv('C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/1.2 SimplyAPI_SQL_Pipeline/Data/7.Log/Log.csv', index=False, header=False)
+df.to_csv('C:/.../Data/7.Log/Log.csv', index=False, header=False)
 
 print("CSV file updated successfully.")
