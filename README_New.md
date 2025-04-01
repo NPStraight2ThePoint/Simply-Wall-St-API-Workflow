@@ -1,52 +1,73 @@
-# 📈 SWS API ETL Pipeline - Summary
+# 📈 SWS API ETL Pipeline
 
 ## 🚀 Overview
 
-The goal of this ETL Pipeline is to 
-- Retreive all available data for all exchanges/companies from SWS API.
-- Transform & extract all valuable info into readable form.
-- Store the clean data into a PostgreSQL DB.
+The goal of this ETL Pipeline is to:
+- Retrieve all available data for all exchanges/companies from the **SWS API**.
+- Transform and extract valuable information into a readable format.
+- Store the clean data into a **PostgreSQL** database.
 
-The project is built using:
-- **Python**
-    Libraries : pandas, regex
+### Tools and Technologies
+- **Python**  
+  Libraries: `pandas`, `regex`
 - **PostgreSQL**
 - **Simply Wall St API**
 
-## 🔹 
+---
 
-### 1. ETL Process
+## 🔹 ETL Process
 
-* **Extract**  
-  - **SWS API** Connection & data fetch.
-                1.Exchanges & Counts
-                2.Listings, Statements, Members, Owners, Insider Transactions
-                          🔹1st Try Pagination Step 30 (Initial Retreival with max step)
-                          🔹2nd Try Pagination Step 1  (Second Retreival with step 1 to identify failed items)
-                          🔹3rd Try Pagination Step 1  (Final Retreival with step 1 to eliminate the possibility of a HTTP error)
+### 1. **Extract**
+- **SWS API Connection & Data Fetch**  
+  The extraction process involves connecting to the **SWS API** and retrieving data for the following:
+  - Exchanges & Counts
+  - Listings, Statements, Members, Owners, Insider Transactions
 
-* **Transform**  
-  - Transform data for SQL Import
-               1. Convert json responses into flattened dataframes based on data category
-               2. Save flattened dataframes in CSV's
-               3. Merge CSV'S
-               4. Special Handling :
-                         🔹Statements : Transpose rows to columns (API default response had indicators in rows so a transpose is required to match the DB table schema)
-                         🔹 Insider_Transactions : 2nd ETL (To identify new unique data due to API response structure and lack of unique identifiers)
-    
-* **Pre Load QA** 
- - Count received vs expected data points , Log errors and final data points to be imported into SQL DB
-   
-* **Load** 
- -  Import data into SQL DB
-   
-* **Post Load QA**    
--   Transform Tickers/Exchanges to Uppercase
--   Delete Duplicate rows
--   Drop Temporary tables
--   Compare data points in DB vs what was expected to be imported to ensure data consistency & integrity
--   Lock data
--   Backup DB
+**Pagination Strategy:**
+  - **1st Try**: Use **Pagination Step 30** for the initial retrieval with the maximum step size.
+  - **2nd Try**: Use **Pagination Step 1** for the second retrieval to identify any failed items.
+  - **3rd Try**: Use **Pagination Step 1** for the final retrieval to eliminate potential HTTP errors.
+
+---
+
+### 2. **Transform**
+- **Transform Data for SQL Import**
+  1. Convert **JSON responses** into flattened dataframes based on the data category.
+  2. Save flattened dataframes as **CSV files**.
+  3. Merge the **CSV files** into a single dataset for easy import.
+  4. **Special Handling**:
+     - **Statements**: Transpose rows to columns (API's default response has indicators in rows, so a transpose is required to match the DB table schema).
+     - **Insider Transactions**: Conduct a second ETL to identify new, unique data due to API response structure and lack of unique identifiers.
+
+---
+
+### 3. **Pre-Load QA**
+- Count **received** vs **expected** data points.
+- Log **errors** and ensure all data points are ready to be imported into the SQL database.
+
+---
+
+### 4. **Load**
+- Import data into the **PostgreSQL database**.
+
+---
+
+### 5. **Post-Load QA**
+- **Data Cleanup and Integrity Check**:
+  - Transform **tickers** and **exchanges** to uppercase for consistency.
+  - Delete **duplicate rows** to maintain data quality.
+  - Drop **temporary tables** used for intermediate processing.
+  - Compare **data points in the DB** against the expected imported data to ensure consistency and integrity.
+- **Lock Data**: Finalize the data to prevent further changes.
+- **Backup DB**: Ensure a backup of the database is made after the load process.
+
+---
+
+## ⚙️ Installation and Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/SWS-API-ETL-Pipeline.git
 
 
 
