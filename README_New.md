@@ -63,11 +63,5 @@ The goal of this ETL Pipeline is to:
 
 ---
 
-## ⚙️ Installation and Setup
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/SWS-API-ETL-Pipeline.git
-
 
 
