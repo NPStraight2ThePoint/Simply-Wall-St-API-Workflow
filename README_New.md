@@ -5,7 +5,7 @@
 The goal of this ETL Pipeline is to:
 - Retrieve all available data for all exchanges/companies from the **SWS API**.
 - Transform and extract valuable information into a readable format.
-- Store the clean data into a **PostgreSQL** database.
+- Store clean data into a **PostgreSQL** database.
 
 ### Tools and Technologies
 - **Python**  
@@ -20,8 +20,8 @@ The goal of this ETL Pipeline is to:
 ### 1. **Extract**
 - **SWS API Connection & Data Fetch**  
   The extraction process involves connecting to the **SWS API** and retrieving data for the following:
-  - Exchanges & Counts
-  - Listings, Statements, Members, Owners, Insider Transactions
+  - Exchanges & Company counts
+  - Company Info, Financial Data, Management, Major Shareholders, Insider Transactions
 
 **Pagination Strategy:**
   - **1st Try**: Use **Pagination Step 30** for the initial retrieval with the maximum step size.
