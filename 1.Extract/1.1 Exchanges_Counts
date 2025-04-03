@@ -1,0 +1,17 @@
+import os
+from pathlib import Path
+import requests
+from datetime import datetime
+from env_utils import url, headers, query_exchanges
+from data_flattening_utils import flatten_and_save_csv
+from dir_utils import TODAY,EXCHANGES_CSV_PATH
+
+# Fetch the data
+response = requests.post(url, headers=headers, json={"query": query_exchanges})
+data = response.json()
+
+# Get the exchange data
+statements = data.get('data', {}).get('exchanges', [])
+
+# Main function to flatten and save the CSV
+flatten_and_save_csv(statements, EXCHANGES_CSV_PATH, TODAY)
