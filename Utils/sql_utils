@@ -1,0 +1,141 @@
+import pandas as pd
+from pathlib import Path
+from env_utils import *
+from sqlalchemy import create_engine, text
+from datetime import datetime
+
+def update_columns_to_uppercase(db_params, table_name):
+    try:
+        # Get today's date in 'YYYY-MM-DD' format
+        today = datetime.now().replace(day=1).strftime("%Y-%m-%d")
+
+        # Create the SQLAlchemy engine with provided database parameters
+        connection_string = f"postgresql://{db_params['username']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['database']}"
+        engine = create_engine(connection_string)
+
+        # Define the query to update the 'exchange' and 'ticker' columns to uppercase
+        query = f"""
+            UPDATE {table_name} 
+            SET exchange = UPPER(exchange), 
+                ticker = UPPER(ticker)
+            WHERE exchange IS NOT NULL 
+                AND ticker IS NOT NULL
+                AND date = '{today}';
+        """
+
+        # Execute the query
+        with engine.connect() as conn:
+            result = conn.execute(text(query))
+
+            # Commit the transaction (SQLAlchemy will auto-commit for DML queries, but you can call commit explicitly if needed)
+            conn.commit()
+
+            # Print the number of rows updated
+            print(f"✅ {result.rowcount} rows updated to uppercase in {table_name} where date = {today}.")
+
+    except Exception as e:
+        print(f"❌ Error executing query: {e}")
+
+
+
+def load_temp_SQL(directory, file_rules, db_connection):
+    """
+    Processes CSV files in the specified directory based on the provided rules.
+    :param directory: The base directory containing subdirectories with CSV files.
+    :param file_rules: A list of dictionaries defining rules for processing files.
+    :param db_connection: The SQLAlchemy engine or connection string for SQL insertion.
+    """
+    for root, dirs, files in os.walk(directory):
+        if root == directory:
+            continue
+        for file in files:
+            for rule in file_rules:
+                if rule["keyword"] in file.lower() and file.lower().endswith(".csv"):
+                    file_path = os.path.join(root, file)
+                    print(f"Processing: {file_path}")
+                    try:
+                        df = pd.read_csv(file_path, parse_dates=["date"], dayfirst=False)
+                        for column in rule["columns"]:
+                            if column in df.columns:
+                                df[column] = df[column].astype(str).str.upper()
+                            else:
+                                print(f"⚠️ Column '{column}' not found in {file}. Skipping uppercase conversion.")
+                        for col in df.select_dtypes(include=['object']).columns:
+                            df[col] = df[col].astype(str).str.lower()
+
+                        # Use SQLAlchemy engine for insertion
+                        df.to_sql(rule["table"], db_connection, if_exists="append", index=False)
+                        print(f"✅ Successfully inserted: {file} into {rule['table']}")
+                    except Exception as e:
+                        print(f"❌ Error processing {file}: {e}")
+
+
+import pandas as pd
+from sqlalchemy import create_engine
+from pathlib import Path
+
+def fetch_and_save_data(db_params, exchanges, table_mappings, NEW_DATA, EXISTING_DATA):
+    """
+    Fetches data from specified tables based on exchange values and saves them as CSV files.
+    :param db_params: Dictionary containing database connection parameters.
+    :param exchanges: List of exchange codes to filter data.
+    :param table_mappings: List of tuples (table_name, file_name) defining source tables and output filenames.
+    :param NEW_DATA: Directory where new data will be saved.
+    :param EXISTING_DATA: Directory for existing data.
+    """
+    try:
+        # Create SQLAlchemy engine
+        connection_string = f"postgresql://{db_params['username']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['database']}"
+        engine = create_engine(connection_string)
+
+        for exchange in exchanges:
+            if exchange == 'NaN' or pd.isna(exchange):  # Skip NaN or 'NaN' exchanges
+                print(f"❌ Skipping invalid exchange value: {exchange}")
+                continue
+
+            for table_name, file_name in table_mappings:
+                query = f"SELECT * FROM {table_name} WHERE exchange = %s"
+                exchange_data = pd.read_sql(query, engine, params=(exchange,))
+
+                # Determine appropriate folder based on the table
+                output_folder = Path(NEW_DATA if table_name == "insider_transactions_uat" else EXISTING_DATA) / exchange
+                output_folder.mkdir(parents=True, exist_ok=True)
+
+                # Save data to CSV
+                file_path = output_folder / f"{file_name}_{exchange}.csv"
+                exchange_data.to_csv(file_path, index=False)
+                print(f"✅ Saved {file_path}")
+    except Exception as e:
+        print(f"❌ Error fetching and saving data: {e}")
+
+
+def update_multiple_tables_to_uppercase(db_params):
+    try:
+        # Get today's date (1st of the month)
+        today = datetime.now().replace(day=1).strftime("%Y-%m-%d")
+
+        # Create the SQLAlchemy engine
+        connection_string = f"postgresql://{db_params['username']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['database']}"
+        engine = create_engine(connection_string)
+
+        # Define the queries with placeholders for today
+        queries = [
+            f"UPDATE exchanges_counts SET exchange = UPPER(exchange) WHERE index_date = '{today}';",
+            f"UPDATE listings SET exchange_symbol = UPPER(exchange_symbol), ticker_symbol = UPPER(ticker_symbol) WHERE date = '{today}';",
+            f"UPDATE insider_transactions SET exchange = UPPER(exchange), ticker = UPPER(ticker) WHERE date = '{today}';",
+            f"UPDATE members SET exchange = UPPER(exchange), ticker = UPPER(ticker) WHERE date = '{today}';",
+            f"UPDATE owners SET exchange = UPPER(exchange), ticker = UPPER(ticker) WHERE date = '{today}';",
+            f"UPDATE statements SET exchange = UPPER(exchange), ticker = UPPER(ticker) WHERE date = '{today}';"
+        ]
+
+        with engine.connect() as conn:
+            for query in queries:
+                print(f"Running: {query.strip()}")
+                result = conn.execute(text(query))
+                print(f"✅ {result.rowcount} rows updated.")
+            conn.commit()
+
+        print("🎉 All updates completed successfully.")
+
+    except Exception as e:
+        print(f"❌ Error executing queries: {e}")
