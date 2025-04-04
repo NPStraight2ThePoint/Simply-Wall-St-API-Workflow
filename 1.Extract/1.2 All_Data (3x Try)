@@ -1,7 +1,7 @@
 from core_pipeline import run_pipeline, run_pipeline2
 from datetime import datetime
 import os
-from dir_utils import EXCHANGES_CSV_PATH, TODAY , BASE_DIRECTORIES, LOG_PATH
+from dir_utils import *
 import pandas as pd
 
 step1 = 30
