@@ -1,0 +1,23 @@
+import csv
+import os
+
+# Function to append csv
+def append_to_csv(file_path, exchange, start, end):
+    with open(file_path, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([exchange, start, end])
+    print(f"Appended to CSV: {exchange}, {start}, {end}")
+
+# ===================================================================================================================
+# Function to save csv
+def save_to_csv(data, csv_file):
+    if not data:
+        print(f"No data to save for {csv_file}.")
+        return
+    write_headers = not os.path.exists(csv_file)
+    mode = "w" if write_headers else "a"
+    with open(csv_file, mode=mode, newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=data[0].keys())
+        if write_headers:
+            writer.writeheader()
+        writer.writerows(data)
