@@ -10,6 +10,7 @@ from sql_utils import *
 
 exchanges_df = pd.read_csv(EXCHANGES_CSV_PATH)
 EXCHANGES = exchanges_df["exchange"].unique().tolist()
+print(EXCHANGES)
 TODAY = datetime.now().replace(day=1).strftime("%Y-%m-%d")
 
 def main():
@@ -31,4 +32,5 @@ def main():
 # 📌
 if __name__ == "__main__":
     main()
+
 
