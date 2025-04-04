@@ -1,0 +1,85 @@
+from sqlalchemy import create_engine
+from env_utils import *
+from sql_utils import *
+from qa_utils import *
+from datetime import datetime
+
+# Define deduplication rules for each table
+dedup_rules = [
+    {
+        "table": "listings",
+        "partition_columns": ["id"]
+    },
+    {
+        "table": "members",
+        "partition_columns": ["ticker", "exchange", "name", "title"],
+        "priority_order": """
+            (CASE WHEN compensation IS NULL THEN 1 ELSE 0 END +
+             CASE WHEN tenure IS NULL THEN 1 ELSE 0 END +
+             CASE WHEN age IS NULL THEN 1 ELSE 0 END) DESC,
+             (CASE WHEN tenure IS NULL THEN 1 ELSE 0 END) DESC,
+             (CASE WHEN compensation IS NULL THEN 1 ELSE 0 END) DESC,
+             (CASE WHEN age IS NULL THEN 1 ELSE 0 END) DESC
+        """
+    },
+    {
+        "table": "owners",
+        "partition_columns": ["ticker", "exchange", "owner_name", "date"]
+    },
+    {
+        "table": "statements",
+        "partition_columns": ["exchange", "ticker"]
+    }
+]
+
+# Set TODAY to current date
+TODAY = datetime.today().strftime('%Y-%m-%d')
+
+# Database connection details
+db_params = {
+    'username': '*****',
+    'password': '*****',  # Update this with your password if necessary
+    'host': '*****',
+    'port': '*****',
+    'database': '*****'
+}
+
+db_params2 = {
+    'dbname': '*****',
+    'user': '*****',
+    'password': '*****',
+    'host': '*****',
+    'port': '*****'
+}
+
+# Establish a SQLAlchemy engine (consistent with the rest of the code)
+engine = create_engine(f"postgresql+psycopg2://{db_params['username']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['database']}")
+
+def main():
+    try:
+        # Step 1: Update multiple tables to uppercase
+        update_multiple_tables_to_uppercase(db_params)
+
+        # Step 2: Run deduplication queries
+        for rule in dedup_rules:
+            run_deduplication_query(
+                db_params=db_params,
+                table_name=rule["table"],
+                partition_columns=rule["partition_columns"],
+                priority_order=rule.get("priority_order")  # optional
+            )
+
+        # Step 3: Delete all records from insider_transactions_uat
+        delete_data_from_table(db_params)
+
+        # Step 4: Export and compare data
+        output_file = EOM_Rec_File  # Define this path
+
+        export_and_compare_data(TODAY, output_file, Transposed_Rec_File, db_params2)
+
+    except Exception as e:
+        print(f"❌ An error occurred: {e}")
+
+# 📌
+if __name__ == "__main__":
+    main()
