@@ -1,0 +1,406 @@
+import os
+import pandas as pd
+import glob
+from env_utils import *
+import psycopg2
+from dir_utils import *
+
+def find_unique_transactions(exchanges_csv, insider_folder, sql_folder):
+    # Read exchanges from CSV, ensuring 'exchange' column is string and handling NaNs
+    exchanges_df = pd.read_csv(exchanges_csv)
+
+    exchanges_df['exchange'] = exchanges_df['exchange'].astype(str).str.strip()
+    exchanges_df = exchanges_df.dropna(subset=['exchange'])  # Remove rows with missing exchanges
+    exchanges = exchanges_df['exchange'].unique()  # Get unique exchanges
+
+    for exchange in exchanges:
+        new_file = os.path.join(insider_folder, exchange, f"New_Insider_Transactions_{exchange}.csv")
+        existing_file = os.path.join(sql_folder, exchange, f"Existing_Insider_Transactions_{exchange}.csv")
+        output_file = os.path.join(insider_folder, exchange, f"Unique_Insider_Transactions_{exchange}.csv")
+
+        if not os.path.exists(new_file) or not os.path.exists(existing_file):
+            print(f"Skipping {exchange}: One or both files missing")
+            continue
+
+        new_df = pd.read_csv(new_file)
+        existing_df = pd.read_csv(existing_file)
+
+        # Normalize data types (important for proper comparison)
+        new_df = new_df.astype(str)
+        existing_df = existing_df.astype(str)
+
+        # Merge with indicator to find unique rows in new_df
+        merged_df = new_df.merge(existing_df, how='outer', indicator=True)
+        unique_rows = merged_df[merged_df['_merge'] == 'left_only'].drop(columns=['_merge'])
+
+        # Save unique rows if any exist
+        if not unique_rows.empty:
+            unique_rows.to_csv(output_file, index=False)
+            print(f"Saved unique transactions for {exchange} in {output_file}")
+        else:
+            print(f"No unique transactions found for {exchange}")
+
+import logging
+
+def clean_log_file(log_file_path, exchanges_file_path):
+    try:
+        # Read the log file and exchanges file
+        df = pd.read_csv(log_file_path, header=None, names=['exchange', 'column2', 'column3'])
+        exchanges_df = pd.read_csv(exchanges_file_path, names=['index_date', 'exchange', 'company_count'])
+
+        # Remove duplicates
+        df_cleaned = df.drop_duplicates()
+        df_cleaned.to_csv(log_file_path, index=False)
+        logging.info("Duplicate rows removed and saved to 'Log.csv'")
+
+        # Adjust batch ranges
+        df['column3'] = pd.to_numeric(df['column3'], errors='coerce')
+        exchanges_df['company_count'] = pd.to_numeric(exchanges_df['company_count'], errors='coerce')
+
+        for i, row in df.iterrows():
+            exchange = row['exchange']
+            matching_row = exchanges_df[exchanges_df['exchange'] == exchange]
+            if not matching_row.empty:
+                company_count = matching_row['company_count'].values[0]
+                if row['column3'] > company_count:
+                    df.at[i, 'column3'] = company_count
+
+        # Save the updated log file
+        df.to_csv(log_file_path, index=False, header=False)
+        logging.info("Batch ranges have been adjusted in Log_File.")
+
+    except Exception as e:
+        logging.error(f"Error cleaning log file: {str(e)}")
+
+
+def process_directories(BASE_DIRECTORIES, keywords):
+    """
+    Process directories to count rows in CSV files matching the given keywords.
+    Saves the results in 'row_counts.csv' inside each subfolder.
+
+    Parameters:
+    - BASE_DIRECTORIES: List of base directories to process.
+    - keywords: List of keywords to match in file names for CSV files.
+    """
+    for base_dir in BASE_DIRECTORIES:
+        if not os.path.exists(base_dir):
+            print(f"⚠️ Skipping missing directory: {base_dir}")
+            continue
+        print(f"\n📂 Processing directory: {base_dir}")
+        # Loop through each subfolder in base_dir
+        for subfolder in os.listdir(base_dir):
+            subfolder_path = os.path.join(base_dir, subfolder)
+            if os.path.isdir(subfolder_path):  # Ensure it's a directory
+                print(f"   📂 Processing folder: {subfolder}")
+                # Get all CSV files inside the current subfolder
+                csv_files = glob.glob(os.path.join(subfolder_path, "*.csv"))
+                # Initialize a dictionary to store row counts
+                data = {"Type": [], "Rows": []}
+                # Loop through each keyword and find matching files
+                for keyword in keywords:
+                    matching_files = [file for file in csv_files if keyword in file]
+
+                    if matching_files:
+                        file_path = matching_files[0]  # Take the first match if multiple exist
+                        df = pd.read_csv(file_path)
+                        row_count = len(df)
+                    else:
+                        row_count = ""
+
+                    # Store the results
+                    data["Type"].append(keyword)
+                    data["Rows"].append(row_count)
+
+                # Create DataFrame and save `row_counts.csv` inside the subfolder
+                result_df = pd.DataFrame(data)
+                output_file = os.path.join(subfolder_path, "row_counts.csv")
+                result_df.to_csv(output_file, index=False)
+
+                print(f"✅ Created: {output_file}")
+
+    print("\n✅ All directories processed successfully!")
+
+# Function to load retry errors from log file
+def load_retry_errors(log_file):
+    retry_errors = {}
+    if os.path.exists(log_file):
+        retry_df = pd.read_csv(log_file, header=None)
+        empty_row = pd.DataFrame(columns=retry_df.columns)
+        retry_df = pd.concat([empty_row, retry_df], ignore_index=True)
+
+        if retry_df.shape[1] >= 1:
+            retry_errors = retry_df.iloc[:, 0].astype(str).value_counts().to_dict()
+    return retry_errors
+
+# Function to load expected counts from CSV file
+def load_expected_counts(expected_file):
+    expected_counts = {}
+    if os.path.exists(expected_file):
+        expected_df = pd.read_csv(expected_file)
+        if expected_df.shape[1] >= 3:
+            expected_counts = dict(zip(expected_df.iloc[:, 1], expected_df.iloc[:, 2]))  # 2nd col = exchange, 3rd col = count
+    return expected_counts
+
+# Function to process row counts and aggregate data
+def process_row_counts(base_dirs, keywords=["Listings", "Transposed"]):
+    summary_data = {}
+    for base_dir in base_dirs:
+        if not os.path.exists(base_dir):
+            print(f"Skipping missing directory: {base_dir}")
+            continue
+
+        for exchange in os.listdir(base_dir):
+            exchange_path = os.path.join(base_dir, exchange)
+            if not os.path.isdir(exchange_path):
+                continue
+
+            row_counts_file = os.path.join(exchange_path, "row_counts.csv")
+            if not os.path.exists(row_counts_file):
+                print(f"Missing row_counts.csv in {exchange_path}")
+                continue
+
+            df = pd.read_csv(row_counts_file)
+            if "Type" not in df.columns or "Rows" not in df.columns:
+                print(f"Skipping invalid file: {row_counts_file}")
+                continue
+
+            for _, row in df.iterrows():
+                data_type = row["Type"]
+                row_count = row["Rows"]
+                key = (exchange, data_type)
+                summary_data[key] = summary_data.get(key, 0) + row_count
+
+    return summary_data
+
+# Function to create the final summary dataframe
+def create_summary_df(summary_data, retry_errors, expected_counts):
+    summary_df = pd.DataFrame(
+        [(exchange, data_type, rows,
+          retry_errors.get(exchange, 0) if data_type in ["Listings", "Transposed"] else None,
+          expected_counts.get(exchange, 0) if data_type in ["Listings", "Transposed"] else None,
+          (expected_counts.get(exchange, 0) - (rows + retry_errors.get(exchange, 0))) if data_type in ["Listings", "Transposed"] else None)
+         for (exchange, data_type), rows in summary_data.items()],
+        columns=["Exchange", "Type", "Rows", "Errors", "Expected", "Reconciled"]
+    )
+    summary_df.insert(0, 'Date', TODAY)
+    return summary_df
+
+
+import pandas as pd
+
+
+# Function to process and transpose the Rec File
+def process_and_transpose_rec_file(input_file, output_file):
+    # Read the original Rec File
+    df = pd.read_csv(input_file)
+
+    # Pivot the dataframe
+    pivot_df = df.pivot_table(index=['Date', 'Exchange'],
+                              columns='Type',
+                              values=['Rows', 'Errors', 'Expected', 'Reconciled'],
+                              aggfunc='first')
+
+    # Flatten the multi-level columns
+    pivot_df.columns = [f'{col[1]}_{col[0]}' for col in pivot_df.columns]
+    pivot_df.reset_index(inplace=True)
+
+    # Save the transposed dataframe
+    pivot_df.to_csv(output_file, index=False)
+
+    # Re-read the transposed file to reorder columns
+    df = pd.read_csv(output_file)
+    columns = df.columns.tolist()
+
+    # Reorder the columns as per the specification
+    ordered_columns = ['Date', 'Exchange']
+    ordered_columns.extend([col for col in columns if '_Rows' in col])
+    ordered_columns.extend([col for col in columns if '_Errors' in col])
+    ordered_columns.extend([col for col in columns if '_Expected' in col])
+    ordered_columns.extend([col for col in columns if '_Reconciled' in col])
+
+    df = df[ordered_columns]
+    df.to_csv(output_file, index=False)
+
+    # Final re-ordering of column names
+    df = pd.read_csv(output_file)
+    df.columns = df.columns.str.replace('_Rows', '_Received')
+    df.columns = df.columns.str.replace('Transposed', 'Statements')
+    df.columns = df.columns.str.replace('_Reconciled', '_Difference')
+
+    # Save the final processed file
+    df.to_csv(output_file, index=False)
+
+    print(f"Processed and saved to: {output_file}")
+
+import psycopg2
+from env_utils import *
+
+# Correct connection using psycopg2 (individual parameters)
+def run_deduplication_query(db_params, table_name, partition_columns, priority_order=None):
+    try:
+        # Prepare the ranking order logic
+        order_clause = priority_order if priority_order else "ctid"
+
+        # Format the partition key
+        partition_key = ', '.join(partition_columns)
+        where_condition = f"({partition_key})"
+
+        # Build the SQL query dynamically
+        sql_query = f"""
+        DO $$ 
+        BEGIN
+            WITH ranked_rows AS (
+                SELECT ctid,
+                       ROW_NUMBER() OVER (
+                           PARTITION BY {partition_key}
+                           ORDER BY {order_clause}
+                       ) AS rn
+                FROM {table_name}
+                WHERE {where_condition} IN (
+                    SELECT {partition_key}
+                    FROM {table_name}
+                    GROUP BY {partition_key}
+                    HAVING COUNT(*) > 1
+                )
+            )
+            DELETE FROM {table_name}
+            WHERE ctid IN (
+                SELECT ctid
+                FROM ranked_rows
+                WHERE rn > 1
+            );
+            RAISE NOTICE '✅ Duplicates removed from {table_name}.';
+        END $$;
+        """
+
+        # Connect using individual parameters
+        conn = psycopg2.connect(
+            dbname=db_params['database'],
+            user=db_params['username'],
+            password=db_params['password'],
+            host=db_params['host'],
+            port=db_params['port']
+        )
+
+        # Execute the query
+        with conn.cursor() as cur:
+            cur.execute(sql_query)
+            conn.commit()
+        print(f"✅ Duplicates deleted successfully from {table_name}.")
+
+    except Exception as e:
+        print(f"❌ Error deleting duplicates from {table_name}: {e}")
+
+    finally:
+        if conn:
+            conn.close()
+
+
+def export_and_compare_data(today, output_file, transposed_file, db_params):
+    conn = None  # Initialize conn variable to avoid reference errors
+    try:
+        print(f"Connecting to database {db_params['dbname']}...")
+        conn = psycopg2.connect(**db_params)
+
+        # SQL query with date filter
+        query = f'''
+            SELECT * 
+            FROM public."EOM_Reconciliation"
+            WHERE date = '{today}';
+        '''
+
+        print(f"Running query for date: {today}")
+        df = pd.read_sql(query, conn)
+        print(f"✅ Data retrieved, exporting to {output_file}...")
+        df.to_csv(output_file, index=False)
+        print(f"✅ Data exported successfully to {output_file} for date: {today}")
+
+    except Exception as e:
+        print(f"❌ Error exporting data: {e}")
+
+    finally:
+        if conn:
+            conn.close()
+
+    # Step 2: Load both files for comparison
+    try:
+        print(f"Loading file1 from {transposed_file}...")
+        file1 = pd.read_csv(transposed_file)
+        print(f"File1 loaded successfully. Loading file2 from {output_file}...")
+        file2 = pd.read_csv(output_file)
+
+        # Convert column names to lowercase for case-insensitive comparison
+        file1.columns = file1.columns.str.lower()
+        file2.columns = file2.columns.str.lower()
+
+        # Define which columns to compare (also lowercase now)
+        columns_to_compare = [
+            "insider_transactions_received",
+            "listings_received",
+            "members_received",
+            "owners_received",
+            "statements_received"
+        ]
+
+        # Merge the dataframes on 'exchange'
+        merged = pd.merge(
+            file1,
+            file2,
+            on='exchange',
+            suffixes=('_file1', '_file2')
+        )
+
+        # Prepare the diff dataframe
+        diff_df = pd.DataFrame()
+        diff_df['exchange'] = merged['exchange']
+
+        # Compare only the specified columns
+        for col in columns_to_compare:
+            col_file1 = f"{col}_file1"
+            col_file2 = f"{col}_file2"
+            diff_col = f"diff_{col}"
+            diff_df[diff_col] = merged[col_file2] - merged[col_file1]
+
+        # Save the result
+        diff_output_file = r"C:\............\Data\Rec File\final_difference.csv"
+        diff_df.to_csv(diff_output_file, index=False)
+        print("✅ Final difference CSV created successfully.")
+
+    except Exception as e:
+        print(f"❌ Error in comparison: {e}")
+
+
+# Example of calling the function
+today = datetime.today().strftime('%Y-%m-%d')  # Get today's date in 'YYYY-MM-DD' format
+output_file = r"C:\...................\Data\Rec File\Final Imported.csv"
+transposed_file = r"C:\......\Data\Rec File\Transposed_Rec File.csv"
+db_params = {
+    "host": "your_host",
+    "dbname": "your_dbname",
+    "user": "your_user",
+    "password": "your_password"
+}
+
+def delete_data_from_table(db_params):
+    try:
+        # Connect to the database using psycopg2
+        conn = psycopg2.connect(
+            dbname=db_params['database'],
+            user=db_params['username'],
+            password=db_params['password'],
+            host=db_params['host'],
+            port=db_params['port']
+        )
+
+        # Create a cursor and execute the query
+        with conn.cursor() as cur:
+            cur.execute("DELETE FROM public.insider_transactions_uat;")
+            conn.commit()  # Commit the transaction
+            print("✅ Deleted all records from public.insider_transactions_uat")
+
+    except Exception as e:
+        print(f"❌ An error occurred: {e}")
+
+    finally:
+        if conn:
+            conn.close()
