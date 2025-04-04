@@ -4,7 +4,7 @@ import os
 url = "https://api.simplywall.st/graphql"
 
 headers = {
-        "Authorization": "**********************8",
+        "Authorization": "**********************",
         "Content-Type": "application/json"}
 
 query_exchanges = """query {exchanges
