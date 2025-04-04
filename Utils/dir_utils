@@ -1,0 +1,25 @@
+from datetime import datetime
+from pathlib import Path
+
+# Define the path as a constant
+TODAY = datetime.now().replace(day=1).strftime("%Y-%m-%d")
+
+EXCHANGES_CSV_PATH = 
+BASE_DIRECTORIES = 
+LOG_PATH =
+NEW_DATA =
+EXISTING_DATA = 
+BASE_FOLDER = 
+
+output_dir
+Rec_File
+Transposed_Rec_File
+EOM_Rec_File
+  
+FILE_RULES = [
+    {"keyword": "insider_transactions", "table": "insider_transactions_uat", "columns": ["exchange", "ticker"]}]
+
+TABLE_MAPPINGS = [
+    ("insider_transactions_uat", "New_Insider_Transactions"),
+    ("insider_transactions", "Existing_Insider_Transactions"),
+]
