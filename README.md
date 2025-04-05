@@ -37,22 +37,8 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 ### 5. Post-Load QA
 
 - **Post Data Integrity**: Ensure that data imported in DB are as expected vs Pre-Load QA summary.[Post-Load QA](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/5.Post%20Load%20QA/5.1Post%20Load%20QA)
-
----
-
-## Additional Scripts
-
-### 🔒 Data Locking
-
-- **Trigger Logic**: A PL/pgSQL trigger blocks modification operations (INSERT, UPDATE, DELETE) for records with a date earlier than the current month.
-- **Unlocking Function**: An optional utility function to unlock tables for special maintenance.
-
-### 🛡️ PostgreSQL Backup
-
+- **Data Locking**: A PL/pgSQL trigger blocks modification operations (INSERT, UPDATE, DELETE) for records with a date earlier than the current month.
 - **Backup Automation**: Automates PostgreSQL backups using the `pg_dump` utility, with timestamped filenames and environment variable management for credentials.
-
-### 📁 Data Archival & Reset
-
 - **Clean Directory**: Archives old data, deletes predefined folders, and resets the project directory structure for the next pipeline run.
 
 ---
