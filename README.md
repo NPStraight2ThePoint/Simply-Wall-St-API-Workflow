@@ -62,13 +62,13 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 Planned enhancements to improve and expand the project:
 
 - 📈 **Financial Attribution Analysis**  
-  Use extracted financial metrics to analyze performance drivers, valuation signals, and relative comparisons across sectors or companies.
+  Use financial metrics to analyze performance, valuations, and relative comparisons across sectors or companies.
 
 - 📊 **Interactive Dashboard**  
   Build a front-end (e.g., Streamlit, Dash, or Power BI) to visualize financial metrics.
 
-- 🔎 **Data Extraction from Text (NLP / Regex)**  
-  Extract structured data from notes, disclosures, or embedded text fields using natural language processing and pattern recognition.
+- 🔎 **Data Extraction from Text **  
+  Extract structured data from notes, disclosures, or embedded text fields using NLP / Regex
 
 ---
 
@@ -76,7 +76,7 @@ Planned enhancements to improve and expand the project:
 
 **Name**: [Nicholas Papadimitris]  
 **Created on**: [05/04/2025 6:58 PM]  
-**GitHub**: [Your GitHub Profile](https://github.com/NPStraight2ThePoint)
+**GitHub**: [My GitHub](https://github.com/NPStraight2ThePoint)
 
 ---
 
