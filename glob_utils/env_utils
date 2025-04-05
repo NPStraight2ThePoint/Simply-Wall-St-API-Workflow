@@ -1,0 +1,87 @@
+import os
+
+# Simply API setup
+url = "https://api.simplywall.st/graphql"
+
+headers = {
+        "Authorization": "**********",
+        "Content-Type": "application/json"}
+
+query_exchanges = """query {exchanges
+                    {symbol
+                    companiesCount}
+                }
+                """
+
+query = """
+            query Companies(
+              $exchange: String!,
+              $offset: Int!,
+              $limit: Int!
+            ) {
+              companies(
+                exchange: $exchange,
+                offset: $offset,
+                limit: $limit
+              ) {
+                id
+                exchangeSymbol
+                tickerSymbol
+                name
+                marketCapUSD
+                primaryIndustry { name }
+                secondaryIndustry { name }
+                tertiaryIndustry { name }
+                market { name iso2 }
+                active
+                classificationStatus
+                insiderTransactions {
+                      type
+                      ownerName
+                      ownerType
+                      description
+                      tradeDateMin
+                      tradeDateMax
+                      shares
+                      priceMin
+                      priceMax
+                      transactionValue
+                      percentageSharesTraded
+                      percentageChangeTransShares
+                      isManagementInsider
+                      filingDate}
+                statements {name
+                            title
+                            area
+                            type
+                            value
+                            outcome
+                            description
+                            state
+                            severity
+                            outcomeName}
+                members {age
+                        name
+                        title
+                        tenure
+                        compensation}
+                owners {name
+                        type
+                        sharesHeld
+                        holdingDate
+                        periodStartDate
+                        periodEndDate
+                        rankSharesHeld
+                        rankSharesSold}
+                   }
+            }
+            """
+
+db_params = {
+    'username': '****',
+    'password': '****',
+    'host': '****',
+    'port': '****',  # Default PostgreSQL port
+    'database': '****'
+}
+db_connection = "****"
