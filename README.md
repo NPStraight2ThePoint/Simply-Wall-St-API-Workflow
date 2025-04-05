@@ -78,8 +78,7 @@ Planned enhancements to improve and expand the project:
 **Created on:** *05/04/2025 6:58 PM* (UTC)   
 **Project ID:** `SWS_ETL_05_Apr2025`
 **GitHub**: [My GitHub](https://github.com/NPStraight2ThePoint)
-**Name**: [Nicholas Papadimitris]  
- 
+
 📧 **Email:** nicholas.papadimitris@gmail.com  
 💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)
 
