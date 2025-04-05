@@ -53,7 +53,7 @@ Planned enhancements to improve and expand the project:
 - 📊 **Interactive Dashboard**  
   Build a front-end (e.g., Streamlit, Dash, or Power BI) to visualize financial metrics.
 
-- 🔎 **Data Extraction from Text **  
+- 🔎 **Data Extraction from Text**  
   Extract structured data from notes, disclosures or embedded text fields using NLP / Regex
 
 ---
