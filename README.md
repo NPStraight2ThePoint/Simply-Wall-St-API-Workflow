@@ -2,13 +2,13 @@
 
 ## Overview
 
-This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming, and loading financial data from the Simply Wall St (SWS) API into a PostgreSQL database.
+This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming and loading financial data from the Simply Wall St (SWS) API into a PostgreSQL database.
 
 ## Tools & Technologies
 
 - **Python**
 - **PostgreSQL**
-- **Pandas,requests,sqlalchemy**
+- **Libraries : Pandas,requests,sqlalchemy**
 - **Simply Wall St API**
 
 ---
