@@ -19,7 +19,7 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 - **Exchange Data**: Retrieves exchange data, including company counts, used for pagination in subsequent API requests.[Exchanges&Counts](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.1Extract-Exchanges_Counts)
 - **Financial Data**: Extracts financial data for companies across categories like Listings, Insider Transactions, Members, and Statements. The extraction includes retry logic to handle failed batches.
-  [Company Data](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.2Extract-All_Data%20(3x%20Try)
+  [Company Data](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.2Extract-All_Data%20(3x%20Try))
 
 ### 2. Transform
 
