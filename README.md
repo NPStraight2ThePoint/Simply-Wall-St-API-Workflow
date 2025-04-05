@@ -1,67 +1,62 @@
-# 📈 SWS API ETL Pipeline
+# ETL Pipeline for SWS API
 
-## 🚀 Overview
+## Overview
 
-The goal of this ETL Pipeline is to:
-- Retrieve all available data for all exchanges/companies from the **SWS API**.
-- Transform and extract valuable information into a readable format.
-- Store clean data into a **PostgreSQL** database.
+This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming, and loading financial data from the Simply Wall St (SWS) API into a PostgreSQL database. The pipeline ensures data quality and integrity, with additional scripts for data locking, backups, and folder management.
 
-### Tools and Technologies
-- **Python**  
-  Libraries: `pandas`
+## Tools & Technologies
+
+- **Python**
 - **PostgreSQL**
+- **Pandas**
 - **Simply Wall St API**
 
 ---
 
-## 🔹 ETL Process
+## ETL Process
 
-### 1. **Extract**
-- **SWS API Connection & Data Fetch**  
-  The extraction process involves connecting to the **SWS API** and retrieving data for the following:
-  - Exchanges & Company counts
-  - Company Info, Financial Data, Management, Major Shareholders, Insider Transactions
+### 1. Extract
 
-**Pagination Strategy:**
-  - **1st Try**: Use **Pagination Step 30** for the initial retrieval with the maximum step size.
-  - **2nd Try**: Use **Pagination Step 1** for the second retrieval to identify any failed items.
-  - **3rd Try**: Use **Pagination Step 1** for the final retrieval to eliminate potential HTTP errors.
+- **Exchange Data**: Retrieves exchange data, including company counts, used for pagination in subsequent API requests.[Exchanges&Counts](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.1Extract-Exchanges_Counts)
+- **Financial Data**: Extracts financial data for companies across categories like Listings, Insider Transactions, Members, and Statements. The extraction includes retry logic to handle failed batches.[Company Data](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.2Extract-All_Data%20(3x%20Try)
 
----
+### 2. Transform
 
-### 2. **Transform**
-- **Transform Data for SQL Import**
-  1. Convert **JSON responses** into flattened dataframes based on the data category.
-  2. Save flattened dataframes as **CSV files**.
-  3. Merge the **CSV files** into a single dataset for easy import.
-  4. **Special Handling**:
-     - **Statements**: Transpose rows to columns (API's default response has indicators in rows, so a transpose is required to match the DB table schema).
-     - **Insider Transactions**: Conduct a second ETL to identify new, unique data due to API response structure and lack of unique identifiers.
+- **Data Transformation**: Converts the extracted data into the appropriate format for loading into the PostgreSQL database.[Transform](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/2.1Transform)
 
----
+### 3. Pre-Load QA
 
-### 3. **Pre-Load QA**
-- Count **received** vs **expected** data points.
-- Log **errors** and ensure all data points are ready to be imported into the SQL database.
+- **Data Integrity**: Create summary of expected vs received data ++ log errors.      
+- **Interim ETL**: Compare current data with new ones that do not haver unique identifiers to ensure only valid data is processed.
+    [Pre-Load QA](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/3.1Pre_Load_Data_QA)
+### 4. Load
+
+- **DB Import**: Load all data in DB (Python/SQL Integration)[Load](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/4.1Load)
+  
+### 5. Post-Load QA
+
+- **Post Data Integrity**: Ensure that data imported in DB are as expected vs Pre-Load QA summary.[Post-Load QA](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/5.1Post_Load_Data_QA)
 
 ---
 
-### 4. **Load**
-- Import data into the **PostgreSQL database**.
+## Additional Scripts
+
+### 🔒 Data Locking
+
+- **Trigger Logic**: A PL/pgSQL trigger blocks modification operations (INSERT, UPDATE, DELETE) for records with a date earlier than the current month.
+- **Unlocking Function**: An optional utility function to unlock tables for special maintenance.
+
+### 🛡️ PostgreSQL Backup
+
+- **Backup Automation**: Automates PostgreSQL backups using the `pg_dump` utility, with timestamped filenames and environment variable management for credentials.
+
+### 📁 Data Archival & Reset
+
+- **Clean Directory**: Archives old data, deletes predefined folders, and resets the project directory structure for the next pipeline run.
 
 ---
 
-### 5. **Post-Load QA**
-- **Data Cleanup and Integrity Check**:
-  - Transform **tickers** and **exchanges** to uppercase for consistency.
-  - Delete **duplicate rows** to maintain data quality.
-  - Drop **temporary tables** used for intermediate processing.
-  - Compare **data points in the DB** against the expected imported data to ensure consistency and integrity.
-- **Lock Data**: Finalize the data to prevent further changes.
-- **Backup DB**: Ensure a backup of the database is made after the load process.
 
----
 
 
 
