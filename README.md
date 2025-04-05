@@ -8,7 +8,7 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 - **Python**
 - **PostgreSQL**
-- **Pandas**
+- **Pandas,requests,sqlalchemy**
 - **Simply Wall St API**
 
 ---
