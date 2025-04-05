@@ -67,7 +67,7 @@ This ETL pipeline efficiently extracts, transforms, and loads financial data int
 
 **Name**: [Nicholas Papadimitris]  
 **Created on**: [05/04/2025 6:58 PM]  
-**GitHub**: [Your GitHub Profile or Repository Link](https://github.com/NPStraight2ThePoint)
+**GitHub**: [Your GitHub Profile](https://github.com/NPStraight2ThePoint)
 
 ---
 
