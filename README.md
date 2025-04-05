@@ -57,9 +57,18 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 ---
 
-## Conclusion
+### 🔜 Next Up
 
-This ETL pipeline efficiently extracts, transforms, and loads financial data into a PostgreSQL database. It ensures data integrity with pre- and post-load quality checks, backup automation, data locking, and folder management for smooth data processing.
+Planned enhancements to improve and expand the project:
+
+- 📈 **Financial Attribution Analysis**  
+  Use extracted financial metrics to analyze performance drivers, valuation signals, and relative comparisons across sectors or companies.
+
+- 📊 **Interactive Dashboard**  
+  Build a front-end (e.g., Streamlit, Dash, or Power BI) to visualize financial metrics.
+
+- 🔎 **Data Extraction from Text (NLP / Regex)**  
+  Extract structured data from notes, disclosures, or embedded text fields using natural language processing and pattern recognition.
 
 ---
 
