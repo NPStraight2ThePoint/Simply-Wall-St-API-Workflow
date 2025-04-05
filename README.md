@@ -17,13 +17,13 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 ### 1. Extract
 
-- **Exchange Data**: Retrieves exchange data, including company counts, which are used as parameters for main API requests.[Exchanges&Counts](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.Extract/1.1Get_Exchanges_Counts)
-- **Financial Data**: Extracts financial data for all companies such as 'Company Info','Shareholders','Management Team','Insider Transactions' & 'Fundamental metrics'. The extraction includes retry logic & error logging to handle failed batches.
+- **Exchange Data**: Retrieves exchange data, including company counts, which are used as parameters for main API requests. [Exchanges&Counts](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.Extract/1.1Get_Exchanges_Counts)
+- **Financial Data**: Extracts financial data for all companies such as **Company Info**, **Shareholders**, **Management Team**, **Insider Transactions** & **Fundamental metrics**. The extraction includes retry logic & error logging to handle failed batches.
   [Company Data](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.Extract/1.2Get_All_Data_3x_Try)
 
 ### 2. Transform
 
-- **Data Transformation**: Converts the extracted data into the appropriate format for loading into the PostgreSQL database.[Transform](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/2.Transform/2.1Transform)
+- **Data Transformation**: Converts the extracted data into the appropriate format for loading into the PostgreSQL database. [Transform](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/2.Transform/2.1Transform)
 
 ### 3. Pre-Load QA
 
@@ -32,11 +32,11 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
     [Pre-Load QA](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/3.Pre%20Load%20QA/3.1Pre%20Load%20QA)
 ### 4. Load
 
-- **DB Import**: Load all data in DB (Python/SQL Integration)[Load](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/4.Load/4.1Load)
+- **DB Import**: Load all data in DB (Python/SQL Integration). [Load](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/4.Load/4.1Load)
   
 ### 5. Post-Load QA
 
-- **Post Data Integrity**: Ensure that data imported in DB are as expected vs Pre-Load QA summary.[Post-Load QA](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/5.Post%20Load%20QA/5.1Post%20Load%20QA)
+- **Post Data Integrity**: Ensure that data imported in DB are as expected vs Pre-Load QA summary. [Post-Load QA](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/5.Post%20Load%20QA/5.1Post%20Load%20QA)
 - **Data Locking**: A PL/pgSQL trigger blocks modification operations (INSERT, UPDATE, DELETE) for records with a date earlier than the current month.
 - **Backup Automation**: Automates PostgreSQL backups using the `pg_dump` utility, with timestamped filenames and environment variable management for credentials.
 - **Clean Directory**: Archives old data, deletes predefined folders, and resets the project directory structure for the next pipeline run.
