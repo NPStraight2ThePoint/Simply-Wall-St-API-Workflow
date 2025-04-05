@@ -57,6 +57,19 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 ---
 
+## Conclusion
+
+This ETL pipeline efficiently extracts, transforms, and loads financial data into a PostgreSQL database. It ensures data integrity with pre- and post-load quality checks, backup automation, data locking, and folder management for smooth data processing.
+
+---
+
+## Created By
+
+**Name**: [Nicholas Papadimitris]  
+**Created on**: [05/04/2025 6:58 PM]  
+**GitHub**: [Your GitHub Profile or Repository Link](https://github.com/NPStraight2ThePoint)]
+
+---
 
 
 
