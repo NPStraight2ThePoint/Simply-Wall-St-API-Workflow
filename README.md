@@ -6,10 +6,10 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 ## Tech Stack
 
-- **Python**
-- **PostgreSQL**
-- **Libraries : Pandas,requests,sqlalchemy**
-- **Simply Wall St API**
+- Python
+- PostgreSQL
+- Libraries : Pandas,requests,sqlalchemy
+- Simply Wall St API
 
 ---
 
