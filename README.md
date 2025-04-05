@@ -72,14 +72,19 @@ Planned enhancements to improve and expand the project:
 
 ---
 
-## Created By
+### 🆔 Project Info
 
-**Name**: [Nicholas Papadimitris]  
-**Created on**: [05/04/2025 6:58 PM]  
+**Author:** *Nicholas Papadimitris *  
+**Created on:** *05/04/2025 6:58 PM* (UTC)   
+**Project ID:** `SWS_ETL_05_Apr2025`
 **GitHub**: [My GitHub](https://github.com/NPStraight2ThePoint)
+**Name**: [Nicholas Papadimitris]  
+ 
+📧 **Email:** nicholas.papadimitris@gmail.com  
+💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)
 
----
-
+## Disclaimer
+API is still in beta, which means things are subject to change. Specs could be updated, limits might be introduced, paywalls added, or even certain features removed .
 
 
 
