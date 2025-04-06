@@ -83,19 +83,6 @@ with engine.begin() as conn:
         )
 ```
 
-## Final SQL Table Exported to CSV
-
-| index_date | exchange  | company_count |
-|------------|-----------|---------------|
-| 8/02/2025  | DB        | 17469         |
-| 8/02/2025  | OTCPK     | 15599         |
-| 8/02/2025  | LSE       | 8725          |
-| 8/02/2025  | BATS-CHIXE| 6822          |
-| 8/02/2025  | BSE       | 4940          |
-| 8/02/2025  | TSE       | 4563          |
-| 8/02/2025  | XTRA      | 3677          |
-| 8/02/2025  | SZSE      | 3532          |
-
 ## 2. Get_Data.py - Get Tickers & Other Info for Selected Exchanges
 
 This script fetches tickers and other information for selected exchanges using the `fetch_data` function.
@@ -149,17 +136,6 @@ def fetch_data(Exchange):
             # Error handling
 ```
                    
-## Final SQL Table Exported to CSV
-
-| exchange | name                     | ticker | id                                     | classification_status | market_cap_usd   |
-|----------|--------------------------|--------|----------------------------------------|-----------------------|------------------|
-| ASX      | Ansell                   | ANN    | 25ece3b4-                              | ACTIVE                | 3174886131       |
-| ASX      | Advance ZincTek          | ANO    | 5a642809-                              | ACTIVE                | 30014488.19      |
-| ASX      | Anatara Lifesciences     | ANR    | 9f371156-                              | ACTIVE                | 7549833.144      |
-| ASX      | Anax Metals              | ANX    | 06a27ec2-                              | ACTIVE                | 6057025.543      |
-| ASX      | ANZ Group Holdings       | ANZ    | 213a0983-                              | ACTIVE                | 57863985237      |
-| ...      | ...                      | ...    | ...                                    | ...                   | ...              |
-
 ## 3.Get_CompanyInfo.py / Retreive a variety of financial indicators & metrics for a list of tickers / exchanges.
 
 ### Libraries Used
@@ -253,18 +229,6 @@ query_tickers = text("""
           # Insert into SQL
 ```
           
-# Final SQL table(s) exported in CSV
-
-[Company Info](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%20215355.png)
-
-[Insider Transactions](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-08%20221649.png?raw=true)
-
-[Company Statements](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%20083838.png?raw=true)
-
-[Company Members](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%20084252.png?raw=true)
-
-[Company Owners](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Screenshot%202025-02-09%20084500.png?raw=true)
-
 ## Snowflake Attribution Analysis
 
 Calling below SQL queries via Python:
@@ -295,10 +259,6 @@ try:
             df = pd.read_sql_query(query, conn)
             df.to_excel(writer, sheet_name=sheet_name, index=False)  # Save each DataFrame to a separate sheet
 ```
-
-# Final results after the SQL DB retreivals and attribution analysis filtering :
-
-[Snowflake Attribution Analysis](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/Simply-Wall-St-API-Pipeline/Test/Snowflake%20Attribution%20Analysis.xlsx)
 
 ## Project Information
 
