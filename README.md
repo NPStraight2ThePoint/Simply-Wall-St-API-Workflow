@@ -68,6 +68,14 @@ Planned enhancements to improve and expand the project:
 📧 **Email:** nicholas.papadimitris@gmail.com  
 💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)
 
+> Note: The data shown above is publicly available, and the API is used solely to optimize the data retrieval and processing process.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## Attribution
+The financial data is publicly available and retrieved using the Simply Wall St API. Ensure to comply with the API's terms of service when using it.
+
 ## Disclaimer
 API is still in beta, which means things are subject to change. Specs could be updated, limits might be introduced, paywalls added, or even certain features removed .
 
