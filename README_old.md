@@ -63,10 +63,6 @@ The project is built using:
 * Members for all Tickers/Exchanges
 * Owners for all Tickers/Exchanges
 
-## Example Final Results
- ⭐ **[Final_Sectors](https://raw.githubusercontent.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/Simply-Wall-St-API-Pipeline/Data/Snowflake%20Attribution%20Analysis%20(2).xlsx)**
- ⭐ **[Final_Overall](https://raw.githubusercontent.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/Simply-Wall-St-API-Pipeline/Data/Final_Overall.xlsx)** 
- 
 ---
 
 ## 🌍 Visualizing the Process
