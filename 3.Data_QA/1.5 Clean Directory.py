@@ -6,23 +6,23 @@ from datetime import datetime
 first_day_of_month = datetime.today().replace(day=1).strftime("%Y-%m-%d")
 
 # Define base directories for the folders to be moved
-data_folder = Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data")
-archive_folder = Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data Archive") / first_day_of_month
+data_folder = Path(r"C:/.../.venv/Data")
+archive_folder = Path(r"C:/Users/.../.venv/Data Archive") / first_day_of_month
 
 # Define the directories to delete and recreate
 BASE_DIRECTORIES = [
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try 1"),
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try 2"),
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try 3"),
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try_id"),
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Companies"),
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Log"),
-    Path("C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/NEW_DATA"),
-    Path("C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/NEW_DATA_id"),
-    Path("C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/EXISTING_DATA"),
-    Path("C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/EXISTING_DATA_id"),
-    Path("C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Rec File"),
-    Path("C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Exchanges_Counts"),
+    Path(r"C:/.../.venv/Data/Try 1"),
+    Path(r"C:/.../.venv/Data/Try 2"),
+    Path(r"C:/.../.venv/Data/Try 3"),
+    Path(r"C:/.../.venv/Data/Try_id"),
+    Path(r"C:/.../.venv/Data/Companies"),
+    Path(r"C:/.../.venv/Data/Log"),
+    Path("C:/.../.venv/Data/Joined Data/NEW_DATA"),
+    Path("C:/.../.venv/Data/Joined Data/NEW_DATA_id"),
+    Path("C:/.../.venv/Data/Joined Data/EXISTING_DATA"),
+    Path("C:/.../.venv/Data/Joined Data/EXISTING_DATA_id"),
+    Path("C:/.../.venv/Data/Rec File"),
+    Path("C:/.../.venv/Data/Exchanges_Counts"),
 ]
 
 # Function to move folders
