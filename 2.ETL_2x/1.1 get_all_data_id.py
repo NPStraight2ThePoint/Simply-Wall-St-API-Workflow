@@ -28,7 +28,7 @@ df = pd.read_sql(query, conn, params=(TODAY))
 conn.close()
 
 # Save to CSV
-df.to_csv(f"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Log/Listings_failed_id.csv", index=False)
+df.to_csv(f"C:/.../.venv/Data/Log/Listings_failed_id.csv", index=False)
 print(f"✅ Saved CSV for Listings id missing on {TODAY}")
 
 def create_directory(path):
@@ -48,8 +48,8 @@ def save_to_csv(data, file_path):
         logging.error(f"Error saving CSV {file_path}: {e}")
 
 # === File Paths ===
-exchanges_file = "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Log/Listings_failed_id.csv"
-base_path = "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try_id"
+exchanges_file = "C:/.../.venv/Data/Log/Listings_failed_id.csv"
+base_path = "C:/.../.venv/Data/Try_id"
 
 def safe_get(data, key, default=None):
     try:
