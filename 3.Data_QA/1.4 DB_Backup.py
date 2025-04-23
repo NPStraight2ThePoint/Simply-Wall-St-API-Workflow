@@ -4,7 +4,7 @@ from datetime import datetime
 from config.env_utils import *
 
 # Backup directory path
-BACKUP_DIR = "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Backup"
+BACKUP_DIR = "C:/.../.venv/Backup"
 DATE = datetime.now().strftime("%Y%m%d_%H%M%S")  # To create unique backup file names
 
 BACKUP_FILE = os.path.join(BACKUP_DIR, f"{DB_NAME2}_backup_{DATE}.sql")
@@ -12,7 +12,7 @@ BACKUP_FILE = os.path.join(BACKUP_DIR, f"{DB_NAME2}_backup_{DATE}.sql")
 # Ensure the backup directory exists
 os.makedirs(BACKUP_DIR, exist_ok=True)
 
-pg_dump_path = r"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe"
+pg_dump_path = r"C:\...\PostgreSQL\17\bin\pg_dump.exe"
 
 pg_dump_command = [
     pg_dump_path,
