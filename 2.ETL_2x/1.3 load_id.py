@@ -8,10 +8,10 @@ from datetime import datetime
 from utils.sql_utils import *
 from config.settings import *
 unique_directories = {
-    "insider_transactions": "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/NEW_DATA_id"
+    "insider_transactions": "C:/.../.venv/Data/Joined Data/NEW_DATA_id"
 }
 BASE_DIR = [
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try_id/All_Exchanges"),
+    Path(r"C:/.../.venv/Data/Try_id/All_Exchanges"),
 ]
 
 engine = create_engine(f"postgresql+psycopg2://{db_params['username']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['database']}")
