@@ -1,9 +1,9 @@
 import pandas as pd
 from sqlalchemy import create_engine, text
 from datetime import date
-from config.env_utils import * # Assumes db_params1 is loaded properly
+from config.env_utils import *
+from config.settings import *
 
-from config.settings import * # Assumes db_params1 is loaded properly
 # Connection setup
 conn_str = f"postgresql+psycopg2://{db_params1['user']}:{db_params1['password']}@{db_params1['host']}:{db_params1['port']}/{db_params1['database']}"
 engine = create_engine(conn_str)
