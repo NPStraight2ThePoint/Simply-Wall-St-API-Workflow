@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine, MetaData, Table, select, text
 import pandas as pd
 # Replace with your real credentials
-SRC_DB = "postgresql+psycopg2://postgres:Arxidolemios39@localhost/Simply_API"
-DEST_DB = "postgresql+psycopg2://postgres:Arxidolemios39@localhost/Simply_API_Prod"
+SRC_DB = "postgresql+psycopg2://..."
+DEST_DB = "postgresql+psycopg2://..."
 
 # ─────────────────────────────────────────────────────────────
 # Core Function: Copy and Delete Table Data
