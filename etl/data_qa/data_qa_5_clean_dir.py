@@ -10,7 +10,7 @@ TODAY = datetime.today().replace(day=1).strftime("%Y-%m-%d")
 first_day_of_month = datetime.today().replace(day=1).strftime("%Y-%m-%d")
 
 data_folder = Path(
-    r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data"
+    r"C:/.../.venv/Data"
 )
 
 # Get exchange name from the CSV
@@ -24,7 +24,7 @@ except Exception as e:
 # Create archive path using exchange
 archive_folder = (
     Path(
-        r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data Archive"
+        r"C:/.../.venv/Data Archive"
     )
     / first_day_of_month
     / exchange
