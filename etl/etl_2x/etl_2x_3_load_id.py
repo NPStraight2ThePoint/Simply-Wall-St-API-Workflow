@@ -10,10 +10,10 @@ from config.settings import *
 
 # Define your base and unique directories
 BASE_DIR = [
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try_id/All_Exchanges"),
+    Path(r"C:/.../.venv/Data/Try_id/All_Exchanges"),
 ]
 unique_directories = {
-    "insider_transactions": r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/NEW_DATA_id"
+    "insider_transactions": r"C:/.../.venv/Data/Joined Data/NEW_DATA_id"
 }
 
 def main():
