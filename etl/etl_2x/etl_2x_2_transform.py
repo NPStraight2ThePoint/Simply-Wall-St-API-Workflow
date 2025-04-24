@@ -8,27 +8,27 @@ from config.settings import *
 from utils.dir_utils import *
 from utils.transform_utils import *
 
-EXCHANGES_CSV_PATH = "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Log/Listings_failed_id.csv"
+EXCHANGES_CSV_PATH = "C:/.../.venv/Data/Log/Listings_failed_id.csv"
 
 NEW_DATA = Path(
-    "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/NEW_DATA_id")
+    "C:/.../.venv/Data/Joined Data/NEW_DATA_id")
 EXISTING_DATA = Path(
-    "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/EXISTING_DATA_id")
+    "C:/.../.venv/Data/Joined Data/EXISTING_DATA_id")
 
 exchanges_df = pd.read_csv(EXCHANGES_CSV_PATH)
 EXCHANGES = exchanges_df["exchangeSymbol"].unique().tolist()
 TODAY = datetime.now().replace(day=1).strftime("%Y-%m-%d")
 
 BASE_DIR = [
-    Path(r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try_id/All_Exchanges"),
+    Path(r"C:/.../.venv/Data/Try_id/All_Exchanges"),
 ]
 
 def main():
     # Step 1: Process Data
     transpose_csv(BASE_DIR)
 
-    source_file = Path(f"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Try_id/All_Exchanges/Insider_Transactions_{TODAY}.csv")
-    destination_file = Path(f"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Data/Joined Data/NEW_DATA_id/Insider_Transactions.csv")
+    source_file = Path(f"C:/.../.venv/Data/Try_id/All_Exchanges/Insider_Transactions_{TODAY}.csv")
+    destination_file = Path(f"C:/.../.venv/Data/Joined Data/NEW_DATA_id/Insider_Transactions.csv")
 
     if source_file.exists():
         shutil.copy(source_file, destination_file)
