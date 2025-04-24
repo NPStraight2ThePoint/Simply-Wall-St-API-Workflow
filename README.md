@@ -67,7 +67,7 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 │
 ├── README.md
 └── thought_process.md
-
+</details>
 
 ### 🆔 Project Info
 
