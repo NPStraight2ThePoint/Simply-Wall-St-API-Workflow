@@ -24,7 +24,6 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
   - `psycopg2` — PostgreSQL driver for Python  
   - `openpyxl` — Excel writing engine for `.xlsx` output  
 
-<br />
 
 <details>
 <summary>🧱 Project Architecture Overview</summary>
