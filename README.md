@@ -78,15 +78,6 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 **Project ID:** `SWS_ETL_05_Apr2025`  
 **GitHub:** [My GitHub](https://github.com/NPStraight2ThePoint)
 
-
-
-### 🆔 Project Info
-
-**Author:** *Nicholas Papadimitris*  
-**Created on:** *05/04/2025 6:58 PM* (UTC)  
-**Project ID:** `SWS_ETL_05_Apr2025`  
-**GitHub:** [My GitHub](https://github.com/NPStraight2ThePoint)
-
 📧 **Email:** nicholas.papadimitris@gmail.com  
 💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)
 
