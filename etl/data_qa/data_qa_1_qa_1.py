@@ -25,12 +25,12 @@ def main():
     engine = create_engine(conn_str)
 
     # Load SQL queries
-    SQL_QUERIES_PATH = "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/SQL Queries"
+    SQL_QUERIES_PATH = "C:/.../.venv/SQL Queries"
     SQL_QUERIES = load_sql_queries(SQL_QUERIES_PATH)
 
     # Output file location
     output_file = (
-        "C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/"
+        "C:/.../"
         ".venv/Data/Log/QA_1_Results.xlsx"
     )
 
