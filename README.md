@@ -67,7 +67,7 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 │   ├── `QA_2_deduplication.py`    # Removes duplicates + company-wise QA  
 │   ├── `move_temp_to_prod.py`     # Migrate tables from temp → prod  
 │   ├── `backup_database.py`       # Create DB backup once QA passed
-│   └── `cleanup_archive.py`       # Archive logs / intermediate files  
+│   └── `cleanup_archive.py`       # Clean directory  
 │  
 ├── 📂 **Orchestrators/**  
 │   ├── `get_exchange_counts.py`  
