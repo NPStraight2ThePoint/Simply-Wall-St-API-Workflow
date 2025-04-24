@@ -6,7 +6,7 @@ from config.env_utils import *
 # ─────────────────────────────────────────────────────────────
 # Configuration
 # ─────────────────────────────────────────────────────────────
-BACKUP_DIR = r"C:/Users/nicho/PycharmProjects/Projects/API2SQL Pipelines/SWS API Production/.venv/Backup"
+BACKUP_DIR = r"C:/.../.venv/Backup"
 DATE = datetime.now().strftime("%Y%m%d_%H%M%S")  # Create unique backup file names
 BACKUP_FILE = os.path.join(BACKUP_DIR, f"{DB_NAME2}_backup_{DATE}.sql")
 
