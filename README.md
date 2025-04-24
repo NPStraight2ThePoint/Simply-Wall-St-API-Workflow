@@ -79,6 +79,9 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 </details>
 
+## 💻 Script Descriptions
+For detailed descriptions of each script and their purpose, refer to the [Script Descriptions](SCRIPT_DESCRIPTIONS.md) file.
+
 ### 🆔 Project Info
 
 **Author:** *Nicholas Papadimitris*  
