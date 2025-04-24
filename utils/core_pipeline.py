@@ -65,11 +65,13 @@ def run_pipeline2(log_file_1, log_file_2, TODAY, base_path):
             process_and_save_data(log_file_2, exchange, offset, 1, TODAY, base_path)
         print(f"✅ Fetching complete for {exchange}, batch {start_offset} to {end_offset}.")
 
-    df = pd.read_csv(log_file_2)
-    df_cleaned = df.drop_duplicates()
-    df_cleaned.to_csv(log_file_2, index=False)
-
-    print("Duplicate rows removed and saved to 'Retry Log.csv'")
+    if os.path.exists(log_file_2):
+        df = pd.read_csv(log_file_2)
+        df_cleaned = df.drop_duplicates()
+        df_cleaned.to_csv(log_file_2, index=False)
+        print("✅ Duplicates removed and file overwritten.")
+    else:
+        print("⚠️ File does not exist. Skipping cleanup.")
 
 # Main function to process data and save it to CSV
 def process_and_save_data(Log_File, exchange, offset, fetch_step, today, base_path):
