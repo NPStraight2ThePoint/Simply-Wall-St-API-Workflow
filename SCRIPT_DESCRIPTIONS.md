@@ -15,17 +15,17 @@
 - **Reasoning:** This step accounts for potential batch failures and logs failed batches to retry with a step-wise approach to isolate the failures.
 
 ### `etl_1x_4_transform.py`
-- **Purpose:** Perform data transformations for"statements" data & Identifies new insider transactions to load into the database              
-- **Reasoning:** Statements is vertically oriented by default so we need to transpose to match DB schema.
-                 Insider transactions does not have unique identifier so we need to perform a cross check process to ensure only new data are being processed.
+- **Purpose:** Perform data transformations for"statements" data & identify new insider transactions to load into the database              
+- **Reasoning:** Statements are vertically oriented by default so we need to transpose to match DB schema.
+                 Insider transactions do not have unique identifiers so we need to perform a cross check process to ensure only new data are being processed.
 
 ### `etl_1x_5_load.py`
 - **Purpose:** Loads the cleaned and transformed data into temporary SQL tables in the database.
-- **Reasoning:** This step prepares the data for final quality checks and ensures that the pipeline runs smoothly.
+- **Reasoning:** This step prepares the data for final quality checks and ensures we do not interfere with production database.
 
 ### `etl_2x_1_get_all_data_id.py`
-- **Purpose:** Check if tickers exist in the companies table and retrieve missing data for those tickers using their IDs.
-- **Reasoning:** This ensures that any missing or failed data can be retrieved via a specific API query that targets individual companies.
+- **Purpose:** Check if tickers are missing from table (comparing vs companies table) and retrieve missing data for those tickers using their IDs.
+- **Reasoning:** Sometimes responses give non expected values which cause batch to fail thus queries need to be adjusted to bypass this.
 
 ### `etl_2x_2_transform.py`
 - **Purpose:** Perform similar transformations as the initial process (e.g., transpose, identify insider transactions).
