@@ -5,11 +5,11 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 ## ETL Pipeline Process
 
-- **Extract**: Retrieves raw financial data via the Simply Wall St API using pre-defined query templates.
+- **Extract**: Retrieves raw financial data via the Simply Wall St API using pre-defined API queries via Python.
 
-- **Transform**: Cleanses and transforms the data, including flattening nested JSON structures, handling missing data, and standardizing formats for consistency.
+- **Transform**: Cleanses and transforms the data, including flattening nested JSON structures, handling missing data and aligning data formats to the database schema.
 
-- **Load**: Loads the transformed data into a PostgreSQL database, making it ready for analysis, querying, and reporting.
+- **Load**: Loads the transformed data into a PostgreSQL database, making it ready for analysis, querying and reporting.
 
 
 ## 🧰 Tech Stack
@@ -66,10 +66,10 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 │   ├── `QA_1_counts_check.py`     # Checks missing tickers & row diffs  
 │   ├── `QA_2_deduplication.py`    # Removes duplicates + company-wise QA  
 │   ├── `move_temp_to_prod.py`     # Migrate tables from temp → prod  
-│   ├── `backup_database.py`       # Create DB snapshot before critical ops  
+│   ├── `backup_database.py`       # Create DB backup once QA passed
 │   └── `cleanup_archive.py`       # Archive logs / intermediate files  
 │  
-├── 📂 **orchestrators/**  
+├── 📂 **Orchestrators/**  
 │   ├── `get_exchange_counts.py`  
 │   ├── `ETL_orchestrator.py`  
 │   └── `data_qa_runner.py`  
