@@ -4,59 +4,69 @@
 
 This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming and loading financial data from the Simply Wall St (SWS) API into a PostgreSQL database.
 
-## Tech Stack
+## 🧰 Tech Stack
 
-- Python
-- PostgreSQL
-- Libraries : Pandas,requests,sqlalchemy
-- Simply Wall St API
-
----
-
-## ETL Process
-
-### 1. Extract
-
-- **Exchange Data**: Retrieves exchange data, including company counts, which are used as parameters for main API requests. [Exchanges&Counts](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.Extract/1.1Get_Exchanges_Counts)
-- **Financial Data**: Extracts financial data for all companies such as **Company Info**, **Shareholders**, **Management Team**, **Insider Transactions** & **Fundamental metrics**. The extraction includes retry logic & error logging to handle failed batches.
-  [Company Data](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/1.Extract/1.2Get_All_Data_3x_Try)
-
-### 2. Transform
-
-- **Data Transformation**: Converts the extracted data into the appropriate format for loading into the PostgreSQL database. [Transform](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/2.Transform/2.1Transform)
-
-### 3. Pre-Load QA
-
-- **Data Integrity**: Create summary of expected vs received data ++ log errors.      
-- **Interim ETL**: Compare current data with new ones that do not haver unique identifiers to ensure only valid data is processed.
-    [Pre-Load QA](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/3.Pre%20Load%20QA/3.1Pre%20Load%20QA)
-### 4. Load
-
-- **DB Import**: Load all data in DB (Python/SQL Integration). [Load](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/4.Load/4.1Load)
+- **Language**: Python 🐍  
+- **Database**: PostgreSQL 🐘  
+- **API Source**: [Simply Wall St API](https://simplywall.st)  
+- **Libraries Used**:
+  - `pandas` — Data manipulation and Excel/csv operations
+  - `requests` — API communication  
+  - `sqlalchemy` — Database connection and ORM support  
+  - `psycopg2` — PostgreSQL driver for Python  
+  - `openpyxl` — Excel writing engine for `.xlsx` output  
   
-### 5. Post-Load QA
-
-- **Post Data Integrity**: Ensure that data imported in DB are as expected vs Pre-Load QA summary. [Post-Load QA](https://github.com/NPStraight2ThePoint/Simply-Wall-St-API-Workflow/blob/SWS-ETL-Pipeline_Modularized/5.Post%20Load%20QA/5.1Post%20Load%20QA)
-- **Data Locking**: A PL/pgSQL trigger blocks modification operations (INSERT, UPDATE, DELETE) for records with a date earlier than the current month.
-- **Backup Automation**: Automates PostgreSQL backups using the `pg_dump` utility, with timestamped filenames and environment variable management for credentials.
-- **Clean Directory**: Archives old data, deletes predefined folders, and resets the project directory structure for the next pipeline run.
+## 🧱 Project Architecture Overview
 
 ---
+📁 Project Root
+│
+├── 📂 config/
+│   ├── api_queries.py         # Predefined API query templates
+│   ├── env_utils.py           # Environment variable utilities
+│   └── settings.py            # Centralized settings/configs
+│
+├── 📂 utils/
+│   ├── api_utils.py           # API data fetching logic
+│   ├── core_pipeline.py       # Main ETL process orchestration
+│   ├── dir_utils.py           # Directory creation and file org
+│   ├── flatten_utils.py       # Flattening nested API JSONs
+│   ├── io_utils.py            # File input/output helpers
+│   ├── load_utils.py          # PostgreSQL data loading
+│   ├── sql_utils.py           # SQL query helpers
+│   └── transform_utils.py     # Data transformation and standardization
+│
+├── 📂 sql/
+│   └── *.sql                  # Raw SQL templates used in queries
+│
+├── 📂 ETL/
+│   ├── ETL_1X/
+│   │   ├── get_exchange_counts.py
+│   │   ├── extract_companies.py
+│   │   ├── extract_all_data.py
+│   │   ├── transform_data.py
+│   │   └── load_to_db.py
+│   │
+│   ├── ETL_2X/
+│   │   ├── retry_failed_batches.py
+│   │   ├── transform_missing.py
+│   │   └── load_missing.py
+│
+├── 📂 Data_QA/
+│   ├── QA_1_counts_check.py        # Checks missing tickers & row diffs
+│   ├── QA_2_deduplication.py       # Removes duplicates + company-wise QA
+│   ├── move_temp_to_prod.py        # Migrate tables from temp → prod
+│   ├── backup_database.py          # Create DB snapshot before critical ops
+│   └── cleanup_archive.py          # Archive logs / intermediate files
+│
+├── 📂 orchestrators/
+│   ├── get_exchange_counts.py
+│   ├── ETL_orchestrator.py
+│   └── data_qa_runner.py
+│
+└── README.md
+    thought_process.md
 
-### 🔜 Next Up
-
-Planned enhancements to improve and expand the project:
-
-- 📈 **Financial Analysis**  
-  Use financial metrics to analyze performance, valuations and relative comparisons across markets, sectors and companies.
-
-- 📊 **Interactive Dashboard**  
-  Build a front-end (e.g., Streamlit, Dash, or Power BI) to visualize financial metrics.
-
-- 🔎 **Data Extraction from Text**  
-  Extract structured data from notes, disclosures or embedded text fields using NLP / Regex
-
----
 
 ### 🆔 Project Info
 
