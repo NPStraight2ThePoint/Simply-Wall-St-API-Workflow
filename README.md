@@ -16,6 +16,8 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
   - `psycopg2` — PostgreSQL driver for Python  
   - `openpyxl` — Excel writing engine for `.xlsx` output  
 
+<br />
+
 <details>
 <summary>🧱 Project Architecture Overview</summary>
 
@@ -93,6 +95,7 @@ The financial data is publicly available and retrieved using the Simply Wall St 
 ## Disclaimer
 
 API is still in beta, which means things are subject to change. Specs could be updated, limits might be introduced, paywalls added, or even certain features removed.
+
 
 
 
