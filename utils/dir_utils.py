@@ -56,3 +56,5 @@ unique_directories = {
     "exchanges_counts": "C:/.../.venv/Data/Exchanges_Counts"
 }
 BASE_PATH = r"C:/.../.venv/Log/Listings_failed_id.csv"
+
+SQL_QUERIES_PATH = "C:/.../.venv/SQL Queries"
