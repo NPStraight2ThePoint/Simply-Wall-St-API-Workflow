@@ -146,7 +146,7 @@ def flatten_members(company, ticker, exchange, today):
         "compensation": safe_get(m, "compensation")
     } for m in company.get("members", [])]
 
-def process_companies_to_csv(df, today, base_path, QUERY_COMPANY_BY_ID, url, headers):
+def process_companies_to_csv(df, today, base_path, QUERY_COMPANY_BY_ID, url, HEADERS):
     companies = []
 
     for company_id in df["id"]:
