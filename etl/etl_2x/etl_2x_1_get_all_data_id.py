@@ -172,7 +172,7 @@ def process_companies_to_csv(df, today, base_path, QUERY_COMPANY_BY_ID, url, HEA
         insider_transactions_data.extend(flatten_insider_transactions(company, ticker, exchange, today))
         members_data.extend(flatten_members(company, ticker, exchange, today))
 
-        print(f"✅ Processed and saved data for {company_id} .")
+        #print(f"✅ Processed and saved data for {company_id} .")
     # Save all to CSV in a folder named 'All_Exchanges' (or change logic if needed)
     exchange_folder = os.path.join(base_path, "All_Exchanges")
     create_directory(exchange_folder)
