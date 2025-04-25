@@ -2,19 +2,13 @@ import subprocess
 import os
 from datetime import datetime
 from config.env_utils import *
+from utils.dir_utils import BACKUP_DIR, pg_dump_path
 
-# ─────────────────────────────────────────────────────────────
-# Configuration
-# ─────────────────────────────────────────────────────────────
-BACKUP_DIR = r"C:/.../.venv/Backup"
 DATE = datetime.now().strftime("%Y%m%d_%H%M%S")  # Create unique backup file names
 BACKUP_FILE = os.path.join(BACKUP_DIR, f"{DB_NAME2}_backup_{DATE}.sql")
 
 # Ensure the backup directory exists
 os.makedirs(BACKUP_DIR, exist_ok=True)
-
-# Path to pg_dump executable
-pg_dump_path = r"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe"
 
 # Backup command
 pg_dump_command = [
