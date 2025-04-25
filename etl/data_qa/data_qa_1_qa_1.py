@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 from config.env_utils import load_env
 from config.settings import db_params1
 from utils.sql_utils import load_sql_queries
-from utils.dir_utils import SQL_QUERIES_PATH
+from utils.dir_utils import SQL_QUERIES_PATH, QA_1_Results_output_file
 
 def main():
     print("🚀 Starting SQL QA Run...\n")
@@ -28,14 +28,10 @@ def main():
     # Load SQL queries
     SQL_QUERIES = load_sql_queries(SQL_QUERIES_PATH)
 
-    # Output file location
-    output_file = (
-        "C:/.../"
-        ".venv/Data/Log/QA_1_Results.xlsx"
-    )
+   
 
     try:
-        with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
+        with pd.ExcelWriter(QA_1_Results_output_file, engine='openpyxl') as writer:
             for query_name, sql in SQL_QUERIES.items():
                 print(f"📄 Running query: {query_name}...")
 
