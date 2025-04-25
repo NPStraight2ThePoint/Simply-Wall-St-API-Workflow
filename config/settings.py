@@ -1,6 +1,6 @@
 # settings.py
 
-from config.env_utils import API_KEY, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
+from config.env_utils import API_KEY, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME, DB_NAME2
 from utils.dir_utils import get_today_date
 from datetime import datetime
 
