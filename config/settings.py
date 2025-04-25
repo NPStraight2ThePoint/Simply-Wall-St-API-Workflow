@@ -26,6 +26,8 @@ EXCHANGES_CSV_PATH = f"./Data/Exchanges_Counts/Exchanges_{TODAY}.csv"
 # Database URI for SQLAlchemy
 # ─────────────────────────────────────────────────────────────
 DB_CONNECTION = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+SRC_DB = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+DEST_DB = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME2}"
 
 # SQLAlchemy-style
 db_params = {
