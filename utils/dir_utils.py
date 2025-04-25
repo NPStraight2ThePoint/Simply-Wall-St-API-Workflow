@@ -63,3 +63,7 @@ QA_1_Results_output_file = (
         "C:/.../"
         ".venv/Data/Log/QA_1_Results.xlsx"
     )
+
+# Path to pg_dump executable
+BACKUP_DIR = r"C:/.../.venv/Backup"
+pg_dump_path = r"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe"
