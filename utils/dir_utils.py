@@ -58,3 +58,8 @@ unique_directories = {
 BASE_PATH = r"C:/.../.venv/Log/Listings_failed_id.csv"
 
 SQL_QUERIES_PATH = "C:/.../.venv/SQL Queries"
+
+QA_1_Results_output_file = (
+        "C:/.../"
+        ".venv/Data/Log/QA_1_Results.xlsx"
+    )
