@@ -7,6 +7,7 @@ from sqlalchemy import create_engine
 from config.env_utils import load_env
 from config.settings import db_params1
 from utils.sql_utils import load_sql_queries
+from utils.dir_utils import SQL_QUERIES_PATH
 
 def main():
     print("🚀 Starting SQL QA Run...\n")
@@ -25,7 +26,6 @@ def main():
     engine = create_engine(conn_str)
 
     # Load SQL queries
-    SQL_QUERIES_PATH = "C:/.../.venv/SQL Queries"
     SQL_QUERIES = load_sql_queries(SQL_QUERIES_PATH)
 
     # Output file location
