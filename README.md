@@ -1,7 +1,7 @@
-# ETL Pipeline 
+# ETL Pipeline for Financial Data Analysis API_2_SQL_DB
 
 ## Overview
-This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming, and loading financial data from API into a PostgreSQL database. The pipeline is designed to make financial data processing and analysis easier by automating data flow, allowing for efficient querying, manipulation, and further analysis.
+This ETL pipeline automates the process of retrieving, transforming, and loading financial data from API into a PostgreSQL database. The pipeline is designed to make financial data processing and analysis easier by automating data flow, allowing for efficient querying, manipulation, and further analysis.
 
 - **Extract**: Retrieves raw financial data from API using via Python.
 - **Transform**: Cleanses and transforms the data, including flattening nested JSON structures, handling missing data and aligning data formats to the database schema.
