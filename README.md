@@ -24,28 +24,20 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 # 📜 Script Descriptions
 ⚙️ ETL Steps
 
-| Script                             | Purpose                                                                 | Reasoning                                                                                   |
-|----------------------------------- |-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| `etl_1x_1_get_exchanges_counts.py` | Retrieve all exchanges and the number of companies in each.             | Determines exchanges to query and estimate expected number of tickers.                      |
-| `etl_1x_2_get_companies.py`        | Retrieve core company data (Ticker, exchange, ID, market cap, etc.).   | Fastest method to gather all expected tickers, reducing failure risk.                      |
-| `etl_1x_3_get_all_data_3x.py`      | Retrieve full data for all companies using max API batch limit.         | Handles batch failures and logs them for retry with step-wise isolation.                    |
-| `etl_1x_4_transform.py`            | Transform statements and identify new insider transactions.            | Transpose vertical data for DB compatibility; identify only new insider events.            |
-| `etl_1x_5_load.py`                 | Load transformed data into temp SQL tables.                            | Keeps production DB safe during validation and transformation.                             |
-| `etl_2x_1_get_all_data_id.py`      | Requery missing tickers using their unique IDs.                        | Fixes issues from failed responses by bypassing problematic records.                       |
-| `etl_2x_2_transform.py`            | Apply same transformations to second-pass data.                        | Maintains consistency in DB formatting and logic.                                          |
-| `etl_2x_3_load.py`                 | Load newly retrieved data into DB.                                     | Ensures completeness by capturing what was missed in round 1.                              |
-
-
----
-
-##🔍 Data Quality Assurance (QA)
-
-| Script                     | Purpose                                                              | Reasoning                                                                                   |
-|----------------------------|----------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| `data_qa_1_qa_1.py`        | Check for duplicates and compare row counts across tables.           | Validates consistency and completeness of ingested data.                                   |
-| `data_qa_2_qa_2.py`        | Track insider activity (transactions, owners, members) per ticker.   | Detects unusual behavior and ensures tracking over time.                                   |
-| `data_qa_3_move_to_prod.py`| Move validated data from temp to production DB.                      | Ensures only QA-passed data enters the production pipeline.                                |
-| `data_qa_4_db_backup.py`   | Backup production DB and reset temp DB.                              | Prepares environment for the next run and protects final dataset.                          |
+| Script                             | Purpose                                                                 | Reasoning                                                                         |
+|----------------------------------- |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| `etl_1x_1_get_exchanges_counts.py` | Retrieve all exchanges and the number of companies in each.             | Determines exchanges to query and estimate expected number of tickers.            |
+| `etl_1x_2_get_companies.py`        | Retrieve core company data (Ticker, exchange, ID, market cap, etc.).    | Fastest method to gather all expected tickers, reducing failure risk.             |
+| `etl_1x_3_get_all_data_3x.py`      | Retrieve full data for all companies using max API batch limit.         | Handles batch failures and logs them for retry with step-wise isolation.          |
+| `etl_1x_4_transform.py`            | Transform statements and identify new insider transactions.             | Transpose vertical data for DB compatibility; identify only new insider events.   |
+| `etl_1x_5_load.py`                 | Load transformed data into temp SQL tables.                             | Keeps production DB safe during validation and transformation.                    |
+| `etl_2x_1_get_all_data_id.py`      | Requery missing tickers using their unique IDs.                         | Fixes issues from failed responses by bypassing problematic records.              |
+| `etl_2x_2_transform.py`            | Apply same transformations to second-pass data.                         | Maintains consistency in DB formatting and logic.                                 |
+| `etl_2x_3_load.py`                 | Load newly retrieved data into DB.                                      | Ensures completeness by capturing what was missed in round 1.                     |
+| `data_qa_1_qa_1.py`                | Check for duplicates and compare row counts across tables.              | Validates consistency and completeness of ingested data.                          |
+| `data_qa_2_qa_2.py`                | Track insider activity (transactions, owners, members) per ticker.      | Detects unusual behavior and ensures tracking over time.                          |
+| `data_qa_3_move_to_prod.py`        | Move validated data from temp to production DB.                         | Ensures only QA-passed data enters the production pipeline.                       |
+| `data_qa_4_db_backup.py`           | Backup production DB and reset temp DB.                                 | Prepares environment for the next run and protects final dataset.                 |
 
 
 
