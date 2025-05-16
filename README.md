@@ -3,12 +3,9 @@
 ## Overview
 This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming, and loading financial data from API into a PostgreSQL database. The pipeline is designed to make financial data processing and analysis easier by automating data flow, allowing for efficient querying, manipulation, and further analysis.
 
-##  Workflow
-
-- **Extract**: Retrieves raw financial data via the Simply Wall St API using pre-defined API queries via Python.
+- **Extract**: Retrieves raw financial data from API using via Python.
 - **Transform**: Cleanses and transforms the data, including flattening nested JSON structures, handling missing data and aligning data formats to the database schema.
 - **Load**: Loads the transformed data into a PostgreSQL database, making it ready for analysis, querying and reporting.
-
 
 ## 🧰 Tech Stack
 
@@ -22,9 +19,7 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
   - `openpyxl` — Excel writing engine for `.xlsx` output  
 
 
-
-
-## 💻 Script Descriptions
+## 💻 Workflow
 For detailed descriptions of each script and their purpose, refer to the [Script Descriptions](SCRIPT_DESCRIPTIONS.md) file.
 
 ### 🆔 Project Info
