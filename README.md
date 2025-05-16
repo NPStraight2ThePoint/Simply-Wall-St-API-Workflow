@@ -18,11 +18,7 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
   - `psycopg2` — PostgreSQL driver for Python  
   - `openpyxl` — Excel writing engine for `.xlsx` output  
 
-
-## 💻 Workflow
-
 # 📜 Script Descriptions
-⚙️ ETL Steps
 
 | Script                             | Purpose                                                                 | Reasoning                                                                         |
 |----------------------------------- |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
@@ -38,7 +34,6 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 | `data_qa_2_qa_2.py`                | Track insider activity (transactions, owners, members) per ticker.      | Detects unusual behavior and ensures tracking over time.                          |
 | `data_qa_3_move_to_prod.py`        | Move validated data from temp to production DB.                         | Ensures only QA-passed data enters the production pipeline.                       |
 | `data_qa_4_db_backup.py`           | Backup production DB and reset temp DB.                                 | Prepares environment for the next run and protects final dataset.                 |
-
 
 
 ### 🆔 Project Info
