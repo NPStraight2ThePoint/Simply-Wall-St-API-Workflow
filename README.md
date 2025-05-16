@@ -1,7 +1,7 @@
-# ETL Pipeline for SWS API
+# ETL Pipeline 
 
 ## Overview
-This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming, and loading financial data from the Simply Wall St (SWS) API into a PostgreSQL database. The pipeline is designed to make financial data processing and analysis easier by automating data flow, allowing for efficient querying, manipulation, and further analysis.
+This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming, and loading financial data from API into a PostgreSQL database. The pipeline is designed to make financial data processing and analysis easier by automating data flow, allowing for efficient querying, manipulation, and further analysis.
 
 ## ETL Pipeline Process
 
@@ -16,7 +16,6 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
 
 - **Language**: Python 🐍  
 - **Database**: PostgreSQL 🐘  
-- **API Source**: [Simply Wall St API](https://simplywall.st)  
 - **Libraries Used**:
   - `pandas` — Data manipulation and Excel/csv operations
   - `requests` — API communication  
@@ -92,19 +91,10 @@ For detailed descriptions of each script and their purpose, refer to the [Script
 📧 **Email:** nicholas.papadimitris@gmail.com  
 💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)
 
-> Note: The data shown above is publicly available, and the API is used solely to optimize the data retrieval and processing process.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
-## Attribution
-
-The financial data is publicly available and retrieved using the Simply Wall St API. Ensure to comply with the API's terms of service when using it.
-
-## Disclaimer
-
-API is still in beta, which means things are subject to change. Specs could be updated, limits might be introduced, paywalls added, or even certain features removed.
 
 
 
