@@ -7,7 +7,7 @@ from datetime import datetime
 # ─────────────────────────────────────────────────────────────
 # API Configuration
 # ─────────────────────────────────────────────────────────────
-BASE_URL = "https://api.simplywall.st/graphql"
+BASE_URL = "https://api....l.st/graphql"
 
 HEADERS = {
     "Authorization": f"Bearer {API_KEY}",
