@@ -3,12 +3,10 @@
 ## Overview
 This ETL (Extract, Transform, Load) pipeline automates the process of retrieving, transforming, and loading financial data from API into a PostgreSQL database. The pipeline is designed to make financial data processing and analysis easier by automating data flow, allowing for efficient querying, manipulation, and further analysis.
 
-## ETL Pipeline Process
+##  Workflow
 
 - **Extract**: Retrieves raw financial data via the Simply Wall St API using pre-defined API queries via Python.
-
 - **Transform**: Cleanses and transforms the data, including flattening nested JSON structures, handling missing data and aligning data formats to the database schema.
-
 - **Load**: Loads the transformed data into a PostgreSQL database, making it ready for analysis, querying and reporting.
 
 
@@ -24,58 +22,7 @@ This ETL (Extract, Transform, Load) pipeline automates the process of retrieving
   - `openpyxl` — Excel writing engine for `.xlsx` output  
 
 
-<details>
-<summary>🧱 Project Architecture Overview</summary>
 
-📁 **Project Root**  
-│  
-├── 📂 **config/**  
-│   ├── `api_queries.py`           # Predefined API query templates  
-│   ├── `env_utils.py`             # Environment variable utilities  
-│   └── `settings.py`              # Centralized settings/configs  
-│  
-├── 📂 **utils/**  
-│   ├── `api_utils.py`             # API data fetching logic  
-│   ├── `core_pipeline.py`         # Main ETL process orchestration  
-│   ├── `dir_utils.py`             # Directory creation and file org  
-│   ├── `flatten_utils.py`         # Flattening nested API JSONs  
-│   ├── `io_utils.py`              # File input/output helpers  
-│   ├── `load_utils.py`            # PostgreSQL data loading  
-│   ├── `sql_utils.py`             # SQL query helpers  
-│   └── `transform_utils.py`       # Data transformation and standardization  
-│  
-├── 📂 **sql/**  
-│   └── `*.sql`                    # Raw SQL templates used in queries  
-│  
-├── 📂 **ETL/**  
-│   ├── **ETL_1X/**  
-│   │   ├── `get_exchange_counts.py`  
-│   │   ├── `extract_companies.py`  
-│   │   ├── `extract_all_data.py`  
-│   │   ├── `transform_data.py`  
-│   │   └── `load_to_db.py`  
-│   │  
-│   └── **ETL_2X/**  
-│       ├── `retry_failed_batches.py`  
-│       ├── `transform_missing.py`  
-│       └── `load_missing.py`  
-│  
-├── 📂 **Data_QA/**  
-│   ├── `QA_1_counts_check.py`     # Checks missing tickers & row diffs  
-│   ├── `QA_2_deduplication.py`    # Removes duplicates + company-wise QA  
-│   ├── `move_temp_to_prod.py`     # Migrate tables from temp → prod   
-│   ├── `backup_database.py`       # Create DB backup once QA passed     
-│   └── `cleanup_archive.py`       # Clean directory    
-│  
-├── 📂 **Orchestrators/**  
-│   ├── `get_exchange_counts.py`  
-│   ├── `ETL_orchestrator.py`  
-│   └── `data_qa_runner.py`  
-│  
-├── `README.md`  
-└── `thought_process.md`  
-
-</details>
 
 ## 💻 Script Descriptions
 For detailed descriptions of each script and their purpose, refer to the [Script Descriptions](SCRIPT_DESCRIPTIONS.md) file.
