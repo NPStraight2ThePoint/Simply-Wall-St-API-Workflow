@@ -1,55 +1,114 @@
-# ETL Pipeline for Financial Data Analysis API_2_SQL_DB
+# 🧩 FinSuite Adapter — Simply Wall St (Legacy)
 
-## Overview
-This ETL pipeline automates the process of retrieving, transforming, and loading financial data from API into a PostgreSQL database. The pipeline is designed to make financial data processing and analysis easier by automating data flow, allowing for efficient querying, manipulation, and further analysis.
+![Status: Archived](https://img.shields.io/badge/status-archived-lightgrey)
+![Tech: Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![Database: PostgreSQL](https://img.shields.io/badge/postgres-✓-green)
+![License: MIT](https://img.shields.io/badge/license-MIT-yellow)
 
-- **Extract**: Retrieves raw financial data from API using via Python.
-- **Transform**: Cleanses and transforms the data, including flattening nested JSON structures, handling missing data and aligning data formats to the database schema.
-- **Load**: Loads the transformed data into a PostgreSQL database, making it ready for analysis, querying and reporting.
+> ⚠️ **Legacy Adapter Notice**  
+> The Simply Wall St API used in this pipeline is no longer active.  
+> This repository is preserved as a **case study** in *FinSuite’s* ETL architecture evolution — showcasing resilient multi-stage orchestration, QA validation, and database promotion design patterns that inspired the [`finsuite-etl-engine`](https://github.com/NPStraight2ThePoint/finsuite-etl-engine).
+
+---
+
+## 📘 Overview
+This adapter automates the retrieval, transformation, and loading of **financial statement and insider-activity data** from the *Simply Wall St* API into a **PostgreSQL** database.  
+
+It represents the first generation of FinSuite’s financial ETL design — handling batch extraction, schema alignment, quality assurance, and production promotion.  
+The approach emphasizes **transparency**, **reliability**, and **auditability** across every ETL stage.
+
+### Process Flow
+
+
+---
 
 ## 🧰 Tech Stack
+| Area | Tools |
+|------|-------|
+| Language | Python 🐍 |
+| Database | PostgreSQL 🐘 |
+| Core Libraries | `pandas`, `requests`, `sqlalchemy`, `psycopg2`, `openpyxl` |
+| Architecture | Multi-step modular ETL with QA checkpoints |
+| Data Model | Normalized relational schema for company fundamentals and insider transactions |
 
-- **Language**: Python 🐍  
-- **Database**: PostgreSQL 🐘  
-- **Libraries Used**:
-  - `pandas` — Data manipulation and Excel/csv operations
-  - `requests` — API communication  
-  - `sqlalchemy` — Database connection and ORM support  
-  - `psycopg2` — PostgreSQL driver for Python  
-  - `openpyxl` — Excel writing engine for `.xlsx` output  
+---
 
-# 📜 Script Descriptions
+## 🧱 Repository Structure
+| Folder | Purpose |
+|---------|----------|
+| **`etl/`** | Core extraction, transformation, and loading scripts |
+| **`config/`** | Environment and connection settings (`.env`, `settings.py`) |
+| **`SQL Queries/`** | Helper and validation queries |
+| **`utils/`** | Common utility functions (directory, logging, retry helpers) |
+| **`Architecture/`** | Diagrams and technical design notes |
+| **`Process Visuals/`** | ETL flowcharts and data-transformation visuals |
 
-| Script                             | Purpose                                                                 | Reasoning                                                                         |
-|----------------------------------- |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| `etl_1x_1_get_exchanges_counts.py` | Retrieve all exchanges and the number of companies in each.             | Determines exchanges to query and estimate expected number of tickers.            |
-| `etl_1x_2_get_companies.py`        | Retrieve core company data (Ticker, exchange, ID, market cap, etc.).    | Fastest method to gather all expected tickers, reducing failure risk.             |
-| `etl_1x_3_get_all_data_3x.py`      | Retrieve full data for all companies using max API batch limit.         | Handles batch failures and logs them for retry with step-wise isolation.          |
-| `etl_1x_4_transform.py`            | Transform statements and identify new insider transactions.             | Transpose vertical data for DB compatibility; identify only new insider events.   |
-| `etl_1x_5_load.py`                 | Load transformed data into temp SQL tables.                             | Keeps production DB safe during validation and transformation.                    |
-| `etl_2x_1_get_all_data_id.py`      | Requery missing tickers using their unique IDs.                         | Fixes issues from failed responses by bypassing problematic records.              |
-| `etl_2x_2_transform.py`            | Apply same transformations to second-pass data.                         | Maintains consistency in DB formatting and logic.                                 |
-| `etl_2x_3_load.py`                 | Load newly retrieved data into DB.                                      | Ensures completeness by capturing what was missed in round 1.                     |
-| `data_qa_1_qa_1.py`                | Check for duplicates and compare row counts across tables.              | Validates consistency and completeness of ingested data.                          |
-| `data_qa_2_qa_2.py`                | Track insider activity (transactions, owners, members) per ticker.      | Detects unusual behavior and ensures tracking over time.                          |
-| `data_qa_3_move_to_prod.py`        | Move validated data from temp to production DB.                         | Ensures only QA-passed data enters the production pipeline.                       |
-| `data_qa_4_db_backup.py`           | Backup production DB and reset temp DB.                                 | Prepares environment for the next run and protects final dataset.                 |
+---
 
+## 🧮 Key Scripts
+| Script | Purpose |
+|---------|----------|
+| `etl_1x_1_get_exchanges_counts.py` | Retrieve exchanges and company counts (used for workload estimation). |
+| `etl_1x_2_get_companies.py` | Collect base metadata (ticker, exchange, ID, market cap). |
+| `etl_1x_3_get_all_data_3x.py` | Perform bulk API extraction with batch/retry logic. |
+| `etl_1x_4_transform.py` | Clean, flatten, and transpose data for DB compatibility. |
+| `etl_1x_5_load.py` | Load to temporary SQL tables for validation. |
+| `etl_2x_*` | Re-query and patch failed tickers by unique ID. |
+| `data_qa_1_qa_1.py` | Duplicate detection and row-count reconciliation. |
+| `data_qa_2_qa_2.py` | Track insider transaction activity per ticker. |
+| `data_qa_3_move_to_prod.py` | Promote validated data from temp → prod tables. |
+| `data_qa_4_db_backup.py` | Backup production DB and reset temp environment. |
 
-### 🆔 Project Info
+---
 
-**Author:** *Nicholas Papadimitris*  
-**Created on:** *05/04/2025 6:58 PM* (UTC)  
-**Last modified:** *24/04/2025 9:20 PM* (UTC)   
-**Project ID:** `SWS_ETL_05_Apr2025`  
-**GitHub:** [My GitHub](https://github.com/NPStraight2ThePoint)
+## 🧠 Design Highlights
+- **Two-pass extraction strategy** to recover failed batches.  
+- **QA-gated promotion**: only validated data enters production schema.  
+- **Temp-to-prod isolation** for safe validation and rollback.  
+- **Automated DB backup** ensures recoverability and traceability.  
+- **Modular script orchestration**, precursor to FinSuite’s central ETL Engine.
 
-📧 **Email:** nicholas.papadimitris@gmail.com  
-💼 **LinkedIn:** [Nicholas Papadimitris](https://www.linkedin.com/in/nicholas-papadimitris/)
+---
 
-## License
+## 🧩 Relation to FinSuite Ecosystem
+| Evolution Path | Description |
+|----------------|-------------|
+| 🔹 **`finsuite-etl-engine`** | Modern orchestration framework that generalizes this adapter’s workflow model. |
+| 🔹 **`finsuite-core`** | Provides shared utilities for logging, configuration, and I/O used across adapters. |
+| 🔹 **`testops-engine`** | Integrates standardized data-QA checks derived from this project’s validation layer. |
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+---
+
+## 🖼️ Architecture Visual
+![ETL Workflow](Process%20Visuals/Data%20Transformation.png)  
+*Multi-stage ETL flow from API ingestion to PostgreSQL loading.*
+
+---
+
+## 🧪 Data & Security
+- No proprietary or confidential data included.  
+- `.env` file excluded from version control; replace with your own credentials.  
+- Synthetic examples and schemas used for demonstration.
+
+---
+
+## 🧾 Project Info
+| Field | Detail |
+|-------|--------|
+| Author | **Nicholas Papadimitris** |
+| Created | 05 Apr 2025 |
+| Last Modified | 24 Apr 2025 |
+| License | MIT License |
+| Contact | [LinkedIn](https://www.linkedin.com/in/nicholas-papadimitris) • [GitHub](https://github.com/NPStraight2ThePoint) |
+
+---
+
+## 🗺️ FinSuite Portfolio Reference
+Part of the **FinSuite** ecosystem — a modular suite for financial ETL, analytics, and ML pipelines.  
+See the [**Portfolio Hub → FinSuite Overview**](https://github.com/NPStraight2ThePoint/portfolio-hub) for end-to-end architecture and live demos.
+
+---
+
 
 
 
